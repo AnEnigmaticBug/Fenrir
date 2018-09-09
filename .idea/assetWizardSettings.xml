@@ -28,11 +28,12 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="height" value="28" />
-                            <entry key="outputName" value="ic_filter_28dp" />
+                            <entry key="assetSourceType" value="FILE" />
+                            <entry key="height" value="26" />
+                            <entry key="outputName" value="ic_alarm_bell_21dp_26dp" />
                             <entry key="overrideSize" value="true" />
-                            <entry key="sourceFile" value="$USER_HOME$" />
-                            <entry key="width" value="28" />
+                            <entry key="sourceFile" value="$USER_HOME$/Downloads/fenrir/assets/alarm-bell.svg" />
+                            <entry key="width" value="21" />
                           </map>
                         </option>
                       </PersistentState>

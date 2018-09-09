@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="8dp"
+    android:paddingBottom="8dp">
+
+    <TextView
+        android:id="@+id/nameLBL"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:fontFamily="@font/ikaros_light"
+        android:includeFontPadding="false"
+        android:singleLine="true"
+        android:textColor="@color/blk01"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/alarmBellIMG"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Startup Weekend" />
+
+    <TextView
+        android:id="@+id/venueLBL"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="8dp"
+        android:fontFamily="@font/ikaros_light"
+        android:includeFontPadding="false"
+        android:singleLine="true"
+        android:textColor="@color/gry01"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toStartOf="@+id/guideline"
+        app:layout_constraintStart_toStartOf="@+id/nameLBL"
+        app:layout_constraintTop_toBottomOf="@+id/nameLBL"
+        tools:text="LTC 5102" />
+
+    <TextView
+        android:id="@+id/timeLBL"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/ikaros_light"
+        android:includeFontPadding="false"
+        android:textColor="@color/gry01"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="@+id/venueLBL"
+        app:layout_constraintStart_toEndOf="@id/guideline"
+        app:layout_constraintTop_toTopOf="@+id/venueLBL"
+        tools:text="10:00 AM" />
+
+    <View
+        android:id="@+id/separatorPOV"
+        android:layout_width="0dp"
+        android:layout_height="0.5dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:background="@color/gry02"
+        app:layout_constraintEnd_toEndOf="@+id/alarmBellIMG"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/venueLBL" />
+
+    <ImageView
+        android:id="@+id/alarmBellIMG"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="4dp"
+        app:layout_constraintBottom_toBottomOf="@+id/nameLBL"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/nameLBL"
+        app:srcCompat="@drawable/ic_alarm_bell_21dp_26dp" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.4" />
+</android.support.constraint.ConstraintLayout>

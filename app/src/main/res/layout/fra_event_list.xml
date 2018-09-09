@@ -1,6 +1,207 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/backgroundIMG"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:scaleType="centerCrop"
+        android:tint="#89FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/date2BTN"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/background" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/dateBarGDL"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.16" />
+
+    <View
+        android:id="@+id/dateBarPOV"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="0dp"
+        android:background="@color/vio01"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/dateBarGDL"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/date0BTN"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:fontFamily="@font/ikaros_regular"
+        android:includeFontPadding="false"
+        android:paddingStart="6dp"
+        android:paddingTop="16dp"
+        android:paddingEnd="10dp"
+        android:paddingBottom="0dp"
+        android:text="27"
+        android:textAlignment="center"
+        android:textColor="@color/vio02"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toTopOf="@+id/date1BTN"
+        app:layout_constraintEnd_toEndOf="@+id/dateBarPOV"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/date1BTN"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:fontFamily="@font/ikaros_regular"
+        android:includeFontPadding="false"
+        android:paddingStart="6dp"
+        android:paddingTop="16dp"
+        android:paddingEnd="10dp"
+        android:paddingBottom="0dp"
+        android:text="28"
+        android:textAlignment="center"
+        android:textColor="@color/vio02"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toTopOf="@+id/date2BTN"
+        app:layout_constraintEnd_toEndOf="@+id/dateBarPOV"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/date2BTN"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/ikaros_regular"
+        android:includeFontPadding="false"
+        android:paddingStart="6dp"
+        android:paddingTop="16dp"
+        android:paddingEnd="10dp"
+        android:paddingBottom="0dp"
+        android:text="29"
+        android:textAlignment="center"
+        android:textColor="@color/vio02"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/dateBarPOV"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/date3BTN"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:fontFamily="@font/ikaros_regular"
+        android:includeFontPadding="false"
+        android:paddingStart="6dp"
+        android:paddingTop="16dp"
+        android:paddingEnd="10dp"
+        android:paddingBottom="0dp"
+        android:text="30"
+        android:textAlignment="center"
+        android:textColor="@color/vio02"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="@+id/dateBarPOV"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/date2BTN" />
+
+    <TextView
+        android:id="@+id/date4BTN"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:fontFamily="@font/ikaros_regular"
+        android:includeFontPadding="false"
+        android:paddingStart="6dp"
+        android:paddingTop="16dp"
+        android:paddingEnd="10dp"
+        android:paddingBottom="0dp"
+        android:text="31"
+        android:textAlignment="center"
+        android:textColor="@color/vio02"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="@+id/dateBarPOV"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/date3BTN" />
+
+    <View
+        android:id="@+id/dateUnderLinePOV"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="8dp"
+        android:background="@color/vio02"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="@+id/date0BTN"
+        app:layout_constraintStart_toStartOf="@+id/date0BTN"
+        app:layout_constraintTop_toBottomOf="@+id/date0BTN" />
+
+    <TextView
+        android:id="@+id/screenTitleLBL"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:fontFamily="@font/ikaros_regular"
+        android:includeFontPadding="false"
+        android:text="Events"
+        android:textAllCaps="true"
+        android:textColor="@color/blk01"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/dateTitleLBL"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:fontFamily="@font/ikaros_light"
+        android:includeFontPadding="false"
+        android:text=" October 28"
+        android:textAllCaps="true"
+        android:textColor="@color/vio03"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/screenTitleLBL"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/screenTitleLBL"
+        app:layout_constraintTop_toBottomOf="@+id/screenTitleLBL" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/eventsRCY"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="24dp"
+        app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/dateBarPOV"
+        app:layout_constraintTop_toBottomOf="@+id/dateTitleLBL"
+        tools:listitem="@layout/row_events_rcy" />
+
+    <ImageButton
+        android:id="@+id/filterBTN"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="14dp"
+        android:layout_marginBottom="4dp"
+        app:backgroundTint="@color/clear"
+        app:layout_constraintBottom_toBottomOf="@+id/screenTitleLBL"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/screenTitleLBL"
+        app:srcCompat="@drawable/ic_filter_28dp" />
 
 </android.support.constraint.ConstraintLayout>
