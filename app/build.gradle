@@ -44,6 +44,11 @@ dependencies {
     kapt "android.arch.lifecycle:compiler:$lifecycle_version"
     testImplementation "android.arch.core:core-testing:$lifecycle_version"
 
+    // Alpha 04 and 05 have serious bugs. Don't upgrade to them.
+    def nav_version = "1.0.0-alpha03"
+    implementation "android.arch.navigation:navigation-fragment-ktx:$nav_version"
+    implementation "android.arch.navigation:navigation-ui-ktx:$nav_version"
+
     testImplementation "org.mockito:mockito-core:2.21.0"
 
     testImplementation 'junit:junit:4.12'
