@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/eventListFragment"
-        android:name="com.example.nishant.fenrir.eventlist.EventListFragment"
+        android:name="com.example.nishant.fenrir.events.eventlist.EventListFragment"
         android:label="EventListFragment"
         tools:layout="@layout/fra_event_list"/>
 </navigation>

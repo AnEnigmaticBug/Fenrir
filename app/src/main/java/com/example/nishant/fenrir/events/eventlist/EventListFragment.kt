@@ -1,4 +1,4 @@
-package com.example.nishant.fenrir.eventlist
+package com.example.nishant.fenrir.events.eventlist
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders

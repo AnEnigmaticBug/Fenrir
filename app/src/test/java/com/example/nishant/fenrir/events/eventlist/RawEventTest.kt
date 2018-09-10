@@ -1,4 +1,4 @@
-package com.example.nishant.fenrir.eventlist
+package com.example.nishant.fenrir.events.eventlist
 
 import com.example.nishant.fenrir.domain.Category
 import com.example.nishant.fenrir.domain.Event

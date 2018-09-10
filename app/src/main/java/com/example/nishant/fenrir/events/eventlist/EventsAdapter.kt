@@ -1,4 +1,4 @@
-package com.example.nishant.fenrir.eventlist
+package com.example.nishant.fenrir.events.eventlist
 
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
