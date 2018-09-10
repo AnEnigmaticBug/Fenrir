@@ -3,12 +3,12 @@ package com.example.nishant.fenrir.domain
 import org.threeten.bp.LocalDateTime
 
 /**
- * @property category      : If this is null, no filtering will occur based on the category.
- * @property venue         : If this is null, no filtering will occur based on the venue.
- * @property showOngoing   : If this is true, only the ongoing events will be allowed.
- * @property showSubscribed: If this is true, only subscribed events will be allowed.
+ * @property category          : If this is null, no filtering will occur based on the category.
+ * @property venue             : If this is null, no filtering will occur based on the venue.
+ * @property showOnlyOngoing   : If this is true, only the ongoing events will be allowed.
+ * @property showOnlySubscribed: If this is true, only subscribed events will be allowed.
  * */
-data class EventFilter(private val category: Category?, private val venue: Venue?, private val showOngoing: Boolean, private val showSubscribed: Boolean) {
+data class EventFilter(val category: Category?, val venue: Venue?, val showOnlyOngoing: Boolean, val showOnlySubscribed: Boolean) {
 
     fun isSatisfiedByEvent(event: Event): Boolean {
         var categoryResult = true
@@ -20,7 +20,7 @@ data class EventFilter(private val category: Category?, private val venue: Venue
             venueResult = event.venue == venue
         }
         var ongoingResult = true
-        if(showOngoing) {
+        if(showOnlyOngoing) {
             ongoingResult = when(event.duration) {
                 null -> false
                 else -> {
@@ -36,7 +36,7 @@ data class EventFilter(private val category: Category?, private val venue: Venue
             }
         }
         var subscribedResult = true
-        if(showSubscribed) {
+        if(showOnlySubscribed) {
             subscribedResult = event.subscribed
         }
         return categoryResult && venueResult && ongoingResult && subscribedResult
