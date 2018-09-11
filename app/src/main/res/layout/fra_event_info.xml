@@ -1,6 +1,189 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rootPOV"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/blu01">
+
+    <ImageView
+        android:id="@+id/backgroundIMG"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/background" />
+
+    <TextView
+        android:id="@+id/screenTitleLBL"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="56dp"
+        android:fontFamily="@font/ikaros_regular"
+        android:includeFontPadding="false"
+        android:text="Event Info"
+        android:textAllCaps="true"
+        android:textColor="@color/wht01"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/nameLBL"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:fontFamily="@font/ikaros_light"
+        android:includeFontPadding="false"
+        android:textAlignment="center"
+        android:textColor="@color/wht01"
+        android:textSize="36sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/screenTitleLBL"
+        app:layout_constraintStart_toStartOf="@+id/screenTitleLBL"
+        app:layout_constraintTop_toBottomOf="@+id/screenTitleLBL"
+        tools:text="Startup Weekend" />
+
+    <ImageView
+        android:id="@+id/venueIMG"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="6dp"
+        android:layout_marginBottom="4dp"
+        android:tint="@color/wht01"
+        app:layout_constraintBottom_toBottomOf="@+id/venueLBL"
+        app:layout_constraintEnd_toStartOf="@+id/screenTitleLBL"
+        app:layout_constraintTop_toTopOf="@+id/venueLBL"
+        app:srcCompat="@drawable/ic_map_20dp" />
+
+    <TextView
+        android:id="@+id/venueLBL"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/ikaros_regular"
+        android:includeFontPadding="false"
+        android:textAllCaps="true"
+        android:textColor="@color/wht01"
+        android:textSize="22sp"
+        app:layout_constraintStart_toStartOf="@+id/screenTitleLBL"
+        app:layout_constraintTop_toBottomOf="@+id/nameLBL"
+        tools:text="LTC 5105" />
+
+    <ImageView
+        android:id="@+id/timeAndDayIMG"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="4dp"
+        android:tint="@color/wht01"
+        app:layout_constraintBottom_toBottomOf="@+id/timeAndDayLBL"
+        app:layout_constraintEnd_toStartOf="@+id/screenTitleLBL"
+        app:layout_constraintTop_toTopOf="@+id/timeAndDayLBL"
+        app:srcCompat="@drawable/ic_watch_18dp_22dp" />
+
+    <TextView
+        android:id="@+id/timeAndDayLBL"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/ikaros_regular"
+        android:includeFontPadding="false"
+        android:textAllCaps="true"
+        android:textColor="@color/wht01"
+        android:textSize="22sp"
+        app:layout_constraintStart_toStartOf="@+id/venueLBL"
+        app:layout_constraintTop_toBottomOf="@+id/venueLBL"
+        tools:text="10: 00 AM, Day 1" />
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="24dp"
+        app:layout_constraintBottom_toTopOf="@+id/remindBTN"
+        app:layout_constraintEnd_toEndOf="@+id/toggleBTN"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/remindBTN"
+        app:layout_constraintTop_toBottomOf="@+id/timeAndDayLBL">
+
+        <TextView
+            android:id="@+id/mainContentLBL"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/ikaros_regular"
+            android:includeFontPadding="false"
+            android:textColor="@color/wht01"
+            android:textSize="20sp"
+            tools:text="Event description goes here. What we can do is enter descriptions here. I like this page very much real nice. Hi! Vaibhav if you are reading this. I say to you one thing, hello. Madhur Wadhwa is designing this. Come to TEDx ka event. kthxbye. Ready Player One. Help us save the oasis. The grand tour." />
+    </ScrollView>
+
+    <TextView
+        android:id="@+id/remindBTN"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="48dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/sh_capsule"
+        android:fontFamily="@font/ikaros_regular"
+        android:includeFontPadding="false"
+        android:paddingTop="8dp"
+        android:paddingBottom="6dp"
+        android:text="Remind Me"
+        android:textAlignment="center"
+        android:textColor="@color/blk01"
+        android:textSize="18sp"
+        app:backgroundTint="@color/wht01"
+        app:layout_constraintBottom_toTopOf="@id/swipeUpIndicatorBTN"
+        app:layout_constraintEnd_toStartOf="@+id/swipeUpIndicatorBTN"
+        app:layout_constraintRight_toLeftOf="@id/guideline3"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/toggleBTN"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="48dp"
+        android:background="@drawable/sh_capsule"
+        android:fontFamily="@font/ikaros_regular"
+        android:includeFontPadding="false"
+        android:paddingTop="8dp"
+        android:paddingBottom="6dp"
+        android:text="Rules"
+        android:textAlignment="center"
+        android:textColor="@color/blk01"
+        android:textSize="18sp"
+        app:backgroundTint="@color/wht01"
+        app:layout_constraintBottom_toBottomOf="@+id/remindBTN"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/guideline3"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/swipeUpIndicatorBTN"
+        app:layout_constraintTop_toTopOf="@+id/remindBTN" />
+
+    <ImageView
+        android:id="@+id/swipeUpIndicatorBTN"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:tint="@color/wht01"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/ic_arrow_up_48dp" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
 
 </android.support.constraint.ConstraintLayout>
