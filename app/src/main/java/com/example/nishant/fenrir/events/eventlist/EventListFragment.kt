@@ -10,6 +10,7 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.findNavController
 import com.example.nishant.fenrir.R
 import com.example.nishant.fenrir.util.Constants
 import kotlinx.android.synthetic.main.fra_event_list.view.*
@@ -93,6 +94,7 @@ class EventListFragment : Fragment(), EventsAdapter.ClickListener {
     }
 
     override fun showDetailsForEventWithId(id: String) {
-
+        val bundle = Bundle().also { it.putString("eventId", id) }
+        rootPOV.findNavController().navigate(R.id.ac_event_list_to_event_info, bundle)
     }
 }

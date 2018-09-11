@@ -8,5 +8,18 @@
         android:id="@+id/eventListFragment"
         android:name="com.example.nishant.fenrir.events.eventlist.EventListFragment"
         android:label="EventListFragment"
-        tools:layout="@layout/fra_event_list"/>
+        tools:layout="@layout/fra_event_list">
+        <action
+            android:id="@+id/ac_event_list_to_event_info"
+            app:destination="@id/eventInfoFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/eventInfoFragment"
+        android:name="com.example.nishant.fenrir.events.eventinfo.EventInfoFragment"
+        android:label="EventInfoFragment"
+        tools:layout="@layout/fra_event_info">
+        <argument
+            android:name="eventId"
+            app:type="string" />
+    </fragment>
 </navigation>
