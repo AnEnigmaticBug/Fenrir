@@ -1,6 +1,174 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rootPOV"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/sh_rounded_rect_red01_24dp">
+
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/backgroundIMG"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/background"
+        app:riv_corner_radius="24dp" />
+
+    <ImageButton
+        android:id="@+id/closeBTN"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:tint="@color/wht01"
+        app:backgroundTint="@color/clear"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_close_20dp" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/ikaros_regular"
+        android:text="Filter Events"
+        android:textAllCaps="true"
+        android:textColor="@color/wht01"
+        android:textSize="32sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/closeBTN" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/ikaros_regular"
+        android:includeFontPadding="false"
+        android:text="Filter By"
+        android:textAllCaps="true"
+        android:textColor="@color/wht01"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <View
+        android:id="@+id/underlinePOV"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="4dp"
+        android:background="@color/wht01"
+        app:layout_constraintEnd_toEndOf="@+id/textView2"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/textView2"
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/underlinePOV">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/showVenueFiltersBTN"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="0dp"
+                android:background="@drawable/sh_capsule_border"
+                android:fontFamily="@font/ikaros_regular"
+                android:includeFontPadding="false"
+                android:paddingTop="12dp"
+                android:paddingBottom="8dp"
+                android:text="Venue"
+                android:textAlignment="center"
+                android:textAllCaps="true"
+                android:textColor="@color/wht01"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="@+id/showCategoryFiltersBTN"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="@+id/showCategoryFiltersBTN"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/showCategoryFiltersBTN"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/sh_capsule_border"
+                android:fontFamily="@font/ikaros_regular"
+                android:includeFontPadding="false"
+                android:paddingStart="16dp"
+                android:paddingTop="12dp"
+                android:paddingEnd="16dp"
+                android:paddingBottom="8dp"
+                android:text="Category"
+                android:textAlignment="center"
+                android:textAllCaps="true"
+                android:textColor="@color/wht01"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/showVenueFiltersBTN" />
+
+            <TextView
+                android:id="@+id/showOnlyOngoingBTN"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/sh_capsule_border"
+                android:fontFamily="@font/ikaros_regular"
+                android:includeFontPadding="false"
+                android:paddingTop="12dp"
+                android:paddingBottom="8dp"
+                android:text="Ongoing"
+                android:textAlignment="center"
+                android:textAllCaps="true"
+                android:textColor="@color/wht01"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="@+id/showCategoryFiltersBTN"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="@+id/showCategoryFiltersBTN"
+                app:layout_constraintTop_toBottomOf="@+id/showCategoryFiltersBTN" />
+
+            <TextView
+                android:id="@+id/showOnlyFavoritesBTN"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/sh_capsule_border"
+                android:fontFamily="@font/ikaros_regular"
+                android:includeFontPadding="false"
+                android:paddingTop="12dp"
+                android:paddingBottom="8dp"
+                android:text="Favorites"
+                android:textAlignment="center"
+                android:textAllCaps="true"
+                android:textColor="@color/wht01"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="@+id/showOnlyOngoingBTN"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="@+id/showOnlyOngoingBTN"
+                app:layout_constraintTop_toBottomOf="@+id/showOnlyOngoingBTN" />
+
+        </android.support.constraint.ConstraintLayout>
+
+    </ScrollView>
 
 </android.support.constraint.ConstraintLayout>
