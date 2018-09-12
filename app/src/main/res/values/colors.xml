@@ -13,6 +13,7 @@
     <color name="vio02">#8F48034A</color>
     <color name="vio03">#FF7B067E</color>
     <color name="wht01">#FFFFFFFF</color>
+    <color name="wht02">#DDFFFFFF</color>
 
     <color name="clear">#00FFFFFF</color>
 </resources>

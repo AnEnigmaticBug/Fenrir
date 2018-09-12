@@ -25,6 +25,13 @@
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.16" />
 
+    <android.support.constraint.Guideline
+        android:id="@+id/symmetryGDL"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.84" />
+
     <View
         android:id="@+id/dateBarPOV"
         android:layout_width="0dp"
@@ -203,5 +210,23 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/screenTitleLBL"
         app:srcCompat="@drawable/ic_filter_28dp" />
+
+    <View
+        android:id="@+id/screenFaderPOV"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/wht02"
+        android:visibility="gone" />
+
+    <FrameLayout
+        android:id="@+id/filterHostFRM"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="70dp"
+        android:layout_marginBottom="70dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/symmetryGDL"
+        app:layout_constraintStart_toStartOf="@+id/dateBarGDL"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </android.support.constraint.ConstraintLayout>
