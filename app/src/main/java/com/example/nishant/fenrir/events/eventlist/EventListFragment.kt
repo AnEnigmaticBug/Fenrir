@@ -12,10 +12,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.findNavController
 import com.example.nishant.fenrir.R
+import com.example.nishant.fenrir.events.eventfilter.eventfiltermenu.EventFilterMenuFragment
 import com.example.nishant.fenrir.util.Constants
 import kotlinx.android.synthetic.main.fra_event_list.view.*
 
-class EventListFragment : Fragment(), EventsAdapter.ClickListener {
+class EventListFragment : Fragment(), EventsAdapter.ClickListener, EventFilterMenuFragment.Listener {
 
     private lateinit var viewModel: EventListViewModel
     private lateinit var rootPOV: View
@@ -26,6 +27,18 @@ class EventListFragment : Fragment(), EventsAdapter.ClickListener {
         rootPOV = inflater.inflate(R.layout.fra_event_list, container, false)
 
         rootPOV.eventsRCY.adapter = EventsAdapter(this)
+
+        rootPOV.filterBTN.setOnClickListener {
+            rootPOV.screenFaderPOV.visibility = View.VISIBLE
+            childFragmentManager.beginTransaction()
+                    .add(R.id.filterHostFRM, EventFilterMenuFragment())
+                    .addToBackStack(null)
+                    .commit()
+        }
+
+        rootPOV.screenFaderPOV.setOnClickListener {
+            closeEventFilterPopup()
+        }
 
         rootPOV.date0BTN.setOnClickListener {
             viewModel.changeDateToIndex(0)
@@ -96,5 +109,21 @@ class EventListFragment : Fragment(), EventsAdapter.ClickListener {
     override fun showDetailsForEventWithId(id: String) {
         val bundle = Bundle().also { it.putString("eventId", id) }
         rootPOV.findNavController().navigate(R.id.ac_event_list_to_event_info, bundle)
+    }
+
+    override fun onFilterMenuCloseBTNClicked() {
+        closeEventFilterPopup()
+    }
+
+    override fun onFilterMenuItemSelected(itemName: EventFilterMenuFragment.Listener.MenuItem) {
+    }
+
+    private fun closeEventFilterPopup() {
+        rootPOV.screenFaderPOV.visibility = View.GONE
+        childFragmentManager.fragments.forEach {
+            childFragmentManager.beginTransaction()
+                    .remove(it)
+                    .commit()
+        }
     }
 }
