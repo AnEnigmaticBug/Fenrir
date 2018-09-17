@@ -12,11 +12,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.findNavController
 import com.example.nishant.fenrir.R
+import com.example.nishant.fenrir.events.eventfilter.eventfilterlist.EventFilterListFragment
+import com.example.nishant.fenrir.events.eventfilter.eventfilterlist.FilterType
 import com.example.nishant.fenrir.events.eventfilter.eventfiltermenu.EventFilterMenuFragment
 import com.example.nishant.fenrir.util.Constants
 import kotlinx.android.synthetic.main.fra_event_list.view.*
 
-class EventListFragment : Fragment(), EventsAdapter.ClickListener, EventFilterMenuFragment.Listener {
+class EventListFragment : Fragment(), EventsAdapter.ClickListener, EventFilterMenuFragment.Listener, EventFilterListFragment.Listener {
 
     private lateinit var viewModel: EventListViewModel
     private lateinit var rootPOV: View
@@ -116,6 +118,18 @@ class EventListFragment : Fragment(), EventsAdapter.ClickListener, EventFilterMe
     }
 
     override fun onFilterMenuItemSelected(itemName: EventFilterMenuFragment.Listener.MenuItem) {
+        val bundle = when(itemName) {
+            EventFilterMenuFragment.Listener.MenuItem.Category -> Bundle().also {
+                it.putString("TYPE", FilterType.Category.toString())
+            }
+            EventFilterMenuFragment.Listener.MenuItem.Venue    -> Bundle().also {
+                it.putString("TYPE", FilterType.Venue.toString())
+            }
+        }
+        childFragmentManager.beginTransaction()
+                .add(R.id.filterHostFRM, EventFilterListFragment().also { it.arguments = bundle })
+                .addToBackStack(null)
+                .commit()
     }
 
     private fun closeEventFilterPopup() {
@@ -125,5 +139,9 @@ class EventListFragment : Fragment(), EventsAdapter.ClickListener, EventFilterMe
                     .remove(it)
                     .commit()
         }
+    }
+
+    override fun showFilterMenu() {
+        childFragmentManager.popBackStack()
     }
 }
