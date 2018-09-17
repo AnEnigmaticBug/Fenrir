@@ -11,7 +11,10 @@
         tools:layout="@layout/fra_event_list">
         <action
             android:id="@+id/ac_event_list_to_event_info"
-            app:destination="@id/eventInfoFragment" />
+            app:destination="@id/eventInfoFragment"
+            app:enterAnim="@anim/an_slide_down"
+            app:exitAnim="@anim/an_stay_and_fade"
+            app:popExitAnim="@anim/an_slide_up" />
     </fragment>
     <fragment
         android:id="@+id/eventInfoFragment"
