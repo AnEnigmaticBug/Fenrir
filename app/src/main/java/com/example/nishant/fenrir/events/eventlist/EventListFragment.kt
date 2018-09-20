@@ -2,6 +2,7 @@ package com.example.nishant.fenrir.events.eventlist
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
+import android.content.Context
 import android.os.Bundle
 import android.support.constraint.ConstraintLayout
 import android.support.constraint.ConstraintSet
@@ -10,18 +11,29 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.findNavController
 import com.example.nishant.fenrir.R
 import com.example.nishant.fenrir.events.eventfilter.eventfilterlist.EventFilterListFragment
 import com.example.nishant.fenrir.events.eventfilter.eventfilterlist.FilterType
 import com.example.nishant.fenrir.events.eventfilter.eventfiltermenu.EventFilterMenuFragment
+import com.example.nishant.fenrir.navigation.*
 import com.example.nishant.fenrir.util.Constants
 import kotlinx.android.synthetic.main.fra_event_list.view.*
 
-class EventListFragment : Fragment(), EventsAdapter.ClickListener, EventFilterMenuFragment.Listener, EventFilterListFragment.Listener {
+class EventListFragment : NavHostFragment(), EventsAdapter.ClickListener {
 
+    private lateinit var navigationHost: NavigationHost
     private lateinit var viewModel: EventListViewModel
     private lateinit var rootPOV: View
+
+    override val navViewId = R.id.filterHostFRM
+
+    override fun onAttach(context: Context?) {
+        super.onAttach(context)
+        navigationHost = when(context) {
+            is NavigationHost -> context
+            else              -> throw ClassCastException("Not a NavigationHost")
+        }
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         viewModel = ViewModelProviders.of(this, EventListViewModelFactory())[EventListViewModel::class.java]
@@ -32,14 +44,11 @@ class EventListFragment : Fragment(), EventsAdapter.ClickListener, EventFilterMe
 
         rootPOV.filterBTN.setOnClickListener {
             rootPOV.screenFaderPOV.visibility = View.VISIBLE
-            childFragmentManager.beginTransaction()
-                    .add(R.id.filterHostFRM, EventFilterMenuFragment())
-                    .addToBackStack(null)
-                    .commit()
+            show(NavigationGraph.Events.EventFilter.FILTER_MENU)
         }
 
         rootPOV.screenFaderPOV.setOnClickListener {
-            closeEventFilterPopup()
+            exit()
         }
 
         rootPOV.date0BTN.setOnClickListener {
@@ -110,38 +119,11 @@ class EventListFragment : Fragment(), EventsAdapter.ClickListener, EventFilterMe
 
     override fun showDetailsForEventWithId(id: String) {
         val bundle = Bundle().also { it.putString("eventId", id) }
-        rootPOV.findNavController().navigate(R.id.ac_event_list_to_event_info, bundle)
+        navigationHost.show(NavigationGraph.Events.EVENT_INFO, bundle)
     }
 
-    override fun onFilterMenuCloseBTNClicked() {
-        closeEventFilterPopup()
-    }
-
-    override fun onFilterMenuItemSelected(itemName: EventFilterMenuFragment.Listener.MenuItem) {
-        val bundle = when(itemName) {
-            EventFilterMenuFragment.Listener.MenuItem.Category -> Bundle().also {
-                it.putString("TYPE", FilterType.Category.toString())
-            }
-            EventFilterMenuFragment.Listener.MenuItem.Venue    -> Bundle().also {
-                it.putString("TYPE", FilterType.Venue.toString())
-            }
-        }
-        childFragmentManager.beginTransaction()
-                .add(R.id.filterHostFRM, EventFilterListFragment().also { it.arguments = bundle })
-                .addToBackStack(null)
-                .commit()
-    }
-
-    private fun closeEventFilterPopup() {
+    override fun exit() {
+        super.exit()
         rootPOV.screenFaderPOV.visibility = View.GONE
-        childFragmentManager.fragments.forEach {
-            childFragmentManager.beginTransaction()
-                    .remove(it)
-                    .commit()
-        }
-    }
-
-    override fun showFilterMenu() {
-        childFragmentManager.popBackStack()
     }
 }

@@ -9,29 +9,21 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.example.nishant.fenrir.R
+import com.example.nishant.fenrir.events.eventfilter.eventfilterlist.FilterType
+import com.example.nishant.fenrir.navigation.NavigationGraph
+import com.example.nishant.fenrir.navigation.NavigationHost
 import kotlinx.android.synthetic.main.fra_event_filter_menu.view.*
 
 class EventFilterMenuFragment : Fragment() {
 
-    interface Listener {
-
-        enum class MenuItem {
-            Category, Venue
-        }
-
-        fun onFilterMenuCloseBTNClicked()
-
-        fun onFilterMenuItemSelected(itemName: MenuItem)
-    }
-
-    private lateinit var listener: Listener
+    private lateinit var navigationHost: NavigationHost
     private lateinit var viewModel: EventFilterMenuViewModel
     private lateinit var rootPOV: View
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        listener = when(parentFragment) {
-            is Listener -> parentFragment as Listener
-            else        -> throw ClassCastException("Not a EventFilterMenuFragment.Listener")
+        navigationHost = when(parentFragment) {
+            is NavigationHost -> parentFragment as NavigationHost
+            else              -> throw ClassCastException("Not a NavigationHost")
         }
 
         viewModel = ViewModelProviders.of(this, EventFilterMenuViewModelFactory())[EventFilterMenuViewModel::class.java]
@@ -39,15 +31,17 @@ class EventFilterMenuFragment : Fragment() {
         rootPOV = inflater.inflate(R.layout.fra_event_filter_menu, container, false)
 
         rootPOV.closeBTN.setOnClickListener {
-            listener.onFilterMenuCloseBTNClicked()
+            navigationHost.exit()
         }
 
         rootPOV.showVenueFiltersBTN.setOnClickListener {
-            listener.onFilterMenuItemSelected(Listener.MenuItem.Venue)
+            val bundle = Bundle().also { it.putString("TYPE", FilterType.Venue.toString()) }
+            navigationHost.show(NavigationGraph.Events.EventFilter.FILTER_LIST, bundle)
         }
 
         rootPOV.showCategoryFiltersBTN.setOnClickListener {
-            listener.onFilterMenuItemSelected(Listener.MenuItem.Category)
+            val bundle = Bundle().also { it.putString("TYPE", FilterType.Category.toString()) }
+            navigationHost.show(NavigationGraph.Events.EventFilter.FILTER_LIST, bundle)
         }
 
         rootPOV.showOnlyOngoingBTN.setOnClickListener {
