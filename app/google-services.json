@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "157934063064",
+    "firebase_url": "https://oasis-wallet-test.firebaseio.com",
+    "project_id": "oasis-wallet-test",
+    "storage_bucket": "oasis-wallet-test.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:157934063064:android:8bd8bf045593ba66",
+        "android_client_info": {
+          "package_name": "com.example.nishant.fenrir"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "157934063064-et3fmi6jlivnr6h70q2rnegik50aqj3g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAPoF3ZclvEUQ1guu0g1DPykgheqDb8R5U"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
