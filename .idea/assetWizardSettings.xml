@@ -34,11 +34,8 @@
                         <option name="values">
                           <map>
                             <entry key="assetSourceType" value="FILE" />
-                            <entry key="height" value="20" />
-                            <entry key="outputName" value="ic_back_20dp" />
-                            <entry key="overrideSize" value="true" />
-                            <entry key="sourceFile" value="$USER_HOME$/Downloads/left-arrow-angle.svg" />
-                            <entry key="width" value="20" />
+                            <entry key="outputName" value="ic_wallet_24dp" />
+                            <entry key="sourceFile" value="$USER_HOME$/Downloads/fenrir/assets/Wallet.svg" />
                           </map>
                         </option>
                       </PersistentState>

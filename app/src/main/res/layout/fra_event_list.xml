@@ -38,7 +38,7 @@
         android:layout_height="0dp"
         android:layout_marginEnd="0dp"
         android:background="@color/vio01"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavAHB"
         app:layout_constraintEnd_toStartOf="@+id/dateBarGDL"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -95,7 +95,7 @@
         android:textAlignment="center"
         android:textColor="@color/vio02"
         android:textSize="30sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavAHB"
         app:layout_constraintEnd_toEndOf="@+id/dateBarPOV"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -192,7 +192,7 @@
         android:layout_marginTop="24dp"
         android:layout_marginEnd="24dp"
         app:layoutManager="android.support.v7.widget.LinearLayoutManager"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavAHB"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/dateBarPOV"
@@ -224,9 +224,18 @@
         android:layout_height="0dp"
         android:layout_marginTop="70dp"
         android:layout_marginBottom="70dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavAHB"
         app:layout_constraintEnd_toStartOf="@+id/symmetryGDL"
         app:layout_constraintStart_toStartOf="@+id/dateBarGDL"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <com.aurelhubert.ahbottomnavigation.AHBottomNavigation
+        android:id="@+id/bottomNavAHB"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

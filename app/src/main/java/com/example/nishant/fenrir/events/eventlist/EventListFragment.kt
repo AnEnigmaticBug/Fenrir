@@ -8,9 +8,13 @@ import android.support.constraint.ConstraintLayout
 import android.support.constraint.ConstraintSet
 import android.support.transition.TransitionManager
 import android.support.v4.app.Fragment
+import android.support.v4.content.ContextCompat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import com.aurelhubert.ahbottomnavigation.AHBottomNavigation
+import com.aurelhubert.ahbottomnavigation.AHBottomNavigationAdapter
 import com.example.nishant.fenrir.R
 import com.example.nishant.fenrir.events.eventfilter.eventfilterlist.EventFilterListFragment
 import com.example.nishant.fenrir.events.eventfilter.eventfilterlist.FilterType
@@ -39,6 +43,8 @@ class EventListFragment : NavHostFragment(), EventsAdapter.ClickListener {
         viewModel = ViewModelProviders.of(this, EventListViewModelFactory())[EventListViewModel::class.java]
 
         rootPOV = inflater.inflate(R.layout.fra_event_list, container, false)
+
+        setupBottomNav()
 
         rootPOV.eventsRCY.adapter = EventsAdapter(this)
 
@@ -93,12 +99,12 @@ class EventListFragment : NavHostFragment(), EventsAdapter.ClickListener {
         val ctl = rootPOV as ConstraintLayout
         val constraintSet = ConstraintSet().also {
             it.clone(ctl)
-            val btnId = when(i) {
-                0    -> R.id.date0BTN
-                1    -> R.id.date1BTN
-                2    -> R.id.date2BTN
-                3    -> R.id.date3BTN
-                4    -> R.id.date4BTN
+            val btnId = when (i) {
+                0 -> R.id.date0BTN
+                1 -> R.id.date1BTN
+                2 -> R.id.date2BTN
+                3 -> R.id.date3BTN
+                4 -> R.id.date4BTN
                 else -> throw IllegalArgumentException("Can't move underline to $i")
             }
             it.connect(R.id.dateUnderLinePOV, ConstraintSet.TOP, btnId, ConstraintSet.BOTTOM, 4)
@@ -115,6 +121,32 @@ class EventListFragment : NavHostFragment(), EventsAdapter.ClickListener {
             else -> throw IllegalArgumentException("Can't move underline to $i")
         }
         rootPOV.dateBarPOV.setBackgroundColor(resources.getColor(resId))
+    }
+
+    private fun setupBottomNav() {
+        AHBottomNavigationAdapter(this.requireActivity(), R.menu.mn_bottom_nav).setupWithBottomNavigation(rootPOV.bottomNavAHB)
+        rootPOV.bottomNavAHB.titleState = AHBottomNavigation.TitleState.ALWAYS_SHOW;
+        rootPOV.bottomNavAHB.accentColor = resources.getColor(R.color.vio03)
+        rootPOV.bottomNavAHB.setCurrentItem(1, false)
+
+        // TODO: Add real destinations to the BottomNav.
+        rootPOV.bottomNavAHB.setOnTabSelectedListener { position, wasSelected ->
+            if(wasSelected) {
+                Toast.makeText(requireContext().applicationContext, "Already at the tab", Toast.LENGTH_SHORT).show()
+            }
+            else {
+                when(position) {
+                    0    -> Toast.makeText(requireContext().applicationContext, "Profile", Toast.LENGTH_SHORT).show()
+                    1    -> navigationHost.show(NavigationGraph.Events.EVENT_LIST)
+                    2    -> Toast.makeText(requireContext().applicationContext, "Wallet", Toast.LENGTH_SHORT).show()
+                    3    -> Toast.makeText(requireContext().applicationContext, "Map", Toast.LENGTH_SHORT).show()
+                    4    -> Toast.makeText(requireContext().applicationContext, "More", Toast.LENGTH_SHORT).show()
+                    else -> throw IllegalStateException("$position th bottom nav tab was selected")
+                }
+                rootPOV.bottomNavAHB.setCurrentItem(position, false)
+            }
+            true
+        }
     }
 
     override fun showDetailsForEventWithId(id: String) {
