@@ -2,18 +2,29 @@ package com.example.nishant.fenrir.events.eventinfo
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
+import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.nishant.fenrir.R
+import com.example.nishant.fenrir.navigation.NavigationHost
 import kotlinx.android.synthetic.main.fra_event_info.view.*
 
 class EventInfoFragment : Fragment() {
 
+    private lateinit var navigationHost: NavigationHost
     private lateinit var viewModel: EventInfoViewModel
     private lateinit var rootPOV: View
+
+    override fun onAttach(context: Context?) {
+        super.onAttach(context)
+        navigationHost = when(context) {
+            is NavigationHost -> context
+            else              -> throw ClassCastException("Not a NavigationHost")
+        }
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val id = arguments!!.getString("eventId")
@@ -27,6 +38,10 @@ class EventInfoFragment : Fragment() {
 
         rootPOV.toggleBTN.setOnClickListener {
             viewModel.toggleMainContents()
+        }
+
+        rootPOV.swipeUpIndicatorBTN.setOnClickListener {
+            navigationHost.back()
         }
 
         viewModel.rawEvent.observe(this, Observer {
