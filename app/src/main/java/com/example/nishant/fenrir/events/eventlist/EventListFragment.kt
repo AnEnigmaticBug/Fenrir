@@ -140,7 +140,7 @@ class EventListFragment : NavHostFragment(), EventsAdapter.ClickListener {
                     1    -> navigationHost.show(NavigationGraph.Events.EVENT_LIST)
                     2    -> Toast.makeText(requireContext().applicationContext, "Wallet", Toast.LENGTH_SHORT).show()
                     3    -> Toast.makeText(requireContext().applicationContext, "Map", Toast.LENGTH_SHORT).show()
-                    4    -> Toast.makeText(requireContext().applicationContext, "More", Toast.LENGTH_SHORT).show()
+                    4    -> navigationHost.show(NavigationGraph.More.MORE)
                     else -> throw IllegalStateException("$position th bottom nav tab was selected")
                 }
                 rootPOV.bottomNavAHB.setCurrentItem(position, false)

@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/backgroundIMG"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/background"
+        android:tint="@color/gry02" />
+
+    <TextView
+        android:id="@+id/aboutBTN"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="48dp"
+        android:fontFamily="@font/ikaros_regular"
+        android:includeFontPadding="false"
+        android:text="About"
+        android:textAllCaps="true"
+        android:textColor="@color/blk01"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/underline1POV"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/underline1POV"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginStart="64dp"
+        android:layout_marginEnd="64dp"
+        android:background="@color/gry03"
+        app:layout_constraintBottom_toTopOf="@+id/contactBTN"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/aboutBTN" />
+
+    <TextView
+        android:id="@+id/contactBTN"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/ikaros_regular"
+        android:includeFontPadding="false"
+        android:text="Contact Us"
+        android:textAllCaps="true"
+        android:textColor="@color/blk01"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/underline2POV"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/underline1POV" />
+
+    <View
+        android:id="@+id/underline2POV"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginStart="64dp"
+        android:layout_marginEnd="64dp"
+        android:background="@color/gry03"
+        app:layout_constraintBottom_toTopOf="@+id/sponsorsBTN"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/contactBTN" />
+
+    <TextView
+        android:id="@+id/sponsorsBTN"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/ikaros_regular"
+        android:includeFontPadding="false"
+        android:text="Sponsors"
+        android:textAllCaps="true"
+        android:textColor="@color/blk01"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/underline3POV"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/underline2POV" />
+
+    <View
+        android:id="@+id/underline3POV"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginStart="64dp"
+        android:layout_marginEnd="64dp"
+        android:background="@color/gry03"
+        app:layout_constraintBottom_toTopOf="@+id/profShowsBTN"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sponsorsBTN" />
+
+    <TextView
+        android:id="@+id/profShowsBTN"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/ikaros_regular"
+        android:includeFontPadding="false"
+        android:text="Prof Shows"
+        android:textAllCaps="true"
+        android:textColor="@color/blk01"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/underline4POV"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/underline3POV" />
+
+    <View
+        android:id="@+id/underline4POV"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginStart="64dp"
+        android:layout_marginEnd="64dp"
+        android:background="@color/gry03"
+        app:layout_constraintBottom_toTopOf="@+id/notificationsBTN"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/profShowsBTN" />
+
+    <TextView
+        android:id="@+id/notificationsBTN"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/ikaros_regular"
+        android:includeFontPadding="false"
+        android:text="Notifications"
+        android:textAllCaps="true"
+        android:textColor="@color/blk01"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/underline5POV"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/underline4POV" />
+
+    <View
+        android:id="@+id/underline5POV"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginStart="64dp"
+        android:layout_marginEnd="64dp"
+        android:background="@color/gry03"
+        app:layout_constraintBottom_toTopOf="@+id/epcBlogBTN"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/notificationsBTN" />
+
+    <TextView
+        android:id="@+id/epcBlogBTN"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/ikaros_regular"
+        android:includeFontPadding="false"
+        android:text="EPC Blog"
+        android:textAllCaps="true"
+        android:textColor="@color/blk01"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/underline6POV"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/underline5POV" />
+
+    <View
+        android:id="@+id/underline6POV"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginStart="64dp"
+        android:layout_marginEnd="64dp"
+        android:background="@color/gry03"
+        app:layout_constraintBottom_toTopOf="@+id/developersBTN"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/epcBlogBTN" />
+
+    <TextView
+        android:id="@+id/developersBTN"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/ikaros_regular"
+        android:includeFontPadding="false"
+        android:text="Developers"
+        android:textAllCaps="true"
+        android:textColor="@color/blk01"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/underline7POV"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/underline6POV" />
+
+    <View
+        android:id="@+id/underline7POV"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginStart="64dp"
+        android:layout_marginEnd="64dp"
+        android:layout_marginBottom="32dp"
+        android:background="@color/gry03"
+        app:layout_constraintBottom_toTopOf="@+id/textView12"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/developersBTN" />
+
+    <TextView
+        android:id="@+id/textView12"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:fontFamily="@font/ikaros_regular"
+        android:includeFontPadding="false"
+        android:text="Oasis"
+        android:textAllCaps="true"
+        android:textColor="@color/blk01"
+        android:textSize="40sp"
+        app:layout_constraintBottom_toTopOf="@+id/textView13"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textView13"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        android:fontFamily="@font/ikaros_regular"
+        android:includeFontPadding="false"
+        android:text="The Far Out Fest"
+        android:textColor="@color/blk01"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavAHB"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <com.aurelhubert.ahbottomnavigation.AHBottomNavigation
+        android:id="@+id/bottomNavAHB"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</android.support.constraint.ConstraintLayout>

@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import com.example.nishant.fenrir.events.eventinfo.EventInfoFragment
 import com.example.nishant.fenrir.events.eventlist.EventListFragment
+import com.example.nishant.fenrir.more.MoreFragment
 
 abstract class NavHostActivity : AppCompatActivity(), NavigationHost {
 
@@ -14,6 +15,7 @@ abstract class NavHostActivity : AppCompatActivity(), NavigationHost {
             clearBackStack()
             val fragment = when(destination) {
                 NavigationGraph.Events.EVENT_LIST -> EventListFragment().withBundle(bundle)
+                NavigationGraph.More.MORE         -> MoreFragment().withBundle(bundle)
                 else                              -> throw IllegalArgumentException("Can't navigate to ${destination.name}")
             }
             supportFragmentManager.beginTransaction()

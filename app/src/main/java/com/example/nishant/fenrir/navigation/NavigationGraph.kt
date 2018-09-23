@@ -15,4 +15,9 @@ object NavigationGraph {
             val FILTER_LIST = Destination("FILTER_LIST", 0, 0, 0, 0)
         }
     }
+
+    object More {
+
+        val MORE = Destination("MORE", 0, 0, 0, 0, true)
+    }
 }
