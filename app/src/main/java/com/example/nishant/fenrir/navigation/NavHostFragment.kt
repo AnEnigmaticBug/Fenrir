@@ -2,8 +2,8 @@ package com.example.nishant.fenrir.navigation
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import com.example.nishant.fenrir.events.eventfilter.eventfilterlist.EventFilterListFragment
-import com.example.nishant.fenrir.events.eventfilter.eventfiltermenu.EventFilterMenuFragment
+import com.example.nishant.fenrir.screens.events.eventfilter.eventfilterlist.EventFilterListFragment
+import com.example.nishant.fenrir.screens.events.eventfilter.eventfiltermenu.EventFilterMenuFragment
 
 abstract class NavHostFragment : Fragment(), NavigationHost {
 

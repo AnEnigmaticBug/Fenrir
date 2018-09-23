@@ -2,9 +2,9 @@ package com.example.nishant.fenrir.navigation
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import com.example.nishant.fenrir.events.eventinfo.EventInfoFragment
-import com.example.nishant.fenrir.events.eventlist.EventListFragment
-import com.example.nishant.fenrir.more.MoreFragment
+import com.example.nishant.fenrir.screens.events.eventinfo.EventInfoFragment
+import com.example.nishant.fenrir.screens.events.eventlist.EventListFragment
+import com.example.nishant.fenrir.screens.more.MoreFragment
 
 abstract class NavHostActivity : AppCompatActivity(), NavigationHost {
 

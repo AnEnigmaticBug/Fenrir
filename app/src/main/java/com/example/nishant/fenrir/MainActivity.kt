@@ -2,9 +2,9 @@ package com.example.nishant.fenrir
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import com.example.nishant.fenrir.events.eventlist.EventListFragment
+import com.example.nishant.fenrir.screens.events.eventlist.EventListFragment
 import com.example.nishant.fenrir.navigation.*
-import com.example.nishant.fenrir.splash.SplashFragment
+import com.example.nishant.fenrir.screens.splash.SplashFragment
 import io.reactivex.Flowable
 import java.util.concurrent.TimeUnit
 
