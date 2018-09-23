@@ -4,9 +4,6 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import com.example.nishant.fenrir.screens.events.eventlist.EventListFragment
 import com.example.nishant.fenrir.navigation.*
-import com.example.nishant.fenrir.screens.splash.SplashFragment
-import io.reactivex.Flowable
-import java.util.concurrent.TimeUnit
 
 class MainActivity : NavHostActivity() {
 
@@ -19,14 +16,8 @@ class MainActivity : NavHostActivity() {
 
         if(savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
-                    .add(R.id.navHostFRM, SplashFragment())
+                    .add(R.id.navHostFRM, EventListFragment())
                     .commit()
-            Flowable.timer(1500, TimeUnit.MILLISECONDS)
-                    .subscribe {
-                        supportFragmentManager.beginTransaction()
-                                .replace(R.id.navHostFRM, EventListFragment())
-                                .commit()
-                    }
         }
     }
 }
