@@ -1,8 +1,8 @@
 package com.example.nishant.fenrir.data.room
 
 import android.arch.persistence.room.TypeConverter
-import com.example.nishant.fenrir.domain.Category
-import com.example.nishant.fenrir.domain.Venue
+import com.example.nishant.fenrir.domain.mainapp.Category
+import com.example.nishant.fenrir.domain.mainapp.Venue
 import org.threeten.bp.LocalDate
 import org.threeten.bp.LocalTime
 

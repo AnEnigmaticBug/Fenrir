@@ -2,10 +2,13 @@ package com.example.nishant.fenrir.dagger
 
 import android.arch.persistence.room.Room
 import android.content.Context
-import com.example.nishant.fenrir.data.*
-import com.example.nishant.fenrir.data.firestore.FirestoreDatabase
+import com.example.nishant.fenrir.data.firestore.mainapp.FirestoreEventDatabase
+import com.example.nishant.fenrir.data.repository.CentralRepository
+import com.example.nishant.fenrir.data.repository.CentralRepositoryImpl
+import com.example.nishant.fenrir.data.repository.mainapp.EventRepository
+import com.example.nishant.fenrir.data.repository.mainapp.FirestoreEventRepository
 import com.example.nishant.fenrir.data.room.AppDatabase
-import com.example.nishant.fenrir.data.room.EventDao
+import com.example.nishant.fenrir.data.room.mainapp.EventDao
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -14,10 +17,10 @@ import javax.inject.Singleton
 class AppModule(private val context: Context) {
 
     @Provides @Singleton
-    fun providesEventRepository(fsDb: FirestoreDatabase, eventDao: EventDao): EventRepository = FirestoreEventRepository(fsDb, eventDao)
+    fun providesEventRepository(fsDb: FirestoreEventDatabase, eventDao: EventDao): EventRepository = FirestoreEventRepository(fsDb, eventDao)
 
     @Provides @Singleton
-    fun providesFirestoreDatabase(): FirestoreDatabase = FirestoreDatabase()
+    fun providesFirestoreDatabase(): FirestoreEventDatabase = FirestoreEventDatabase()
 
     @Provides @Singleton
     fun providesEventDao(appDatabase: AppDatabase): EventDao = appDatabase.eventDao()

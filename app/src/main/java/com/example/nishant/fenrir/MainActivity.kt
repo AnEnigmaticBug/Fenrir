@@ -2,7 +2,7 @@ package com.example.nishant.fenrir
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import com.example.nishant.fenrir.screens.events.eventlist.EventListFragment
+import com.example.nishant.fenrir.screens.mainapp.events.eventlist.EventListFragment
 import com.example.nishant.fenrir.navigation.*
 
 class MainActivity : NavHostActivity() {

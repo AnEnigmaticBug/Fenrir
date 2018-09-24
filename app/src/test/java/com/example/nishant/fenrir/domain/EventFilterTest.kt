@@ -1,5 +1,9 @@
 package com.example.nishant.fenrir.domain
 
+import com.example.nishant.fenrir.domain.mainapp.Category
+import com.example.nishant.fenrir.domain.mainapp.Event
+import com.example.nishant.fenrir.domain.mainapp.EventFilter
+import com.example.nishant.fenrir.domain.mainapp.Venue
 import com.example.nishant.fenrir.util.Constants
 import org.junit.Assert.*
 import org.junit.Test
