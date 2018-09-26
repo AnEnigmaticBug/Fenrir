@@ -11,9 +11,9 @@ abstract class NavHostFragment : Fragment(), NavigationHost {
 
     override fun show(destination: Destination, bundle: Bundle?) {
         val fragment = when(destination) {
-            NavigationGraph.Events.EventFilter.FILTER_MENU -> EventFilterMenuFragment().withBundle(bundle)
-            NavigationGraph.Events.EventFilter.FILTER_LIST -> EventFilterListFragment().withBundle(bundle)
-            else                                           -> throw IllegalArgumentException("Can't navigate to ${destination.name}")
+            NavigationGraph.MainApp.Events.EventFilter.FILTER_MENU -> EventFilterMenuFragment().withBundle(bundle)
+            NavigationGraph.MainApp.Events.EventFilter.FILTER_LIST -> EventFilterListFragment().withBundle(bundle)
+            else                                                   -> throw IllegalArgumentException("Can't navigate to ${destination.name}")
         }
         childFragmentManager.beginTransaction()
                 .setCustomAnimations(destination.ei, destination.eo, destination.pi, destination.po)

@@ -1,11 +1,12 @@
-package com.example.nishant.fenrir
+package com.example.nishant.fenrir.screens.mainapp
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import com.example.nishant.fenrir.R
 import com.example.nishant.fenrir.screens.mainapp.events.eventlist.EventListFragment
 import com.example.nishant.fenrir.navigation.*
 
-class MainActivity : NavHostActivity() {
+class MainAppActivity : NavHostActivity() {
 
     override val navViewId = R.id.navHostFRM
 

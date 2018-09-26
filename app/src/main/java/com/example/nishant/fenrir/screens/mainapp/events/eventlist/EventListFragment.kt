@@ -50,7 +50,7 @@ class EventListFragment : NavHostFragment(), EventsAdapter.ClickListener {
 
         rootPOV.filterBTN.setOnClickListener {
             rootPOV.screenFaderPOV.visibility = View.VISIBLE
-            show(NavigationGraph.Events.EventFilter.FILTER_MENU)
+            show(NavigationGraph.MainApp.Events.EventFilter.FILTER_MENU)
         }
 
         rootPOV.screenFaderPOV.setOnClickListener {
@@ -137,10 +137,10 @@ class EventListFragment : NavHostFragment(), EventsAdapter.ClickListener {
             else {
                 when(position) {
                     0    -> Toast.makeText(requireContext().applicationContext, "Profile", Toast.LENGTH_SHORT).show()
-                    1    -> navigationHost.show(NavigationGraph.Events.EVENT_LIST)
+                    1    -> navigationHost.show(NavigationGraph.MainApp.Events.EVENT_LIST)
                     2    -> Toast.makeText(requireContext().applicationContext, "Wallet", Toast.LENGTH_SHORT).show()
                     3    -> Toast.makeText(requireContext().applicationContext, "Map", Toast.LENGTH_SHORT).show()
-                    4    -> navigationHost.show(NavigationGraph.More.MORE)
+                    4    -> navigationHost.show(NavigationGraph.MainApp.More.MORE)
                     else -> throw IllegalStateException("$position th bottom nav tab was selected")
                 }
                 rootPOV.bottomNavAHB.setCurrentItem(position, false)
@@ -151,7 +151,7 @@ class EventListFragment : NavHostFragment(), EventsAdapter.ClickListener {
 
     override fun showDetailsForEventWithId(id: String) {
         val bundle = Bundle().also { it.putString("eventId", id) }
-        navigationHost.show(NavigationGraph.Events.EVENT_INFO, bundle)
+        navigationHost.show(NavigationGraph.MainApp.Events.EVENT_INFO, bundle)
     }
 
     override fun exit() {

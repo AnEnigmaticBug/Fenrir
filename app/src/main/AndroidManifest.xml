@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:name=".FenrirApp">
-        <activity android:name="com.example.nishant.fenrir.screens.mainapp.splash.SplashActivity"
+        <activity android:name="com.example.nishant.fenrir.screens.splash.SplashActivity"
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -18,7 +18,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity">
+        <activity android:name=".screens.mainapp.MainAppActivity">
 
         </activity>
     </application>

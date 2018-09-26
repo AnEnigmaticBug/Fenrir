@@ -1,7 +1,10 @@
 package com.example.nishant.fenrir.navigation
 
+import android.content.Intent
 import android.os.Bundle
+import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
+import com.example.nishant.fenrir.screens.mainapp.MainAppActivity
 import com.example.nishant.fenrir.screens.mainapp.events.eventinfo.EventInfoFragment
 import com.example.nishant.fenrir.screens.mainapp.events.eventlist.EventListFragment
 import com.example.nishant.fenrir.screens.mainapp.more.MoreFragment
@@ -11,28 +14,30 @@ abstract class NavHostActivity : AppCompatActivity(), NavigationHost {
     abstract val navViewId: Int
 
     override fun show(destination: Destination, bundle: Bundle?) {
-        if(destination.isTopLevel) {
-            clearBackStack()
-            val fragment = when(destination) {
-                NavigationGraph.Events.EVENT_LIST -> EventListFragment().withBundle(bundle)
-                NavigationGraph.More.MORE         -> MoreFragment().withBundle(bundle)
-                else                              -> throw IllegalArgumentException("Can't navigate to ${destination.name}")
-            }
-            supportFragmentManager.beginTransaction()
-                    .setCustomAnimations(destination.ei, destination.eo, destination.pi, destination.po)
-                    .replace(navViewId, fragment)
-                    .commit()
+        if(destination == NavigationGraph.MainApp.MAIN_APP) {
+            startActivity(Intent(this, MainAppActivity::class.java))
+            finish()
         }
         else {
-            val fragment = when(destination) {
-                NavigationGraph.Events.EVENT_INFO -> EventInfoFragment().withBundle(bundle)
-                else                              -> throw IllegalArgumentException("Can't navigate to ${destination.name}")
-            }
-            supportFragmentManager.beginTransaction()
+            val fragmentTransaction = supportFragmentManager.beginTransaction()
                     .setCustomAnimations(destination.ei, destination.eo, destination.pi, destination.po)
-                    .replace(navViewId, fragment)
-                    .addToBackStack(null)
-                    .commit()
+                    .replace(navViewId, getFragmentByDestination(destination).withBundle(bundle))
+
+            when(destination.isTopLevel) {
+                true  -> clearBackStack()
+                false -> fragmentTransaction.addToBackStack(null)
+            }
+
+            fragmentTransaction.commit()
+        }
+    }
+
+    private fun getFragmentByDestination(destination: Destination): Fragment {
+        return when(destination) {
+            NavigationGraph.MainApp.Events.EVENT_LIST -> EventListFragment()
+            NavigationGraph.MainApp.Events.EVENT_INFO -> EventInfoFragment()
+            NavigationGraph.MainApp.More.MORE         -> MoreFragment()
+            else                                      -> throw IllegalArgumentException("Can't navigate to ${destination.name}")
         }
     }
 

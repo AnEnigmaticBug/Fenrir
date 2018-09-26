@@ -36,12 +36,12 @@ class EventFilterMenuFragment : Fragment() {
 
         rootPOV.showVenueFiltersBTN.setOnClickListener {
             val bundle = Bundle().also { it.putString("TYPE", FilterType.Venue.toString()) }
-            navigationHost.show(NavigationGraph.Events.EventFilter.FILTER_LIST, bundle)
+            navigationHost.show(NavigationGraph.MainApp.Events.EventFilter.FILTER_LIST, bundle)
         }
 
         rootPOV.showCategoryFiltersBTN.setOnClickListener {
             val bundle = Bundle().also { it.putString("TYPE", FilterType.Category.toString()) }
-            navigationHost.show(NavigationGraph.Events.EventFilter.FILTER_LIST, bundle)
+            navigationHost.show(NavigationGraph.MainApp.Events.EventFilter.FILTER_LIST, bundle)
         }
 
         rootPOV.showOnlyOngoingBTN.setOnClickListener {
