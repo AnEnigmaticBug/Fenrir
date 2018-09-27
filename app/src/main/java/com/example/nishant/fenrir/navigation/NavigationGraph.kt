@@ -25,4 +25,14 @@ object NavigationGraph {
             val MORE = Destination("MORE", R.anim.an_fade_in, R.anim.an_fade_out, R.anim.an_fade_in, R.anim.an_fade_out, true)
         }
     }
+
+    object Wallet {
+
+        val WALLET = Destination("WALLET", 0, 0, 0, 0)
+
+        object Profile {
+
+            val PROFILE = Destination("PROFILE", 0, 0, 0, 0, true)
+        }
+    }
 }

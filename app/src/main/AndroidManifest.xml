@@ -19,7 +19,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".screens.mainapp.MainAppActivity">
-
+        </activity>
+        <activity android:name=".screens.wallet.WalletActivity">
         </activity>
     </application>
 

@@ -8,6 +8,7 @@ import com.example.nishant.fenrir.screens.mainapp.MainAppActivity
 import com.example.nishant.fenrir.screens.mainapp.events.eventinfo.EventInfoFragment
 import com.example.nishant.fenrir.screens.mainapp.events.eventlist.EventListFragment
 import com.example.nishant.fenrir.screens.mainapp.more.MoreFragment
+import com.example.nishant.fenrir.screens.wallet.WalletActivity
 
 abstract class NavHostActivity : AppCompatActivity(), NavigationHost {
 
@@ -18,6 +19,10 @@ abstract class NavHostActivity : AppCompatActivity(), NavigationHost {
             startActivity(Intent(this, MainAppActivity::class.java))
             finish()
         }
+        if(destination == NavigationGraph.Wallet.WALLET) {
+            startActivity(Intent(this, WalletActivity::class.java))
+        }
+
         else {
             val fragmentTransaction = supportFragmentManager.beginTransaction()
                     .setCustomAnimations(destination.ei, destination.eo, destination.pi, destination.po)

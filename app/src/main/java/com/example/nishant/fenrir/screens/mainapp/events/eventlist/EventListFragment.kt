@@ -143,7 +143,7 @@ class EventListFragment : NavHostFragment(), EventsAdapter.ClickListener {
                 when(position) {
                     0    -> Toast.makeText(requireContext().applicationContext, "Profile", Toast.LENGTH_SHORT).show()
                     1    -> navigationHost.show(NavigationGraph.MainApp.Events.EVENT_LIST)
-                    2    -> Toast.makeText(requireContext().applicationContext, "Wallet", Toast.LENGTH_SHORT).show()
+                    2    -> navigationHost.show(NavigationGraph.Wallet.WALLET)
                     3    -> Toast.makeText(requireContext().applicationContext, "Map", Toast.LENGTH_SHORT).show()
                     4    -> navigationHost.show(NavigationGraph.MainApp.More.MORE)
                     else -> throw IllegalStateException("$position th bottom nav tab was selected")
