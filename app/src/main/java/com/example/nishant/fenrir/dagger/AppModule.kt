@@ -7,6 +7,8 @@ import com.example.nishant.fenrir.data.repository.CentralRepository
 import com.example.nishant.fenrir.data.repository.CentralRepositoryImpl
 import com.example.nishant.fenrir.data.repository.mainapp.EventRepository
 import com.example.nishant.fenrir.data.repository.mainapp.FirestoreEventRepository
+import com.example.nishant.fenrir.data.repository.wallet.StubWalletRepository
+import com.example.nishant.fenrir.data.repository.wallet.WalletRepository
 import com.example.nishant.fenrir.data.room.AppDatabase
 import com.example.nishant.fenrir.data.room.mainapp.EventDao
 import dagger.Module
@@ -15,6 +17,9 @@ import javax.inject.Singleton
 
 @Module
 class AppModule(private val context: Context) {
+
+    @Provides @Singleton
+    fun providesWalletRepository(): WalletRepository = StubWalletRepository()
 
     @Provides @Singleton
     fun providesEventRepository(fsDb: FirestoreEventDatabase, eventDao: EventDao): EventRepository = FirestoreEventRepository(fsDb, eventDao)
