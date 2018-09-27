@@ -31,5 +31,10 @@ class StallsFragment : Fragment(), StallsAdapter.ClickListener {
     }
 
     override fun showItemsForStallWithIdAndName(id: String, name: String) {
+        val bundle = Bundle().also {
+            it.putString("stallId", id)
+            it.putString("stallName", name)
+        }
+        rootPOV.findNavController().navigate(R.id.action_stallsFragment_to_itemsFragment, bundle)
     }
 }

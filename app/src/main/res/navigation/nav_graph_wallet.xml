@@ -17,5 +17,21 @@
         android:id="@+id/stallsFragment"
         android:name="com.example.nishant.fenrir.screens.wallet.stalls.StallsFragment"
         android:label="StallsFragment"
-        tools:layout="@layout/fra_stalls"/>
+        tools:layout="@layout/fra_stalls">
+        <action
+            android:id="@+id/action_stallsFragment_to_itemsFragment"
+            app:destination="@id/itemsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/itemsFragment"
+        android:name="com.example.nishant.fenrir.screens.wallet.items.ItemsFragment"
+        android:label="ItemsFragment"
+        tools:layout="@layout/fra_items">
+        <argument
+            android:name="stallId"
+            app:type="string" />
+        <argument
+            android:name="stallName"
+            app:type="string" />
+    </fragment>
 </navigation>
