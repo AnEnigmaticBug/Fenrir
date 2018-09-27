@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/eventListFragment">
+
+    <fragment
+        android:id="@+id/eventListFragment"
+        android:name="com.example.nishant.fenrir.screens.mainapp.events.eventlist.EventListFragment"
+        android:label="EventListFragment"
+        tools:layout="@layout/fra_event_list">
+        <action
+            android:id="@+id/action_eventListFragment_to_eventInfoFragment"
+            app:destination="@id/eventInfoFragment"
+            app:enterAnim="@anim/an_slide_down"
+            app:exitAnim="@anim/an_stay_and_fade"
+            app:popExitAnim="@anim/an_slide_up" />
+        <action
+            android:id="@+id/action_eventListFragment_to_moreFragment"
+            app:destination="@id/moreFragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@+id/eventListFragment" />
+        <action
+            android:id="@+id/action_eventListFragment_to_walletActivity"
+            app:destination="@id/walletActivity" />
+    </fragment>
+    <fragment
+        android:id="@+id/eventInfoFragment"
+        android:name="com.example.nishant.fenrir.screens.mainapp.events.eventinfo.EventInfoFragment"
+        android:label="EventInfoFragment"
+        tools:layout="@layout/fra_event_info">
+        <argument
+            android:name="eventId"
+            app:type="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/moreFragment"
+        android:name="com.example.nishant.fenrir.screens.mainapp.more.MoreFragment"
+        android:label="MoreFragment"
+        tools:layout="@layout/fra_more" />
+    <activity
+        android:id="@+id/walletActivity"
+        android:name="com.example.nishant.fenrir.screens.wallet.WalletActivity"
+        android:label="WalletActivity" />
+</navigation>

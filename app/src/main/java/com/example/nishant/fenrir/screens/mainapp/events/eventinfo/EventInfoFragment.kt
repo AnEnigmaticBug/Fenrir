@@ -8,23 +8,16 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.example.nishant.fenrir.R
 import com.example.nishant.fenrir.navigation.NavigationHost
 import kotlinx.android.synthetic.main.fra_event_info.view.*
 
 class EventInfoFragment : Fragment() {
 
-    private lateinit var navigationHost: NavigationHost
     private lateinit var viewModel: EventInfoViewModel
     private lateinit var rootPOV: View
-
-    override fun onAttach(context: Context?) {
-        super.onAttach(context)
-        navigationHost = when(context) {
-            is NavigationHost -> context
-            else              -> throw ClassCastException("Not a NavigationHost")
-        }
-    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val id = arguments!!.getString("eventId")
@@ -41,7 +34,7 @@ class EventInfoFragment : Fragment() {
         }
 
         rootPOV.swipeUpIndicatorBTN.setOnClickListener {
-            navigationHost.back()
+            rootPOV.findNavController().popBackStack()
         }
 
         viewModel.rawEvent.observe(this, Observer {

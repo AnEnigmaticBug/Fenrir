@@ -12,44 +12,23 @@ import android.support.v4.content.ContextCompat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import com.aurelhubert.ahbottomnavigation.AHBottomNavigation
-import com.aurelhubert.ahbottomnavigation.AHBottomNavigationAdapter
+import androidx.navigation.findNavController
 import com.example.nishant.fenrir.R
-import com.example.nishant.fenrir.screens.mainapp.events.eventfilter.eventfilterlist.EventFilterListFragment
-import com.example.nishant.fenrir.screens.mainapp.events.eventfilter.eventfilterlist.FilterType
-import com.example.nishant.fenrir.screens.mainapp.events.eventfilter.eventfiltermenu.EventFilterMenuFragment
 import com.example.nishant.fenrir.navigation.*
 import com.example.nishant.fenrir.util.Constants
 import kotlinx.android.synthetic.main.fra_event_list.view.*
 
 class EventListFragment : NavHostFragment(), EventsAdapter.ClickListener {
 
-    private lateinit var navigationHost: NavigationHost
     private lateinit var viewModel: EventListViewModel
     private lateinit var rootPOV: View
 
     override val navViewId = R.id.filterHostFRM
 
-    override fun onAttach(context: Context?) {
-        super.onAttach(context)
-        navigationHost = when(context) {
-            is NavigationHost -> context
-            else              -> throw ClassCastException("Not a NavigationHost")
-        }
-    }
-
-    override fun onResume() {
-        super.onResume()
-        rootPOV.bottomNavAHB.setCurrentItem(1, false)
-    }
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         viewModel = ViewModelProviders.of(this, EventListViewModelFactory())[EventListViewModel::class.java]
 
         rootPOV = inflater.inflate(R.layout.fra_event_list, container, false)
-
-        setupBottomNav()
 
         rootPOV.eventsRCY.adapter = EventsAdapter(this)
 
@@ -128,34 +107,9 @@ class EventListFragment : NavHostFragment(), EventsAdapter.ClickListener {
         rootPOV.dateBarPOV.setBackgroundColor(resources.getColor(resId))
     }
 
-    private fun setupBottomNav() {
-        AHBottomNavigationAdapter(this.requireActivity(), R.menu.mn_bottom_nav).setupWithBottomNavigation(rootPOV.bottomNavAHB)
-        rootPOV.bottomNavAHB.titleState = AHBottomNavigation.TitleState.ALWAYS_SHOW;
-        rootPOV.bottomNavAHB.accentColor = resources.getColor(R.color.vio03)
-        rootPOV.bottomNavAHB.setCurrentItem(1, false)
-
-        // TODO: Add real destinations to the BottomNav.
-        rootPOV.bottomNavAHB.setOnTabSelectedListener { position, wasSelected ->
-            if(wasSelected) {
-                Toast.makeText(requireContext().applicationContext, "Already at the tab", Toast.LENGTH_SHORT).show()
-            }
-            else {
-                when(position) {
-                    0    -> Toast.makeText(requireContext().applicationContext, "Profile", Toast.LENGTH_SHORT).show()
-                    1    -> navigationHost.show(NavigationGraph.MainApp.Events.EVENT_LIST)
-                    2    -> navigationHost.show(NavigationGraph.Wallet.WALLET)
-                    3    -> Toast.makeText(requireContext().applicationContext, "Map", Toast.LENGTH_SHORT).show()
-                    4    -> navigationHost.show(NavigationGraph.MainApp.More.MORE)
-                    else -> throw IllegalStateException("$position th bottom nav tab was selected")
-                }
-            }
-            true
-        }
-    }
-
     override fun showDetailsForEventWithId(id: String) {
         val bundle = Bundle().also { it.putString("eventId", id) }
-        navigationHost.show(NavigationGraph.MainApp.Events.EVENT_INFO, bundle)
+        rootPOV.findNavController().navigate(R.id.action_eventListFragment_to_eventInfoFragment, bundle)
     }
 
     override fun exit() {

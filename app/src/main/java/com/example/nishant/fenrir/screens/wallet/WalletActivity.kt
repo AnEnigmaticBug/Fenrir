@@ -1,29 +1,24 @@
 package com.example.nishant.fenrir.screens.wallet
 
+import android.content.Intent
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import android.widget.Toast
+import androidx.navigation.NavOptions
+import androidx.navigation.findNavController
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationAdapter
 import com.example.nishant.fenrir.R
-import com.example.nishant.fenrir.navigation.NavHostActivity
-import com.example.nishant.fenrir.screens.wallet.profile.ProfileFragment
+import com.example.nishant.fenrir.screens.mainapp.MainAppActivity
 import kotlinx.android.synthetic.main.act_wallet.*
 
-class WalletActivity : NavHostActivity() {
-
-    override val navViewId = R.id.navHostFRM
+class WalletActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.act_wallet)
 
         setupBottomNav()
-
-        if(savedInstanceState == null) {
-            supportFragmentManager.beginTransaction()
-                    .add(navViewId, ProfileFragment())
-                    .commit()
-        }
     }
 
     private fun setupBottomNav() {
@@ -37,10 +32,17 @@ class WalletActivity : NavHostActivity() {
                 Toast.makeText(applicationContext, "Already at the tab", Toast.LENGTH_SHORT).show()
             }
             else {
+                val options = NavOptions.Builder()
+                        .setLaunchSingleTop(true)
+                        .setPopUpTo(R.id.profileFragment, false).build()
                 when(position) {
-                    0    -> Toast.makeText(applicationContext, "Profile", Toast.LENGTH_SHORT).show()
+                    0    -> findNavController(R.id.navHostFRA).navigate(R.id.profileFragment, null, options)
                     1    -> Toast.makeText(applicationContext, "Transfer", Toast.LENGTH_SHORT).show()
-                    2    -> Toast.makeText(applicationContext, "Main App", Toast.LENGTH_SHORT).show()
+                    2    -> {
+                        val intent = Intent(this, MainAppActivity::class.java)
+                        startActivity(intent.also { it.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY) })
+                        finish()
+                    }
                     3    -> Toast.makeText(applicationContext, "Stalls", Toast.LENGTH_SHORT).show()
                     4    -> Toast.makeText(applicationContext, "Cart", Toast.LENGTH_SHORT).show()
                     else -> throw IllegalStateException("$position th bottom nav tab was selected")
