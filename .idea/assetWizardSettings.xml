@@ -23,7 +23,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="jar:file:/home/nishant/Desktop/Setups/Misc/android-studio-preview/android-studio/plugins/android/lib/android.jar!/images/material_design_icons/navigation/ic_chevron_left_black_24dp.xml" />
+                                      <entry key="url" value="jar:file:/home/nishant/Desktop/Setups/Misc/android-studio-preview/android-studio/plugins/android/lib/android.jar!/images/material_design_icons/navigation/ic_arrow_back_black_24dp.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -33,9 +33,11 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="assetSourceType" value="FILE" />
-                            <entry key="outputName" value="ic_transfer_24dp" />
+                            <entry key="height" value="26" />
+                            <entry key="outputName" value="ic_back_26dp" />
+                            <entry key="overrideSize" value="true" />
                             <entry key="sourceFile" value="$USER_HOME$/Downloads/credit-cards-payment.svg" />
+                            <entry key="width" value="26" />
                           </map>
                         </option>
                       </PersistentState>
