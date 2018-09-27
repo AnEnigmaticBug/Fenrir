@@ -12,7 +12,7 @@ import com.aurelhubert.ahbottomnavigation.AHBottomNavigationAdapter
 import com.example.nishant.fenrir.R
 import com.example.nishant.fenrir.navigation.NavigationGraph
 import com.example.nishant.fenrir.navigation.NavigationHost
-import kotlinx.android.synthetic.main.fra_event_list.view.*
+import kotlinx.android.synthetic.main.fra_more.view.*
 
 class MoreFragment : Fragment() {
 
@@ -25,6 +25,11 @@ class MoreFragment : Fragment() {
             is NavigationHost -> context
             else              -> throw ClassCastException("Not a NavigationHost")
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        rootPOV.bottomNavAHB.setCurrentItem(4, false)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -56,7 +61,6 @@ class MoreFragment : Fragment() {
                     4    -> navigationHost.show(NavigationGraph.MainApp.More.MORE)
                     else -> throw IllegalStateException("$position th bottom nav tab was selected")
                 }
-                rootPOV.bottomNavAHB.setCurrentItem(position, false)
             }
             true
         }

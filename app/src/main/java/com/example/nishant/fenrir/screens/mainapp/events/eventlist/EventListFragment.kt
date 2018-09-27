@@ -39,6 +39,11 @@ class EventListFragment : NavHostFragment(), EventsAdapter.ClickListener {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        rootPOV.bottomNavAHB.setCurrentItem(1, false)
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         viewModel = ViewModelProviders.of(this, EventListViewModelFactory())[EventListViewModel::class.java]
 
@@ -143,7 +148,6 @@ class EventListFragment : NavHostFragment(), EventsAdapter.ClickListener {
                     4    -> navigationHost.show(NavigationGraph.MainApp.More.MORE)
                     else -> throw IllegalStateException("$position th bottom nav tab was selected")
                 }
-                rootPOV.bottomNavAHB.setCurrentItem(position, false)
             }
             true
         }
