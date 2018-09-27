@@ -43,7 +43,7 @@ class WalletActivity : AppCompatActivity() {
                         startActivity(intent.also { it.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY) })
                         finish()
                     }
-                    3    -> Toast.makeText(applicationContext, "Stalls", Toast.LENGTH_SHORT).show()
+                    3    -> findNavController(R.id.navHostFRA).navigate(R.id.stallsFragment, null, options)
                     4    -> Toast.makeText(applicationContext, "Cart", Toast.LENGTH_SHORT).show()
                     else -> throw IllegalStateException("$position th bottom nav tab was selected")
                 }

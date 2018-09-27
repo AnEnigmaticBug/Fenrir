@@ -8,6 +8,14 @@
         android:id="@+id/profileFragment"
         android:name="com.example.nishant.fenrir.screens.wallet.profile.ProfileFragment"
         android:label="ProfileFragment"
-        tools:layout="@layout/fra_profile_wallet"/>
-    <action android:id="@+id/action_global_profileFragment" app:destination="@id/profileFragment" />
+        tools:layout="@layout/fra_profile_wallet">
+        <action
+            android:id="@+id/action_profileFragment_to_stallsFragment"
+            app:destination="@id/stallsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/stallsFragment"
+        android:name="com.example.nishant.fenrir.screens.wallet.stalls.StallsFragment"
+        android:label="StallsFragment"
+        tools:layout="@layout/fra_stalls"/>
 </navigation>
