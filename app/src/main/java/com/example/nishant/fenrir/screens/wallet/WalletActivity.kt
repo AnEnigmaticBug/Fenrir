@@ -44,7 +44,7 @@ class WalletActivity : AppCompatActivity() {
                         finish()
                     }
                     3    -> findNavController(R.id.navHostFRA).navigate(R.id.stallsFragment, null, options)
-                    4    -> Toast.makeText(applicationContext, "Cart", Toast.LENGTH_SHORT).show()
+                    4    -> findNavController(R.id.navHostFRA).navigate(R.id.cartFragment, null, options)
                     else -> throw IllegalStateException("$position th bottom nav tab was selected")
                 }
             }

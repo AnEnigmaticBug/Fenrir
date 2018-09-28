@@ -12,6 +12,9 @@
         <action
             android:id="@+id/action_profileFragment_to_stallsFragment"
             app:destination="@id/stallsFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_cartFragment"
+            app:destination="@id/cartFragment" />
     </fragment>
     <fragment
         android:id="@+id/stallsFragment"
@@ -34,4 +37,9 @@
             android:name="stallName"
             app:type="string" />
     </fragment>
+    <fragment
+        android:id="@+id/cartFragment"
+        android:name="com.example.nishant.fenrir.screens.wallet.cart.CartFragment"
+        android:label="CartFragment"
+        tools:layout="@layout/fra_cart" />
 </navigation>
