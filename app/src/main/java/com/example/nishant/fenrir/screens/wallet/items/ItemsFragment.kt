@@ -3,18 +3,21 @@ package com.example.nishant.fenrir.screens.wallet.items
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.findNavController
 import com.example.nishant.fenrir.R
+import com.example.nishant.fenrir.navigation.NavHostFragment
+import com.example.nishant.fenrir.navigation.NavigationGraph
 import kotlinx.android.synthetic.main.fra_items.view.*
 
-class ItemsFragment : Fragment(), ItemsAdapter.ClickListener {
+class ItemsFragment : NavHostFragment(), ItemsAdapter.ClickListener {
 
     private lateinit var viewModel: ItemsViewModel
     private lateinit var rootPOV: View
+
+    override val navViewId = R.id.overlayHostFRM
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val id = arguments!!.getString("stallId")
@@ -24,6 +27,11 @@ class ItemsFragment : Fragment(), ItemsAdapter.ClickListener {
         rootPOV = inflater.inflate(R.layout.fra_items, container, false)
 
         rootPOV.stallNameLBL.text = name
+
+        rootPOV.screenFaderPOV.setOnClickListener {
+            exit()
+            rootPOV.screenFaderPOV.visibility = View.GONE
+        }
 
         rootPOV.backBTN.setOnClickListener {
             rootPOV.findNavController().navigateUp()
@@ -39,6 +47,16 @@ class ItemsFragment : Fragment(), ItemsAdapter.ClickListener {
     }
 
     override fun showOverlayForItemWithId(id: String) {
+        rootPOV.screenFaderPOV.visibility = View.VISIBLE
+        val bundle = Bundle().also {
+            it.putString("stallId", arguments!!.getString("stallId"))
+            it.putString("itemId", id)
+        }
+        show(NavigationGraph.Wallet.Items.ADD_TO_CART, bundle)
+    }
 
+    override fun exit() {
+        super.exit()
+        rootPOV.screenFaderPOV.visibility = View.GONE
     }
 }

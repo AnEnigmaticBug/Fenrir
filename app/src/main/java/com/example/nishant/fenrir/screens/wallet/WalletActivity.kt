@@ -9,6 +9,7 @@ import androidx.navigation.findNavController
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationAdapter
 import com.example.nishant.fenrir.R
+import com.example.nishant.fenrir.navigation.NavHostFragment
 import com.example.nishant.fenrir.screens.mainapp.MainAppActivity
 import kotlinx.android.synthetic.main.act_wallet.*
 
@@ -50,5 +51,13 @@ class WalletActivity : AppCompatActivity() {
             }
             true
         }
+    }
+
+    override fun onBackPressed() {
+        val currentFragment = navHostFRA.childFragmentManager.findFragmentById(R.id.navHostFRA)
+        if(currentFragment is NavHostFragment && currentFragment.back()) {
+            return
+        }
+        super.onBackPressed()
     }
 }

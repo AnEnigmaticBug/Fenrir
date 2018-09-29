@@ -15,4 +15,12 @@ object NavigationGraph {
             }
         }
     }
+
+    object Wallet {
+
+        object Items {
+
+            val ADD_TO_CART = Destination("ADD_TO_CART", R.anim.an_slide_in_up, 0, 0, 0)
+        }
+    }
 }

@@ -7,10 +7,11 @@ import com.example.nishant.fenrir.data.repository.CentralRepository
 import com.example.nishant.fenrir.data.repository.CentralRepositoryImpl
 import com.example.nishant.fenrir.data.repository.mainapp.EventRepository
 import com.example.nishant.fenrir.data.repository.mainapp.FirestoreEventRepository
-import com.example.nishant.fenrir.data.repository.wallet.StubWalletRepository
+import com.example.nishant.fenrir.data.repository.wallet.RoomWalletRepository
 import com.example.nishant.fenrir.data.repository.wallet.WalletRepository
 import com.example.nishant.fenrir.data.room.AppDatabase
 import com.example.nishant.fenrir.data.room.mainapp.EventDao
+import com.example.nishant.fenrir.data.room.wallet.WalletDao
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -19,7 +20,10 @@ import javax.inject.Singleton
 class AppModule(private val context: Context) {
 
     @Provides @Singleton
-    fun providesWalletRepository(): WalletRepository = StubWalletRepository()
+    fun providesWalletRepository(context: Context, walletDao: WalletDao): WalletRepository = RoomWalletRepository(context, walletDao)
+
+    @Provides @Singleton
+    fun providesWalletDao(appDatabase: AppDatabase): WalletDao = appDatabase.walletDao()
 
     @Provides @Singleton
     fun providesEventRepository(fsDb: FirestoreEventDatabase, eventDao: EventDao): EventRepository = FirestoreEventRepository(fsDb, eventDao)
