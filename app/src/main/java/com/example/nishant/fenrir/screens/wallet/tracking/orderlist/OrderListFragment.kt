@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.findNavController
 import com.example.nishant.fenrir.R
 import kotlinx.android.synthetic.main.fra_order_list.view.*
 
@@ -30,5 +31,10 @@ class OrderListFragment : Fragment(), OrdersAdapter.ClickListener {
     }
 
     override fun showTrackedEntriesForOrder(orderId: String, orderNo: String) {
+        val bundle = Bundle().also {
+            it.putString("orderId", orderId)
+            it.putString("orderNo", orderNo)
+        }
+        rootPOV.findNavController().navigate(R.id.action_orderListFragment_to_trackOrderFragment, bundle)
     }
 }

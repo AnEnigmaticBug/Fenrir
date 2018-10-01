@@ -50,5 +50,18 @@
         android:id="@+id/orderListFragment"
         android:name="com.example.nishant.fenrir.screens.wallet.tracking.orderlist.OrderListFragment"
         android:label="OrderListFragment"
-        tools:layout="@layout/fra_order_list" />
+        tools:layout="@layout/fra_order_list" >
+        <action
+            android:id="@+id/action_orderListFragment_to_trackOrderFragment"
+            app:destination="@id/trackOrderFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/trackOrderFragment"
+        android:name="com.example.nishant.fenrir.screens.wallet.tracking.trackorder.TrackOrderFragment"
+        android:label="TrackOrderFragment"
+        tools:layout="@layout/fra_track_order" >
+        <argument
+            android:name="orderId"
+            app:type="string" />
+    </fragment>
 </navigation>
