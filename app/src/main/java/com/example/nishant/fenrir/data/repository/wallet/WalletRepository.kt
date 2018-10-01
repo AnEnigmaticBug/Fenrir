@@ -30,4 +30,6 @@ interface WalletRepository {
     fun orderAllEntriesInCart(): Single<BuyAttemptResult>
 
     fun invalidateEntryWithItemId(itemId: String): Completable
+
+    fun getAllTrackedEntries(): Flowable<List<TrackedEntry>>
 }

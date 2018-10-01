@@ -6,11 +6,17 @@ import com.example.nishant.fenrir.data.room.wallet.RawCartEntry
 import com.example.nishant.fenrir.data.room.wallet.RawStall
 import com.example.nishant.fenrir.data.room.wallet.WalletDao
 import com.example.nishant.fenrir.domain.wallet.*
+import com.example.nishant.fenrir.domain.wallet.BuyAttemptResult
+import com.example.nishant.fenrir.domain.wallet.CartEntry
+import com.example.nishant.fenrir.domain.wallet.Item
+import com.example.nishant.fenrir.domain.wallet.Stall
+import com.example.nishant.fenrir.util.Constants
 import io.reactivex.Completable
 import io.reactivex.Flowable
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import org.threeten.bp.LocalTime
 import java.util.concurrent.TimeUnit
 
 class RoomWalletRepository(private val context: Context, private val walletDao: WalletDao) : WalletRepository {
@@ -132,5 +138,22 @@ class RoomWalletRepository(private val context: Context, private val walletDao: 
                         walletDao.updateCartEntry(it.copy(isValid = false))
                     }
         }
+    }
+
+    override fun getAllTrackedEntries(): Flowable<List<TrackedEntry>> {
+        val items = listOf(
+                Item("31", "Brownie", 50, "07"),
+                Item("40", "Mc Puff", 45, "07")
+        )
+
+        val time1 = LocalTime.of(9,  30)
+        val time2 = LocalTime.of(19, 30)
+
+        return Flowable.just(listOf(
+                TrackedEntry("91", "12", items[0], 3, TrackingStatus.Declined, Constants.festDates[0], time1),
+                TrackedEntry("92", "12", items[1], 2, TrackingStatus.Accepted, Constants.festDates[0], time1),
+                TrackedEntry("93", "17", items[1], 1, TrackingStatus.Declined, Constants.festDates[1], time2),
+                TrackedEntry("94", "21", items[0], 3, TrackingStatus.Accepted, Constants.festDates[2], time1)
+        ))
     }
 }
