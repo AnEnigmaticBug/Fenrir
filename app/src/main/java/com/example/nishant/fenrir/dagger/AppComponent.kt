@@ -9,6 +9,7 @@ import com.example.nishant.fenrir.screens.wallet.items.ItemsViewModelFactory
 import com.example.nishant.fenrir.screens.wallet.items.addtocart.AddToCartViewModelFactory
 import com.example.nishant.fenrir.screens.wallet.stalls.StallsViewModelFactory
 import com.example.nishant.fenrir.screens.wallet.tracking.orderlist.OrderListViewModelFactory
+import com.example.nishant.fenrir.screens.wallet.tracking.trackorder.TrackOrderViewModelFactory
 import dagger.Component
 import javax.inject.Singleton
 
@@ -32,4 +33,6 @@ abstract class AppComponent {
     abstract fun inject(viewModelFactory: CartViewModelFactory)
 
     abstract fun inject(viewModelFactory: OrderListViewModelFactory)
+
+    abstract fun inject(viewModelFactory: TrackOrderViewModelFactory)
 }
