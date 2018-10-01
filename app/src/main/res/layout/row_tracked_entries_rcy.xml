@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="8dp"
+    android:paddingBottom="8dp">
+
+    <TextView
+        android:id="@+id/itemNameLBL"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:fontFamily="@font/ikaros_light"
+        android:includeFontPadding="false"
+        android:textColor="@color/blk01"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Tangy Paneer" />
+
+    <TextView
+        android:id="@+id/stallNameLBL"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="8dp"
+        android:fontFamily="@font/ikaros_light"
+        android:includeFontPadding="false"
+        android:singleLine="true"
+        android:textAlignment="textStart"
+        android:textColor="@color/gry01"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toStartOf="@+id/guideline"
+        app:layout_constraintStart_toStartOf="@+id/itemNameLBL"
+        app:layout_constraintTop_toBottomOf="@+id/itemNameLBL"
+        tools:text="Looters" />
+
+    <TextView
+        android:id="@+id/priceAndQuantityLBL"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/ikaros_light"
+        android:includeFontPadding="false"
+        android:textColor="@color/gry01"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/stallNameLBL"
+        app:layout_constraintStart_toStartOf="@+id/guideline"
+        app:layout_constraintTop_toTopOf="@+id/stallNameLBL"
+        tools:text="INR 72 x2" />
+
+    <View
+        android:id="@+id/separatorPOV"
+        android:layout_width="0dp"
+        android:layout_height="0.5dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="40dp"
+        android:background="@color/gry02"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/priceAndQuantityLBL" />
+
+    <View
+        android:id="@+id/dimLight1POV"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/sh_circle_gry04"
+        app:backgroundTint="@color/red01"
+        app:layout_constraintBottom_toBottomOf="@+id/ambLightPOV"
+        app:layout_constraintEnd_toStartOf="@+id/ambLightPOV"
+        app:layout_constraintTop_toTopOf="@+id/ambLightPOV" />
+
+    <View
+        android:id="@+id/dimLight2POV"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/sh_circle_gry04"
+        app:backgroundTint="@color/red01"
+        app:layout_constraintBottom_toBottomOf="@+id/grnLightPOV"
+        app:layout_constraintEnd_toStartOf="@+id/grnLightPOV"
+        app:layout_constraintTop_toTopOf="@+id/grnLightPOV" />
+
+    <View
+        android:id="@+id/dimLight3POV"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:layout_marginEnd="24dp"
+        android:background="@drawable/sh_circle_gry04"
+        app:backgroundTint="@color/red01"
+        app:layout_constraintBottom_toBottomOf="@+id/itemNameLBL"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/itemNameLBL" />
+
+    <View
+        android:id="@+id/redLightPOV"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/sh_circle_red01"
+        app:backgroundTint="@color/red01"
+        app:layout_constraintBottom_toBottomOf="@+id/ambLightPOV"
+        app:layout_constraintEnd_toStartOf="@+id/ambLightPOV"
+        app:layout_constraintTop_toTopOf="@+id/ambLightPOV" />
+
+    <View
+        android:id="@+id/ambLightPOV"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/sh_circle_yel01"
+        app:backgroundTint="@color/red01"
+        app:layout_constraintBottom_toBottomOf="@+id/grnLightPOV"
+        app:layout_constraintEnd_toStartOf="@+id/grnLightPOV"
+        app:layout_constraintTop_toTopOf="@+id/grnLightPOV" />
+
+    <View
+        android:id="@+id/grnLightPOV"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:layout_marginEnd="24dp"
+        android:background="@drawable/sh_circle_grn01"
+        app:backgroundTint="@color/red01"
+        app:layout_constraintBottom_toBottomOf="@+id/itemNameLBL"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/itemNameLBL" />
+
+    <TextView
+        android:id="@+id/statusLBL"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="4dp"
+        android:fontFamily="@font/ikaros_light"
+        android:textColor="@color/red01"
+        app:layout_constraintBottom_toBottomOf="@+id/priceAndQuantityLBL"
+        app:layout_constraintEnd_toEndOf="@+id/grnLightPOV"
+        app:layout_constraintStart_toStartOf="@+id/redLightPOV"
+        app:layout_constraintTop_toTopOf="@+id/priceAndQuantityLBL"
+        tools:text="Declined" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.4" />
+
+</android.support.constraint.ConstraintLayout>
