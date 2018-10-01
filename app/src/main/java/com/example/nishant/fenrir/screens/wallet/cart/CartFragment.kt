@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.navigation.findNavController
 import com.example.nishant.fenrir.R
 import kotlinx.android.synthetic.main.fra_cart.view.*
 
@@ -25,6 +26,10 @@ class CartFragment : Fragment(), CartEntriesAdapter.ClickListener {
 
         rootPOV.payBTN.setOnClickListener {
             viewModel.onPayButtonClicked()
+        }
+
+        rootPOV.trackBTN.setOnClickListener {
+            rootPOV.findNavController().navigate(R.id.action_cartFragment_to_orderListFragment)
         }
 
         viewModel.rawOrders.observe(this, Observer {

@@ -41,5 +41,14 @@
         android:id="@+id/cartFragment"
         android:name="com.example.nishant.fenrir.screens.wallet.cart.CartFragment"
         android:label="CartFragment"
-        tools:layout="@layout/fra_cart" />
+        tools:layout="@layout/fra_cart" >
+        <action
+            android:id="@+id/action_cartFragment_to_orderListFragment"
+            app:destination="@id/orderListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/orderListFragment"
+        android:name="com.example.nishant.fenrir.screens.wallet.tracking.orderlist.OrderListFragment"
+        android:label="OrderListFragment"
+        tools:layout="@layout/fra_order_list" />
 </navigation>
