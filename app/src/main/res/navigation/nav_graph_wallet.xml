@@ -2,20 +2,24 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools" android:id="@+id/nav_graph_wallet"
-    app:startDestination="@id/profileFragment">
+    app:startDestination="@id/moneyFragment">
 
     <fragment
-        android:id="@+id/profileFragment"
-        android:name="com.example.nishant.fenrir.screens.wallet.profile.ProfileFragment"
-        android:label="ProfileFragment"
-        tools:layout="@layout/fra_profile_wallet">
+        android:id="@+id/moneyFragment"
+        android:name="com.example.nishant.fenrir.screens.wallet.money.MoneyFragment"
+        android:label="MoneyFragment"
+        tools:layout="@layout/fra_money" >
         <action
-            android:id="@+id/action_profileFragment_to_stallsFragment"
+            android:id="@+id/action_moneyFragment_to_stallsFragment"
             app:destination="@id/stallsFragment" />
         <action
-            android:id="@+id/action_profileFragment_to_cartFragment"
+            android:id="@+id/action_moneyFragment_to_cartFragment"
             app:destination="@id/cartFragment" />
+        <action
+            android:id="@+id/action_moneyFragment_to_orderListFragment"
+            app:destination="@id/orderListFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/stallsFragment"
         android:name="com.example.nishant.fenrir.screens.wallet.stalls.StallsFragment"
@@ -41,11 +45,7 @@
         android:id="@+id/cartFragment"
         android:name="com.example.nishant.fenrir.screens.wallet.cart.CartFragment"
         android:label="CartFragment"
-        tools:layout="@layout/fra_cart" >
-        <action
-            android:id="@+id/action_cartFragment_to_orderListFragment"
-            app:destination="@id/orderListFragment" />
-    </fragment>
+        tools:layout="@layout/fra_cart" ></fragment>
     <fragment
         android:id="@+id/orderListFragment"
         android:name="com.example.nishant.fenrir.screens.wallet.tracking.orderlist.OrderListFragment"

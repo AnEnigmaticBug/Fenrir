@@ -35,17 +35,17 @@ class WalletActivity : AppCompatActivity() {
             else {
                 val options = NavOptions.Builder()
                         .setLaunchSingleTop(true)
-                        .setPopUpTo(R.id.profileFragment, false).build()
+                        .setPopUpTo(R.id.moneyFragment, false).build()
                 when(position) {
-                    0    -> findNavController(R.id.navHostFRA).navigate(R.id.profileFragment, null, options)
-                    1    -> Toast.makeText(applicationContext, "Transfer", Toast.LENGTH_SHORT).show()
+                    0    -> findNavController(R.id.navHostFRA).navigate(R.id.moneyFragment, null, options)
+                    1    -> findNavController(R.id.navHostFRA).navigate(R.id.stallsFragment, null, options)
                     2    -> {
                         val intent = Intent(this, MainAppActivity::class.java)
                         startActivity(intent.also { it.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY) })
                         finish()
                     }
-                    3    -> findNavController(R.id.navHostFRA).navigate(R.id.stallsFragment, null, options)
-                    4    -> findNavController(R.id.navHostFRA).navigate(R.id.cartFragment, null, options)
+                    3    -> findNavController(R.id.navHostFRA).navigate(R.id.cartFragment, null, options)
+                    4    -> findNavController(R.id.navHostFRA).navigate(R.id.orderListFragment, null, options)
                     else -> throw IllegalStateException("$position th bottom nav tab was selected")
                 }
             }
