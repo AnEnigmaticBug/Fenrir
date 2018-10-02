@@ -9,11 +9,16 @@ import com.example.nishant.fenrir.data.repository.mainapp.EventRepository
 import com.example.nishant.fenrir.data.repository.mainapp.FirestoreEventRepository
 import com.example.nishant.fenrir.data.repository.wallet.RoomWalletRepository
 import com.example.nishant.fenrir.data.repository.wallet.WalletRepository
+import com.example.nishant.fenrir.data.retrofit.BaseInterceptor
 import com.example.nishant.fenrir.data.room.AppDatabase
 import com.example.nishant.fenrir.data.room.mainapp.EventDao
 import com.example.nishant.fenrir.data.room.wallet.WalletDao
 import dagger.Module
 import dagger.Provides
+import okhttp3.OkHttpClient
+import retrofit2.Retrofit
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
+import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
 @Module
@@ -24,6 +29,14 @@ class AppModule(private val context: Context) {
 
     @Provides @Singleton
     fun providesWalletDao(appDatabase: AppDatabase): WalletDao = appDatabase.walletDao()
+
+    @Provides @Singleton
+    fun providesRetrofit(): Retrofit = Retrofit.Builder()
+            .baseUrl("http://test.bits-oasis.org/")
+            .client(OkHttpClient().newBuilder().addInterceptor(BaseInterceptor()).build())
+            .addConverterFactory(GsonConverterFactory.create())
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .build()
 
     @Provides @Singleton
     fun providesEventRepository(fsDb: FirestoreEventDatabase, eventDao: EventDao): EventRepository = FirestoreEventRepository(fsDb, eventDao)
