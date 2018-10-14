@@ -53,4 +53,19 @@ interface WalletDao {
 
     @Delete
     fun deleteCartEntry(cartEntry: RawCartEntry)
+
+    @Query("SELECT * FROM trackedEntries")
+    fun getAllTrackedEntries(): Flowable<List<RawTrackedEntry>>
+
+    @Query("SELECT * FROM trackedEntries WHERE id = :entryId")
+    fun getTrackedEntryById(entryId: String): Flowable<RawTrackedEntry>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertTrackedEntry(cartEntry: RawTrackedEntry)
+
+    @Update
+    fun updateTrackedEntry(cartEntry: RawTrackedEntry)
+
+    @Delete
+    fun deleteTrackedEntry(cartEntry: RawTrackedEntry)
 }

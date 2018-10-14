@@ -5,12 +5,9 @@ import android.arch.persistence.room.RoomDatabase
 import android.arch.persistence.room.TypeConverters
 import com.example.nishant.fenrir.data.room.mainapp.EventDao
 import com.example.nishant.fenrir.data.room.mainapp.RawEvent
-import com.example.nishant.fenrir.data.room.wallet.RawItem
-import com.example.nishant.fenrir.data.room.wallet.RawCartEntry
-import com.example.nishant.fenrir.data.room.wallet.RawStall
-import com.example.nishant.fenrir.data.room.wallet.WalletDao
+import com.example.nishant.fenrir.data.room.wallet.*
 
-@Database(entities = [RawEvent::class, RawStall::class, RawItem::class, RawCartEntry::class], version = 1)
+@Database(entities = [RawEvent::class, RawStall::class, RawItem::class, RawCartEntry::class, RawTrackedEntry::class], version = 1)
 @TypeConverters(com.example.nishant.fenrir.data.room.TypeConverters::class)
 abstract class AppDatabase : RoomDatabase() {
 
