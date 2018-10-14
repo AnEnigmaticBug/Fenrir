@@ -7,11 +7,12 @@ import com.example.nishant.fenrir.data.repository.CentralRepository
 import com.example.nishant.fenrir.data.repository.CentralRepositoryImpl
 import com.example.nishant.fenrir.data.repository.mainapp.EventRepository
 import com.example.nishant.fenrir.data.repository.mainapp.FirestoreEventRepository
-import com.example.nishant.fenrir.data.repository.wallet.RoomWalletRepository
+import com.example.nishant.fenrir.data.repository.wallet.FinalWalletRepository
 import com.example.nishant.fenrir.data.repository.wallet.WalletRepository
 import com.example.nishant.fenrir.data.retrofit.BaseInterceptor
 import com.example.nishant.fenrir.data.retrofit.NetworkWatcher
 import com.example.nishant.fenrir.data.retrofit.NetworkWatcherImpl
+import com.example.nishant.fenrir.data.retrofit.WalletService
 import com.example.nishant.fenrir.data.room.AppDatabase
 import com.example.nishant.fenrir.data.room.mainapp.EventDao
 import com.example.nishant.fenrir.data.room.wallet.WalletDao
@@ -27,10 +28,13 @@ import javax.inject.Singleton
 class AppModule(private val context: Context) {
 
     @Provides @Singleton
-    fun providesWalletRepository(context: Context, walletDao: WalletDao): WalletRepository = RoomWalletRepository(context, walletDao)
+    fun providesWalletRepository(networkWatcher: NetworkWatcher, centralRepository: CentralRepository, walletService: WalletService, walletDao: WalletDao): WalletRepository = FinalWalletRepository(networkWatcher, centralRepository, walletService, walletDao)
 
     @Provides @Singleton
     fun providesWalletDao(appDatabase: AppDatabase): WalletDao = appDatabase.walletDao()
+
+    @Provides @Singleton
+    fun providesWalletService(retrofit: Retrofit): WalletService = retrofit.create(WalletService::class.java)
 
     @Provides @Singleton
     fun providesRetrofit(): Retrofit = Retrofit.Builder()
