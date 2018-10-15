@@ -3,6 +3,7 @@ package com.example.nishant.fenrir.dagger
 import android.arch.persistence.room.Room
 import android.content.Context
 import com.example.nishant.fenrir.data.firestore.mainapp.FirestoreEventDatabase
+import com.example.nishant.fenrir.data.firestore.wallet.FireTracker
 import com.example.nishant.fenrir.data.repository.CentralRepository
 import com.example.nishant.fenrir.data.repository.CentralRepositoryImpl
 import com.example.nishant.fenrir.data.repository.mainapp.EventRepository
@@ -28,7 +29,7 @@ import javax.inject.Singleton
 class AppModule(private val context: Context) {
 
     @Provides @Singleton
-    fun providesWalletRepository(networkWatcher: NetworkWatcher, centralRepository: CentralRepository, walletService: WalletService, walletDao: WalletDao): WalletRepository = FinalWalletRepository(networkWatcher, centralRepository, walletService, walletDao)
+    fun providesWalletRepository(networkWatcher: NetworkWatcher, centralRepository: CentralRepository, walletService: WalletService, walletDao: WalletDao, fireTracker: FireTracker): WalletRepository = FinalWalletRepository(networkWatcher, centralRepository, walletService, walletDao, fireTracker)
 
     @Provides @Singleton
     fun providesWalletDao(appDatabase: AppDatabase): WalletDao = appDatabase.walletDao()
@@ -43,6 +44,9 @@ class AppModule(private val context: Context) {
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .build()
+
+    @Provides @Singleton
+    fun providesFireTracker(centralRepository: CentralRepository): FireTracker = FireTracker(centralRepository)
 
     @Provides @Singleton
     fun providesNetworkWatcher(context: Context): NetworkWatcher = NetworkWatcherImpl(context)

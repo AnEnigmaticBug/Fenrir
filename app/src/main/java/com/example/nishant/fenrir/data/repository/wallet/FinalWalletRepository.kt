@@ -1,20 +1,17 @@
 package com.example.nishant.fenrir.data.repository.wallet
 
 import android.annotation.SuppressLint
+import com.example.nishant.fenrir.data.firestore.wallet.FireTracker
 import com.example.nishant.fenrir.data.repository.CentralRepository
 import com.example.nishant.fenrir.data.retrofit.NetworkWatcher
 import com.example.nishant.fenrir.data.retrofit.WalletService
-import com.example.nishant.fenrir.data.room.wallet.RawItem
-import com.example.nishant.fenrir.data.room.wallet.RawCartEntry
-import com.example.nishant.fenrir.data.room.wallet.RawStall
-import com.example.nishant.fenrir.data.room.wallet.WalletDao
+import com.example.nishant.fenrir.data.room.wallet.*
 import com.example.nishant.fenrir.domain.UserDetails
 import com.example.nishant.fenrir.domain.wallet.BuyAttemptResult
 import com.example.nishant.fenrir.domain.wallet.CartEntry
 import com.example.nishant.fenrir.domain.wallet.Item
 import com.example.nishant.fenrir.domain.wallet.Stall
 import com.example.nishant.fenrir.domain.wallet.*
-import com.example.nishant.fenrir.util.Constants
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
 import io.reactivex.Completable
@@ -26,10 +23,20 @@ import io.reactivex.schedulers.Schedulers
 import org.json.JSONArray
 import org.json.JSONObject
 import org.threeten.bp.LocalDateTime
-import org.threeten.bp.LocalTime
 import java.util.concurrent.TimeUnit
 
-class FinalWalletRepository(private val networkWatcher: NetworkWatcher, private val cRepo: CentralRepository, private val walletService: WalletService, private val walletDao: WalletDao) : WalletRepository {
+class FinalWalletRepository(private val networkWatcher: NetworkWatcher, private val cRepo: CentralRepository, private val walletService: WalletService, private val walletDao: WalletDao, fireTracker: FireTracker) : WalletRepository {
+
+    init {
+        fireTracker.getTrackedEntries()
+                .subscribeOn(Schedulers.io())
+                .observeOn(Schedulers.io())
+                .subscribe {
+                    it.forEach {
+                        walletDao.insertTrackedEntry(RawTrackedEntry(it.orderId + it.itemId, it.orderId, it.itemId, it.quantity, it.status, it.orderDate, it.orderTime))
+                    }
+                }
+    }
 
     override fun getBalance(): Flowable<Int> {
         return Flowable.just(500)
@@ -81,7 +88,7 @@ class FinalWalletRepository(private val networkWatcher: NetworkWatcher, private 
                     }
                 }
     }
-
+    
     @SuppressLint("CheckResult")
     override fun getAllStalls(): Flowable<List<Stall>> {
         if(networkWatcher.checkIfConnectedToInternet()) {
@@ -259,19 +266,13 @@ class FinalWalletRepository(private val networkWatcher: NetworkWatcher, private 
     }
 
     override fun getAllTrackedEntries(): Flowable<List<TrackedEntry>> {
-        val items = listOf(
-                Item("31", "Brownie", 50, "3"),
-                Item("40", "Mc Puff", 45, "4")
-        )
+        return Flowable.combineLatest(walletDao.getAllTrackedEntries(), walletDao.getAllItems(), BiFunction { t1: List<RawTrackedEntry>, t2: List<RawItem> -> Pair(t1, t2) })
+                .map { pair ->
+                    pair.first.map { rte ->
+                        TrackedEntry(rte.id, rte.orderId, pair.second.first { it.id == rte.itemId }.toItem(), rte.quantity, rte.status, rte.orderDate, rte.orderTime) } }
+    }
 
-        val time1 = LocalTime.of(9,  30)
-        val time2 = LocalTime.of(19, 30)
-
-        return Flowable.just(listOf(
-                TrackedEntry("91", "12", items[0], 3, TrackingStatus.Declined, Constants.festDates[0], time1),
-                TrackedEntry("92", "12", items[1], 2, TrackingStatus.Delivered, Constants.festDates[0], time1),
-                TrackedEntry("93", "17", items[1], 1, TrackingStatus.Declined, Constants.festDates[1], time2),
-                TrackedEntry("94", "21", items[0], 3, TrackingStatus.Accepted, Constants.festDates[2], time1)
-        ))
+    private fun RawItem.toItem(): Item {
+        return Item(id, name, price, stallId)
     }
 }
