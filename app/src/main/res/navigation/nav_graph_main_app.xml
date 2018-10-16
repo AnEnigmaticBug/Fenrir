@@ -24,6 +24,9 @@
         <action
             android:id="@+id/action_eventListFragment_to_walletActivity"
             app:destination="@id/walletActivity" />
+        <action
+            android:id="@+id/action_eventListFragment_to_mapFragment"
+            app:destination="@id/mapFragment" />
     </fragment>
     <fragment
         android:id="@+id/eventInfoFragment"
@@ -34,6 +37,11 @@
             android:name="eventId"
             app:type="string" />
     </fragment>
+    <fragment
+        android:id="@+id/mapFragment"
+        android:name="com.example.nishant.fenrir.screens.mainapp.map.MapFragment"
+        android:label="MapFragment"
+        tools:layout="@layout/fra_map" />
     <fragment
         android:id="@+id/moreFragment"
         android:name="com.example.nishant.fenrir.screens.mainapp.more.MoreFragment"

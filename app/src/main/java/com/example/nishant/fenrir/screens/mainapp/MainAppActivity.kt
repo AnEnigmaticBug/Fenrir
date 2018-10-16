@@ -45,7 +45,7 @@ class MainAppActivity : AppCompatActivity() {
                     0    -> Toast.makeText(applicationContext, "Profile", Toast.LENGTH_SHORT).show()
                     1    -> findNavController(R.id.navHostFRA).navigate(R.id.eventListFragment, null, options)
                     2    -> findNavController(R.id.navHostFRA).navigate(R.id.walletActivity, null, options)
-                    3    -> Toast.makeText(applicationContext, "Maps", Toast.LENGTH_SHORT).show()
+                    3    -> findNavController(R.id.navHostFRA).navigate(R.id.mapFragment, null, options)
                     4    -> findNavController(R.id.navHostFRA).navigate(R.id.moreFragment, null, options)
                     else -> throw IllegalStateException("$position th bottom nav tab was selected")
                 }
