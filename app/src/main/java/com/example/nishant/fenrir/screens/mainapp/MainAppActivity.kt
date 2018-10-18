@@ -42,7 +42,7 @@ class MainAppActivity : AppCompatActivity() {
                         .setLaunchSingleTop(true)
                         .setPopUpTo(R.id.eventListFragment, false).build()
                 when(position) {
-                    0    -> Toast.makeText(applicationContext, "Profile", Toast.LENGTH_SHORT).show()
+                    0    -> findNavController(R.id.navHostFRA).navigate(R.id.outsteeLoginFragment, null, options)
                     1    -> findNavController(R.id.navHostFRA).navigate(R.id.eventListFragment, null, options)
                     2    -> findNavController(R.id.navHostFRA).navigate(R.id.walletActivity, null, options)
                     3    -> findNavController(R.id.navHostFRA).navigate(R.id.mapFragment, null, options)

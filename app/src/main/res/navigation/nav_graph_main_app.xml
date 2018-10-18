@@ -6,6 +6,11 @@
     app:startDestination="@id/eventListFragment">
 
     <fragment
+        android:id="@+id/outsteeLoginFragment"
+        android:name="com.example.nishant.fenrir.screens.mainapp.login.outstee.OutsteeLoginFragment"
+        android:label="OutsteeLoginFragment"
+        tools:layout="@layout/fra_outstee_login" />
+    <fragment
         android:id="@+id/eventListFragment"
         android:name="com.example.nishant.fenrir.screens.mainapp.events.eventlist.EventListFragment"
         android:label="EventListFragment"
@@ -27,6 +32,9 @@
         <action
             android:id="@+id/action_eventListFragment_to_mapFragment"
             app:destination="@id/mapFragment" />
+        <action
+            android:id="@+id/action_eventListFragment_to_outsteeLoginFragment"
+            app:destination="@id/outsteeLoginFragment" />
     </fragment>
     <fragment
         android:id="@+id/eventInfoFragment"
