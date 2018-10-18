@@ -1,5 +1,6 @@
 package com.example.nishant.fenrir.screens.mainapp
 
+import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.widget.Toast
@@ -12,11 +13,14 @@ import kotlinx.android.synthetic.main.act_main.*
 
 class MainAppActivity : AppCompatActivity() {
 
+    private lateinit var viewModel: MainAppViewModel
     private var currentTabIndex = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.act_main)
+
+        viewModel = ViewModelProviders.of(this, MainAppViewModelFactory())[MainAppViewModel::class.java]
 
         setupBottomNav()
     }
@@ -42,9 +46,22 @@ class MainAppActivity : AppCompatActivity() {
                         .setLaunchSingleTop(true)
                         .setPopUpTo(R.id.eventListFragment, false).build()
                 when(position) {
-                    0    -> findNavController(R.id.navHostFRA).navigate(R.id.outsteeLoginFragment, null, options)
+                    0    -> {
+                        when(viewModel.shouldShowLogin.value!!) {
+                            true  -> findNavController(R.id.navHostFRA).navigate(R.id.outsteeLoginFragment, null, options)
+                            false -> findNavController(R.id.navHostFRA).navigate(R.id.profileFragment, null, options)
+                        }
+                    }
                     1    -> findNavController(R.id.navHostFRA).navigate(R.id.eventListFragment, null, options)
-                    2    -> findNavController(R.id.navHostFRA).navigate(R.id.walletActivity, null, options)
+                    2    -> {
+                        when(viewModel.shouldShowLogin.value!!) {
+                            true  -> {
+                                bottomNavAHB.setCurrentItem(0, false)
+                                findNavController(R.id.navHostFRA).navigate(R.id.outsteeLoginFragment, null, options)
+                            }
+                            false -> findNavController(R.id.navHostFRA).navigate(R.id.walletActivity, null, options)
+                        }
+                    }
                     3    -> findNavController(R.id.navHostFRA).navigate(R.id.mapFragment, null, options)
                     4    -> findNavController(R.id.navHostFRA).navigate(R.id.moreFragment, null, options)
                     else -> throw IllegalStateException("$position th bottom nav tab was selected")

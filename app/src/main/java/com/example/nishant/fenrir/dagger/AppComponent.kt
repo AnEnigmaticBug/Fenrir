@@ -1,5 +1,6 @@
 package com.example.nishant.fenrir.dagger
 
+import com.example.nishant.fenrir.screens.mainapp.MainAppViewModelFactory
 import com.example.nishant.fenrir.screens.mainapp.events.eventfilter.eventfilterlist.EventFilterListViewModelFactory
 import com.example.nishant.fenrir.screens.mainapp.events.eventfilter.eventfiltermenu.EventFilterMenuViewModelFactory
 import com.example.nishant.fenrir.screens.mainapp.events.eventinfo.EventInfoViewModelFactory
@@ -17,6 +18,8 @@ import javax.inject.Singleton
 
 @Singleton @Component(modules = [AppModule::class])
 abstract class AppComponent {
+
+    abstract fun inject(viewModelFactory: MainAppViewModelFactory)
 
     abstract fun inject(viewModelFactory: EventListViewModelFactory)
 
