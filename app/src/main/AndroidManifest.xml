@@ -21,7 +21,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".screens.mainapp.MainAppActivity">
+        <activity android:name=".screens.mainapp.MainAppActivity"
+            android:windowSoftInputMode="adjustPan">
         </activity>
         <activity android:name=".screens.wallet.WalletActivity">
         </activity>
