@@ -10,6 +10,8 @@ import com.example.nishant.fenrir.data.repository.mainapp.FirestoreEventReposito
 import com.example.nishant.fenrir.data.repository.wallet.RoomWalletRepository
 import com.example.nishant.fenrir.data.repository.wallet.WalletRepository
 import com.example.nishant.fenrir.data.retrofit.BaseInterceptor
+import com.example.nishant.fenrir.data.retrofit.NetworkWatcher
+import com.example.nishant.fenrir.data.retrofit.NetworkWatcherImpl
 import com.example.nishant.fenrir.data.room.AppDatabase
 import com.example.nishant.fenrir.data.room.mainapp.EventDao
 import com.example.nishant.fenrir.data.room.wallet.WalletDao
@@ -37,6 +39,9 @@ class AppModule(private val context: Context) {
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .build()
+
+    @Provides @Singleton
+    fun providesNetworkWatcher(context: Context): NetworkWatcher = NetworkWatcherImpl(context)
 
     @Provides @Singleton
     fun providesEventRepository(fsDb: FirestoreEventDatabase, eventDao: EventDao): EventRepository = FirestoreEventRepository(fsDb, eventDao)
