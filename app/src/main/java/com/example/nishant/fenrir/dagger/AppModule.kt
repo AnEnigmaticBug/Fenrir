@@ -8,6 +8,8 @@ import com.example.nishant.fenrir.data.repository.CentralRepository
 import com.example.nishant.fenrir.data.repository.CentralRepositoryImpl
 import com.example.nishant.fenrir.data.repository.mainapp.EventRepository
 import com.example.nishant.fenrir.data.repository.mainapp.FirestoreEventRepository
+import com.example.nishant.fenrir.data.repository.mainapp.LoginRepository
+import com.example.nishant.fenrir.data.repository.mainapp.LoginRepositoryImpl
 import com.example.nishant.fenrir.data.repository.wallet.FinalWalletRepository
 import com.example.nishant.fenrir.data.repository.wallet.WalletRepository
 import com.example.nishant.fenrir.data.retrofit.BaseInterceptor
@@ -39,6 +41,9 @@ class AppModule(private val context: Context) {
     fun providesWalletService(retrofit: Retrofit): WalletService = retrofit.create(WalletService::class.java)
 
     @Provides @Singleton
+    fun providesLoginRepository(networkWatcher: NetworkWatcher, centralRepository: CentralRepository, loginService: LoginService): LoginRepository = LoginRepositoryImpl(networkWatcher, centralRepository, loginService)
+
+    @Provides @Singleton
     fun providesLoginService(retrofit: Retrofit): LoginService = retrofit.create(LoginService::class.java)
 
     @Provides @Singleton
@@ -48,7 +53,7 @@ class AppModule(private val context: Context) {
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .build()
-
+    
     @Provides @Singleton
     fun providesFireTracker(centralRepository: CentralRepository): FireTracker = FireTracker(centralRepository)
 
