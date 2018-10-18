@@ -13,6 +13,7 @@ import com.example.nishant.fenrir.data.repository.wallet.WalletRepository
 import com.example.nishant.fenrir.data.retrofit.BaseInterceptor
 import com.example.nishant.fenrir.data.retrofit.NetworkWatcher
 import com.example.nishant.fenrir.data.retrofit.NetworkWatcherImpl
+import com.example.nishant.fenrir.data.retrofit.mainapp.LoginService
 import com.example.nishant.fenrir.data.retrofit.wallet.WalletService
 import com.example.nishant.fenrir.data.room.AppDatabase
 import com.example.nishant.fenrir.data.room.mainapp.EventDao
@@ -36,6 +37,9 @@ class AppModule(private val context: Context) {
 
     @Provides @Singleton
     fun providesWalletService(retrofit: Retrofit): WalletService = retrofit.create(WalletService::class.java)
+
+    @Provides @Singleton
+    fun providesLoginService(retrofit: Retrofit): LoginService = retrofit.create(LoginService::class.java)
 
     @Provides @Singleton
     fun providesRetrofit(): Retrofit = Retrofit.Builder()
