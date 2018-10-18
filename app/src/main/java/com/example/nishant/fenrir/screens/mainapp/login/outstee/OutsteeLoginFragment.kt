@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.navigation.fragment.findNavController
 import com.example.nishant.fenrir.R
 import kotlinx.android.synthetic.main.fra_outstee_login.*
 import kotlinx.android.synthetic.main.fra_outstee_login.view.*
@@ -32,6 +33,7 @@ class OutsteeLoginFragment : Fragment() {
                 is LoginAttemptStatus.Success -> {
                     Toast.makeText(requireContext(), "Success", Toast.LENGTH_SHORT).show()
                     showInProgressStuff(false)
+                    findNavController().navigate(R.id.profileFragment)
                 }
                 is LoginAttemptStatus.Failure -> {
                     rootPOV.messageLBL.text = "Error: ${(it as LoginAttemptStatus.Failure).message}"
