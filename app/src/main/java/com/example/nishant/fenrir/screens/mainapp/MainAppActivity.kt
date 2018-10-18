@@ -27,22 +27,22 @@ class MainAppActivity : AppCompatActivity() {
     private fun setupBottomNav() {
         findNavController(R.id.navHostFRA).addOnNavigatedListener { controller, destination ->
             when(destination.id) {
-                R.id.outsteeLoginFragment, R.id.profileFragment       -> {
+                R.id.generalLoginFragment, R.id.outsteeLoginFragment, R.id.profileFragment       -> {
                     if(bottomNavAHB.currentItem != 0) {
                         bottomNavAHB.setCurrentItem(0, false)
                     }
                 }
-                R.id.eventListFragment, R.id.eventInfoFragment        -> {
+                R.id.eventListFragment, R.id.eventInfoFragment                                   -> {
                     if(bottomNavAHB.currentItem != 1) {
                         bottomNavAHB.setCurrentItem(1, false)
                     }
                 }
-                R.id.mapFragment                                      -> {
+                R.id.mapFragment                                                                 -> {
                     if(bottomNavAHB.currentItem != 3) {
                         bottomNavAHB.setCurrentItem(3, false)
                     }
                 }
-                R.id.moreFragment                                     -> {
+                R.id.moreFragment                                                                -> {
                     if(bottomNavAHB.currentItem != 4) {
                         bottomNavAHB.setCurrentItem(4, false)
                     }
@@ -62,7 +62,7 @@ class MainAppActivity : AppCompatActivity() {
                 when(position) {
                     0    -> {
                         when(viewModel.shouldShowLogin.value!!) {
-                            true  -> findNavController(R.id.navHostFRA).navigate(R.id.outsteeLoginFragment, null, options)
+                            true  -> findNavController(R.id.navHostFRA).navigate(R.id.generalLoginFragment, null, options)
                             false -> findNavController(R.id.navHostFRA).navigate(R.id.profileFragment, null, options)
                         }
                     }
@@ -71,7 +71,7 @@ class MainAppActivity : AppCompatActivity() {
                         when(viewModel.shouldShowLogin.value!!) {
                             true  -> {
                                 bottomNavAHB.setCurrentItem(0, false)
-                                findNavController(R.id.navHostFRA).navigate(R.id.outsteeLoginFragment, null, options)
+                                findNavController(R.id.navHostFRA).navigate(R.id.generalLoginFragment, null, options)
                                 Toast.makeText(this, "You need to log in to use Wallet", Toast.LENGTH_LONG).show()
                                 bottomNavAHB.setCurrentItem(0, true)
                             }

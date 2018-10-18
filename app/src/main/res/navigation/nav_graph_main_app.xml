@@ -38,11 +38,11 @@
             android:id="@+id/action_eventListFragment_to_mapFragment"
             app:destination="@id/mapFragment" />
         <action
-            android:id="@+id/action_eventListFragment_to_outsteeLoginFragment"
-            app:destination="@id/outsteeLoginFragment" />
-        <action
             android:id="@+id/action_eventListFragment_to_profileFragment2"
             app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/action_eventListFragment_to_generalLoginFragment"
+            app:destination="@id/generalLoginFragment" />
     </fragment>
     <fragment
         android:id="@+id/eventInfoFragment"
@@ -67,4 +67,12 @@
         android:id="@+id/walletActivity"
         android:name="com.example.nishant.fenrir.screens.wallet.WalletActivity"
         android:label="WalletActivity" />
+    <fragment
+        android:id="@+id/generalLoginFragment"
+        android:name="com.example.nishant.fenrir.screens.mainapp.login.general.GeneralLoginFragment"
+        android:label="GeneralLoginFragment" >
+        <action
+            android:id="@+id/action_generalLoginFragment_to_outsteeLoginFragment"
+            app:destination="@id/outsteeLoginFragment" />
+    </fragment>
 </navigation>
