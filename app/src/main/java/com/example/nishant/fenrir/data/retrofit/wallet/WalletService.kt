@@ -1,7 +1,6 @@
-package com.example.nishant.fenrir.data.retrofit
+package com.example.nishant.fenrir.data.retrofit.wallet
 
 import com.google.gson.JsonObject
-import com.squareup.okhttp.RequestBody
 import io.reactivex.Single
 import retrofit2.Response
 import retrofit2.http.*

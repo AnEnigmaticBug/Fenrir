@@ -4,7 +4,7 @@ import android.annotation.SuppressLint
 import com.example.nishant.fenrir.data.firestore.wallet.FireTracker
 import com.example.nishant.fenrir.data.repository.CentralRepository
 import com.example.nishant.fenrir.data.retrofit.NetworkWatcher
-import com.example.nishant.fenrir.data.retrofit.WalletService
+import com.example.nishant.fenrir.data.retrofit.wallet.WalletService
 import com.example.nishant.fenrir.data.room.wallet.*
 import com.example.nishant.fenrir.domain.UserDetails
 import com.example.nishant.fenrir.domain.wallet.BuyAttemptResult

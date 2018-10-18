@@ -1,4 +1,4 @@
-package com.example.nishant.fenrir.data.retrofit
+package com.example.nishant.fenrir.data.retrofit.wallet
 
 import com.google.gson.annotations.SerializedName
 
