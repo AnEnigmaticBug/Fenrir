@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.nishant.fenrir.R
@@ -40,6 +41,10 @@ class MoneyFragment : NavHostFragment() {
         rootPOV.receiveMoneyLBL.setOnClickListener {
             rootPOV.screenFaderPOV.visibility = View.VISIBLE
             show(NavigationGraph.Wallet.Money.GET_MONEY, null)
+        }
+
+        rootPOV.sendMoneyLBL.setOnClickListener {
+            findNavController().navigate(R.id.sendMoneyFragment)
         }
 
         rootPOV.screenFaderPOV.setOnClickListener {

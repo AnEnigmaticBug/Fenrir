@@ -363,6 +363,18 @@
                       </LayoutPositions>
                     </value>
                   </entry>
+                  <entry key="sendMoneyFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="295" />
+                            <option name="y" value="-346" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
                   <entry key="stallsFragment">
                     <value>
                       <LayoutPositions>

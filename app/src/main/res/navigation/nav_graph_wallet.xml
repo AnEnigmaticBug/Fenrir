@@ -18,6 +18,9 @@
         <action
             android:id="@+id/action_moneyFragment_to_orderListFragment"
             app:destination="@id/orderListFragment" />
+        <action
+            android:id="@+id/action_moneyFragment_to_sendMoneyFragment"
+            app:destination="@id/sendMoneyFragment" />
     </fragment>
 
     <fragment
@@ -64,4 +67,9 @@
             android:name="orderId"
             app:type="string" />
     </fragment>
+    <fragment
+        android:id="@+id/sendMoneyFragment"
+        android:name="com.example.nishant.fenrir.screens.wallet.money.sendmoney.SendMoneyFragment"
+        android:label="SendMoneyFragment"
+        tools:layout="@layout/fra_send_money" />
 </navigation>

@@ -13,6 +13,7 @@ import io.reactivex.schedulers.Schedulers
 class SendMoneyViewModel(private val wRepo: WalletRepository) : ViewModel() {
 
     val transferStatus: LiveData<TransferMoneyAttemptStatus> = MutableLiveData()
+    var qrCodeContents: String = ""
 
     @SuppressLint("CheckResult")
     fun transferMoney(recipientId: String, amount: Int) {
