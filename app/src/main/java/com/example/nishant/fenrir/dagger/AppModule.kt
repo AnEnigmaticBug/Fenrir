@@ -4,6 +4,7 @@ import android.arch.persistence.room.Room
 import android.content.Context
 import com.example.nishant.fenrir.data.firestore.mainapp.FirestoreEventDatabase
 import com.example.nishant.fenrir.data.firestore.wallet.FireTracker
+import com.example.nishant.fenrir.data.firestore.wallet.FireAccountant
 import com.example.nishant.fenrir.data.repository.CentralRepository
 import com.example.nishant.fenrir.data.repository.CentralRepositoryImpl
 import com.example.nishant.fenrir.data.repository.mainapp.EventRepository
@@ -32,13 +33,16 @@ import javax.inject.Singleton
 class AppModule(private val context: Context) {
 
     @Provides @Singleton
-    fun providesWalletRepository(networkWatcher: NetworkWatcher, centralRepository: CentralRepository, walletService: WalletService, walletDao: WalletDao, fireTracker: FireTracker): WalletRepository = FinalWalletRepository(networkWatcher, centralRepository, walletService, walletDao, fireTracker)
+    fun providesWalletRepository(networkWatcher: NetworkWatcher, centralRepository: CentralRepository, fireAccountant: FireAccountant, walletService: WalletService, walletDao: WalletDao, fireTracker: FireTracker): WalletRepository = FinalWalletRepository(networkWatcher, centralRepository, fireAccountant, walletService, walletDao, fireTracker)
 
     @Provides @Singleton
     fun providesWalletDao(appDatabase: AppDatabase): WalletDao = appDatabase.walletDao()
 
     @Provides @Singleton
     fun providesWalletService(retrofit: Retrofit): WalletService = retrofit.create(WalletService::class.java)
+
+    @Provides @Singleton
+    fun providesFireAccountant(centralRepository: CentralRepository): FireAccountant = FireAccountant(centralRepository)
 
     @Provides @Singleton
     fun providesLoginRepository(networkWatcher: NetworkWatcher, centralRepository: CentralRepository, loginService: LoginService): LoginRepository = LoginRepositoryImpl(networkWatcher, centralRepository, loginService)
@@ -53,7 +57,7 @@ class AppModule(private val context: Context) {
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .build()
-    
+
     @Provides @Singleton
     fun providesFireTracker(centralRepository: CentralRepository): FireTracker = FireTracker(centralRepository)
 

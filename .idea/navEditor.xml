@@ -332,6 +332,11 @@
                                 <LayoutPositions />
                               </value>
                             </entry>
+                            <entry key="action_moneyFragment_to_sendMoneyFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
                             <entry key="action_moneyFragment_to_stallsFragment">
                               <value>
                                 <LayoutPositions />

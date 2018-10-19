@@ -1,6 +1,7 @@
 package com.example.nishant.fenrir.data.repository.wallet
 
 import android.annotation.SuppressLint
+import com.example.nishant.fenrir.data.firestore.wallet.FireAccountant
 import com.example.nishant.fenrir.data.firestore.wallet.FireTracker
 import com.example.nishant.fenrir.data.repository.CentralRepository
 import com.example.nishant.fenrir.data.retrofit.NetworkWatcher
@@ -25,7 +26,7 @@ import org.json.JSONObject
 import org.threeten.bp.LocalDateTime
 import java.util.concurrent.TimeUnit
 
-class FinalWalletRepository(private val networkWatcher: NetworkWatcher, private val cRepo: CentralRepository, private val walletService: WalletService, private val walletDao: WalletDao, fireTracker: FireTracker) : WalletRepository {
+class FinalWalletRepository(private val networkWatcher: NetworkWatcher, private val cRepo: CentralRepository, private val fireAccountant: FireAccountant, private val walletService: WalletService, private val walletDao: WalletDao, fireTracker: FireTracker) : WalletRepository {
 
     init {
         fireTracker.getTrackedEntries()
@@ -39,7 +40,7 @@ class FinalWalletRepository(private val networkWatcher: NetworkWatcher, private 
     }
 
     override fun getBalance(): Flowable<Int> {
-        return Flowable.just(500)
+        return fireAccountant.getBalance()
     }
 
     override fun addMoney(amount: Int): Single<AddMoneyAttemptResult> {
@@ -88,7 +89,7 @@ class FinalWalletRepository(private val networkWatcher: NetworkWatcher, private 
                     }
                 }
     }
-    
+
     @SuppressLint("CheckResult")
     override fun getAllStalls(): Flowable<List<Stall>> {
         if(networkWatcher.checkIfConnectedToInternet()) {
