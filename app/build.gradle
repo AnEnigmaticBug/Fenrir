@@ -84,6 +84,8 @@ dependencies {
     // Do not upgrade. Will cause conflicts.
     implementation 'com.google.android.gms:play-services-maps:15.0.1'
 
+    implementation 'com.google.android.gms:play-services-auth:15.0.1'
+
     def glide_version = "4.8.0"
     implementation "com.github.bumptech.glide:glide:$glide_version"
     kapt "com.github.bumptech.glide:compiler:$glide_version"
