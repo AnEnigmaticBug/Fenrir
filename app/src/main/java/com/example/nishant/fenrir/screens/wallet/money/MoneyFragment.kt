@@ -37,6 +37,11 @@ class MoneyFragment : NavHostFragment() {
             Toast.makeText(requireContext(), "Only BITSians can add money through the app", Toast.LENGTH_SHORT).show()
         }
 
+        rootPOV.receiveMoneyLBL.setOnClickListener {
+            rootPOV.screenFaderPOV.visibility = View.VISIBLE
+            show(NavigationGraph.Wallet.Money.GET_MONEY, null)
+        }
+
         rootPOV.screenFaderPOV.setOnClickListener {
             rootPOV.screenFaderPOV.visibility = View.GONE
             exit()

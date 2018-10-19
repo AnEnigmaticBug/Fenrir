@@ -13,6 +13,7 @@ import com.example.nishant.fenrir.screens.wallet.items.ItemsViewModelFactory
 import com.example.nishant.fenrir.screens.wallet.items.addtocart.AddToCartViewModelFactory
 import com.example.nishant.fenrir.screens.wallet.money.MoneyViewModelFactory
 import com.example.nishant.fenrir.screens.wallet.money.addmoney.AddMoneyViewModelFactory
+import com.example.nishant.fenrir.screens.wallet.money.getmoney.GetMoneyViewModelFactory
 import com.example.nishant.fenrir.screens.wallet.stalls.StallsViewModelFactory
 import com.example.nishant.fenrir.screens.wallet.tracking.orderlist.OrderListViewModelFactory
 import com.example.nishant.fenrir.screens.wallet.tracking.trackorder.TrackOrderViewModelFactory
@@ -41,6 +42,8 @@ abstract class AppComponent {
     abstract fun inject(viewModelFactory: MoneyViewModelFactory)
 
     abstract fun inject(viewModelFactory: AddMoneyViewModelFactory)
+
+    abstract fun inject(viewModelFactory: GetMoneyViewModelFactory)
 
     abstract fun inject(viewModelFactory: StallsViewModelFactory)
 

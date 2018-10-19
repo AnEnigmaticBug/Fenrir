@@ -21,6 +21,7 @@ object NavigationGraph {
         object Money {
 
             val ADD_MONEY = Destination("ADD_MONEY", R.anim.an_slide_in_up, 0, 0, 0)
+            val GET_MONEY = Destination("GET_MONEY", R.anim.an_slide_in_up, 0, 0, 0)
         }
 
         object Items {
