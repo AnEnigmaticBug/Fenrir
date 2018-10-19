@@ -18,6 +18,11 @@ object NavigationGraph {
 
     object Wallet {
 
+        object Money {
+
+            val ADD_MONEY = Destination("ADD_MONEY", R.anim.an_slide_in_up, 0, 0, 0)
+        }
+
         object Items {
 
             val ADD_TO_CART = Destination("ADD_TO_CART", R.anim.an_slide_in_up, 0, 0, 0)
