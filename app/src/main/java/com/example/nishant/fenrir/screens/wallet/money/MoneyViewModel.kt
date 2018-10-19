@@ -13,13 +13,16 @@ class MoneyViewModel(cRepo: CentralRepository, wRepo: WalletRepository) : ViewMo
 
     val userDetails: LiveData<RawUserDetails> = MutableLiveData()
     val balance: LiveData<String> = MutableLiveData()
+    val isBITSian: LiveData<Boolean> = MutableLiveData()
 
     private val d1 = CompositeDisposable()
 
     init {
+        isBITSian.toMut().value = false
         cRepo.getUserDetails()
                 .subscribe {
                     userDetails.toMut().value = RawUserDetails("ID: ${it.id}", it.name, it.profilePicURL)
+                    isBITSian.toMut().value = it.isBITSian
                 }
         d1.set(wRepo.getBalance()
                 .subscribe {

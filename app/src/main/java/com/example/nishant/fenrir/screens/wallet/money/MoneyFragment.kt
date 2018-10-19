@@ -9,6 +9,7 @@ import android.support.v4.content.ContextCompat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.nishant.fenrir.R
@@ -29,8 +30,11 @@ class MoneyFragment : NavHostFragment() {
         rootPOV = inflater.inflate(R.layout.fra_money, container, false)
 
         rootPOV.addMoneyLBL.setOnClickListener {
-            rootPOV.screenFaderPOV.visibility = View.VISIBLE
-            show(NavigationGraph.Wallet.Money.ADD_MONEY, null)
+            if(viewModel.isBITSian.value!!) {
+                rootPOV.screenFaderPOV.visibility = View.VISIBLE
+                show(NavigationGraph.Wallet.Money.ADD_MONEY, null)
+            }
+            Toast.makeText(requireContext(), "Only BITSians can add money through the app", Toast.LENGTH_SHORT).show()
         }
 
         rootPOV.screenFaderPOV.setOnClickListener {
