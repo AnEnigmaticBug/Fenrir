@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/stallNameLBL"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="8dp"
+        android:fontFamily="@font/ikaros_regular"
+        android:includeFontPadding="false"
+        android:textColor="@color/blk01"
+        android:textSize="28sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Goosebumps" />
+
+    <TextView
+        android:id="@+id/otpLBL"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:fontFamily="@font/ikaros_regular"
+        android:includeFontPadding="false"
+        android:textColor="@color/blk01"
+        android:textSize="24sp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/stallNameLBL"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/stallNameLBL"
+        tools:text="OTP: 4248" />
+
+    <TextView
+        android:id="@+id/showOtpBTN"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/sh_capsule"
+        android:fontFamily="@font/ikaros_regular"
+        android:includeFontPadding="false"
+        android:paddingStart="16dp"
+        android:paddingTop="8dp"
+        android:paddingEnd="16dp"
+        android:paddingBottom="4dp"
+        android:text="OTP"
+        android:textAlignment="center"
+        android:textAllCaps="true"
+        android:textColor="@color/wht01"
+        android:textSize="24sp"
+        android:visibility="visible"
+        app:backgroundTint="@color/vio04"
+        app:layout_constraintBottom_toBottomOf="@+id/stallNameLBL"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/stallNameLBL" />
+</android.support.constraint.ConstraintLayout>

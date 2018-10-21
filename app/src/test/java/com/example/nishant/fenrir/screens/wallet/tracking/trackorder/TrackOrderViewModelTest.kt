@@ -43,14 +43,15 @@ class TrackOrderViewModelTest {
             Mockito.`when`(it.getAllStalls())
                     .thenReturn(Flowable.just(listOf(
                             Stall("S1", "Mc Donalds", "Lite"),
-                            Stall("S2", "Goosebumps", "Lite")
+                            Stall("S2", "Goosebumps", "Lite"),
+                            Stall("S3", "Looters", "Lite")
                     )))
             Mockito.`when`(it.getAllTrackedEntries())
                     .thenReturn(Flowable.just(listOf(
-                            TrackedEntry("T1", "O1", items[3], 2, TrackingStatus.Declined, date1, time1),
-                            TrackedEntry("T2", "O2", items[0], 3, TrackingStatus.Accepted, date2, time2),
-                            TrackedEntry("T3", "O2", items[1], 1, TrackingStatus.Accepted, date2, time2),
-                            TrackedEntry("T4", "O2", items[2], 2, TrackingStatus.Declined, date2, time2)
+                            TrackedEntry("T1", "O1", items[3], 2, TrackingStatus.Declined, 3454, false, date1, time1),
+                            TrackedEntry("T2", "O2", items[0], 3, TrackingStatus.Ready, 3962, false, date2, time2),
+                            TrackedEntry("T3", "O2", items[1], 1, TrackingStatus.Ready, 6811, true, date2, time2),
+                            TrackedEntry("T4", "O2", items[2], 2, TrackingStatus.Declined, 1742, true, date2, time2)
                     )))
         }
 
@@ -59,10 +60,12 @@ class TrackOrderViewModelTest {
 
     @Test
     fun test_TrackedOrders() {
-        val expected = listOf(
-                RawTrackedEntry("T2", "Mc Veggie", "Mc Donalds", "INR 45 x3", TrackingStatus.Accepted),
-                RawTrackedEntry("T3", "French Fries", "Mc Donalds", "INR 30 x1", TrackingStatus.Accepted),
-                RawTrackedEntry("T4", "Brownie", "Goosebumps", "INR 80 x2", TrackingStatus.Declined)
+        val expected = arrayListOf(
+                TrackingScreenRow.Stall("T2", "Mc Donalds", 3962, false),
+                TrackingScreenRow.Entry("T2", "Mc Veggie", "INR 45x3", TrackingStatus.Accepted),
+                TrackingScreenRow.Entry("T3", "French Fries", "INR 30x1", TrackingStatus.Accepted),
+                TrackingScreenRow.Stall("T4", "Goosebumps", null, true),
+                TrackingScreenRow.Entry("T4", "Brownie", "INR 80x2", TrackingStatus.Declined)
         )
         assertEquals(expected, viewModel.trackedEntries.value)
     }

@@ -33,8 +33,33 @@ class FinalWalletRepository(private val networkWatcher: NetworkWatcher, private 
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.io())
                 .subscribe {
-                    it.forEach {
-                        walletDao.insertTrackedEntry(RawTrackedEntry(it.orderId + it.itemId, it.orderId, it.itemId, it.quantity, it.status, it.orderDate, it.orderTime))
+                    it.forEach { new ->
+                        val id = new.orderId + new.itemId
+                        if(walletDao.trackedEntryExists(id)) {
+                            getAllTrackedEntries()
+                                    .take(1)
+                                    .subscribe {
+                                        val old = it.first { it.id == id }
+                                        walletDao.updateTrackedEntry(
+                                                RawTrackedEntry(
+                                                        id,
+                                                        new.orderId,
+                                                        new.itemId,
+                                                        new.quantity,
+                                                        new.status,
+                                                        new.otp,
+                                                        old.otpShown,
+                                                        new.orderDate,
+                                                        new.orderTime
+                                                )
+                                        )
+                                    }
+                        }
+                        else {
+                            walletDao.insertTrackedEntry(
+                                    RawTrackedEntry(new.orderId + new.itemId, new.orderId, new.itemId, new.quantity, new.status, new.otp, false, new.orderDate, new.orderTime)
+                            )
+                        }
                     }
                 }
     }
@@ -270,10 +295,45 @@ class FinalWalletRepository(private val networkWatcher: NetworkWatcher, private 
         return Flowable.combineLatest(walletDao.getAllTrackedEntries(), walletDao.getAllItems(), BiFunction { t1: List<RawTrackedEntry>, t2: List<RawItem> -> Pair(t1, t2) })
                 .map { pair ->
                     pair.first.map { rte ->
-                        TrackedEntry(rte.id, rte.orderId, pair.second.first { it.id == rte.itemId }.toItem(), rte.quantity, rte.status, rte.orderDate, rte.orderTime) } }
+                        TrackedEntry(rte.id, rte.orderId, pair.second.first { it.id == rte.itemId }.toItem(), rte.quantity, rte.status, rte.otp, rte.otpShown, rte.orderDate, rte.orderTime) } }
+    }
+
+    override fun getTrackedEntryById(id: String): Flowable<TrackedEntry> {
+        return getAllTrackedEntries()
+                .flatMap { Flowable.fromIterable(it) }
+                .filter { it.id == id }
     }
 
     private fun RawItem.toItem(): Item {
         return Item(id, name, price, stallId)
+    }
+
+    override fun notifyOTPShown(entryId: String): Single<NotifyOTPResult> {
+        if(!networkWatcher.checkIfConnectedToInternet()) {
+            return Single.just(NotifyOTPResult.Failure.NoInternet)
+        }
+        return cRepo.getUserDetails()
+                .subscribeOn(Schedulers.io())
+                .toSingle()
+                .zipWith(getTrackedEntryById(entryId).firstOrError(), BiFunction { t1: UserDetails, t2: TrackedEntry -> Pair(t1, t2) })
+                .flatMap { pair ->
+                    val requestBody = JsonObject().also {
+                        it.addProperty("stall_id", pair.second.item.stallId.toInt())
+                        it.addProperty("order_id", pair.second.orderId.toInt())
+                    }
+                    walletService.notifyOTPUsage(pair.first.jwtToken, requestBody)
+                }
+                .flatMap {
+                    when(it.isSuccessful) {
+                        true  -> {
+                            walletDao.getTrackedEntryById(entryId)
+                                    .subscribe {
+                                        walletDao.updateTrackedEntry(it.copy(otpShown = true))
+                                    }
+                            Single.just(NotifyOTPResult.Success)
+                        }
+                        false -> Single.just(NotifyOTPResult.Failure.ServerBusy)
+                    }
+                }
     }
 }

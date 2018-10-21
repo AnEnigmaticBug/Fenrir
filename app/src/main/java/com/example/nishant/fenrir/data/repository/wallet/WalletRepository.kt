@@ -32,4 +32,8 @@ interface WalletRepository {
     fun invalidateEntryWithItemId(itemId: String): Completable
 
     fun getAllTrackedEntries(): Flowable<List<TrackedEntry>>
+
+    fun getTrackedEntryById(id: String): Flowable<TrackedEntry>
+
+    fun notifyOTPShown(entryId: String): Single<NotifyOTPResult>
 }

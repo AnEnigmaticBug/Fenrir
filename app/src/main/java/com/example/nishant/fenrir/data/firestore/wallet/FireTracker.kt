@@ -48,6 +48,7 @@ class FireTracker(cRepo: CentralRepository) {
                     get("stall_id").toString(),
                     it["qty"]!!.toString().toInt(),
                     TrackingStatus.valueOf(getString("status")!!),
+                    getLong("otp")!!.toInt(),
                     datetime.toLocalDate(),
                     datetime.toLocalTime()
             ))

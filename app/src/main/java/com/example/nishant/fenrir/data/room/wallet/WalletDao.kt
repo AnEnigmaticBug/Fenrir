@@ -68,4 +68,7 @@ interface WalletDao {
 
     @Delete
     fun deleteTrackedEntry(cartEntry: RawTrackedEntry)
+
+    @Query("SELECT COUNT(id) FROM trackedEntries WHERE id = :id")
+    fun trackedEntryExists(id: String): Boolean
 }

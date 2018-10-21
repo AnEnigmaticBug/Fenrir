@@ -7,11 +7,12 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.navigation.findNavController
 import com.example.nishant.fenrir.R
 import kotlinx.android.synthetic.main.fra_track_order.view.*
 
-class TrackOrderFragment : Fragment() {
+class TrackOrderFragment : Fragment(), TrackedEntriesAdapter.ClickListener {
 
     private lateinit var viewModel: TrackOrderViewModel
     private lateinit var rootPOV: View
@@ -30,12 +31,43 @@ class TrackOrderFragment : Fragment() {
 
         rootPOV.orderNumberLBL.text = "Order Number $orderNo"
 
-        rootPOV.trackedEntriesRCY.adapter = TrackedEntriesAdapter()
+        rootPOV.trackedEntriesRCY.adapter = TrackedEntriesAdapter(this)
 
         viewModel.trackedEntries.observe(this, Observer {
             (rootPOV.trackedEntriesRCY.adapter as TrackedEntriesAdapter).trackedEntries = it?: listOf()
         })
 
+        viewModel.status.observe(this, Observer {
+            when(it!!) {
+                is NotifyOTPStatus.Idle       -> {
+                    showInProgressStuff(false)
+                }
+                is NotifyOTPStatus.InProgress -> {
+                    showInProgressStuff(true)
+                }
+                is NotifyOTPStatus.Success    -> {
+                    showInProgressStuff(false)
+                }
+                is NotifyOTPStatus.Failure    -> {
+                    showInProgressStuff(false)
+                    Toast.makeText(requireContext(), (it as NotifyOTPStatus.Failure).message, Toast.LENGTH_SHORT).show()
+                }
+            }
+        })
+
         return rootPOV
+    }
+
+    private fun showInProgressStuff(show: Boolean) {
+        val visibility = when(show) {
+            true  -> View.VISIBLE
+            false -> View.GONE
+        }
+        rootPOV.screenFaderPOV.visibility = visibility
+        rootPOV.inProgressLOT.visibility = visibility
+    }
+
+    override fun onOtpShown(id: String) {
+        viewModel.notifyOTPShown(id)
     }
 }

@@ -36,10 +36,10 @@ class OrderListViewModelTest {
         val wRepo = Mockito.mock(WalletRepository::class.java).also {
             Mockito.`when`(it.getAllTrackedEntries())
                     .thenReturn(Flowable.just(listOf(
-                            TrackedEntry("91", "12", items[0], 3, TrackingStatus.Declined, Constants.festDates[0], time1),
-                            TrackedEntry("92", "12", items[1], 2, TrackingStatus.Accepted, Constants.festDates[0], time1),
-                            TrackedEntry("93", "17", items[1], 1, TrackingStatus.Declined, Constants.festDates[1], time2),
-                            TrackedEntry("94", "21", items[0], 3, TrackingStatus.Accepted, Constants.festDates[2], time1)
+                            TrackedEntry("91", "12", items[0], 3, TrackingStatus.Declined, 4515, false, Constants.festDates[0], time1),
+                            TrackedEntry("92", "12", items[1], 2, TrackingStatus.Accepted, 9841, true, Constants.festDates[0], time1),
+                            TrackedEntry("93", "17", items[1], 1, TrackingStatus.Declined, 8221, false, Constants.festDates[1], time2),
+                            TrackedEntry("94", "21", items[0], 3, TrackingStatus.Accepted, 6666, true, Constants.festDates[2], time1)
                     )))
         }
 
