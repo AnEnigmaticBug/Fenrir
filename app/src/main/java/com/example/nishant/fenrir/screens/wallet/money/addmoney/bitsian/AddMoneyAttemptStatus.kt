@@ -1,4 +1,4 @@
-package com.example.nishant.fenrir.screens.wallet.money.addmoney
+package com.example.nishant.fenrir.screens.wallet.money.addmoney.bitsian
 
 sealed class AddMoneyAttemptStatus {
 

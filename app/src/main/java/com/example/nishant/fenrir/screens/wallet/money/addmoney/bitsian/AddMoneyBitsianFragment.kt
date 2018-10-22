@@ -1,4 +1,4 @@
-package com.example.nishant.fenrir.screens.wallet.money.addmoney
+package com.example.nishant.fenrir.screens.wallet.money.addmoney.bitsian
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
@@ -10,20 +10,20 @@ import android.view.ViewGroup
 import android.widget.Toast
 import com.example.nishant.fenrir.R
 import com.example.nishant.fenrir.navigation.NavigationHost
-import kotlinx.android.synthetic.main.fra_add_money.view.*
+import kotlinx.android.synthetic.main.fra_add_money_bitsian.view.*
 
-class AddMoneyFragment : Fragment() {
+class AddMoneyBitsianFragment : Fragment() {
 
     private lateinit var navigationHost: NavigationHost
-    private lateinit var viewModel: AddMoneyViewModel
+    private lateinit var viewModel: AddMoneyBitsianViewModel
     private lateinit var rootPOV: View
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         navigationHost = parentFragment as NavigationHost
 
-        viewModel = ViewModelProviders.of(this, AddMoneyViewModelFactory())[AddMoneyViewModel::class.java]
+        viewModel = ViewModelProviders.of(this, AddMoneyBitsianViewModelFactory())[AddMoneyBitsianViewModel::class.java]
 
-        rootPOV = inflater.inflate(R.layout.fra_add_money, container, false)
+        rootPOV = inflater.inflate(R.layout.fra_add_money_bitsian, container, false)
 
         rootPOV.addMoneyBTN.setOnClickListener {
             viewModel.addMoney(rootPOV.quantityTXT.text.toString().toInt())

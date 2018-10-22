@@ -5,7 +5,8 @@ import android.support.v4.app.Fragment
 import com.example.nishant.fenrir.screens.mainapp.events.eventfilter.eventfilterlist.EventFilterListFragment
 import com.example.nishant.fenrir.screens.mainapp.events.eventfilter.eventfiltermenu.EventFilterMenuFragment
 import com.example.nishant.fenrir.screens.wallet.items.addtocart.AddToCartFragment
-import com.example.nishant.fenrir.screens.wallet.money.addmoney.AddMoneyFragment
+import com.example.nishant.fenrir.screens.wallet.money.addmoney.bitsian.AddMoneyBitsianFragment
+import com.example.nishant.fenrir.screens.wallet.money.addmoney.outstee.AddMoneyOutsteeFragment
 import com.example.nishant.fenrir.screens.wallet.money.getmoney.GetMoneyFragment
 
 abstract class NavHostFragment : Fragment(), NavigationHost {
@@ -17,7 +18,8 @@ abstract class NavHostFragment : Fragment(), NavigationHost {
             NavigationGraph.MainApp.Events.EventFilter.FILTER_MENU -> EventFilterMenuFragment().withBundle(bundle)
             NavigationGraph.MainApp.Events.EventFilter.FILTER_LIST -> EventFilterListFragment().withBundle(bundle)
             NavigationGraph.Wallet.Items.ADD_TO_CART               -> AddToCartFragment().withBundle(bundle)
-            NavigationGraph.Wallet.Money.ADD_MONEY                 -> AddMoneyFragment().withBundle(bundle)
+            NavigationGraph.Wallet.Money.ADD_MONEY_BITSIAN         -> AddMoneyBitsianFragment().withBundle(bundle)
+            NavigationGraph.Wallet.Money.ADD_MONEY_OUTSTEE         -> AddMoneyOutsteeFragment().withBundle(bundle)
             NavigationGraph.Wallet.Money.GET_MONEY                 -> GetMoneyFragment().withBundle(bundle)
             else                                                   -> throw IllegalArgumentException("Can't navigate to ${destination.name}")
         }

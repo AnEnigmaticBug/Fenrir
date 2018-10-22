@@ -2,9 +2,7 @@ package com.example.nishant.fenrir.screens.wallet.money
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
-import android.opengl.Visibility
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
 import android.view.LayoutInflater
 import android.view.View
@@ -31,11 +29,13 @@ class MoneyFragment : NavHostFragment() {
         rootPOV = inflater.inflate(R.layout.fra_money, container, false)
 
         rootPOV.addMoneyLBL.setOnClickListener {
+            rootPOV.screenFaderPOV.visibility = View.VISIBLE
             if(viewModel.isBITSian.value!!) {
-                rootPOV.screenFaderPOV.visibility = View.VISIBLE
-                show(NavigationGraph.Wallet.Money.ADD_MONEY, null)
+                show(NavigationGraph.Wallet.Money.ADD_MONEY_BITSIAN, null)
             }
-            Toast.makeText(requireContext(), "Only BITSians can add money through the app", Toast.LENGTH_SHORT).show()
+            else {
+                show(NavigationGraph.Wallet.Money.ADD_MONEY_OUTSTEE, null)
+            }
         }
 
         rootPOV.receiveMoneyLBL.setOnClickListener {

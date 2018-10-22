@@ -20,7 +20,8 @@ object NavigationGraph {
 
         object Money {
 
-            val ADD_MONEY = Destination("ADD_MONEY", R.anim.an_slide_in_up, 0, 0, 0)
+            val ADD_MONEY_BITSIAN = Destination("ADD_MONEY_BITSIAN", R.anim.an_slide_in_up, 0, 0, 0)
+            val ADD_MONEY_OUTSTEE = Destination("ADD_MONEY_OUTSTEE", R.anim.an_slide_in_up, 0, 0, 0)
             val GET_MONEY = Destination("GET_MONEY", R.anim.an_slide_in_up, 0, 0, 0)
         }
 

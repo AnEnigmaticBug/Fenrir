@@ -1,4 +1,4 @@
-package com.example.nishant.fenrir.screens.wallet.money.addmoney
+package com.example.nishant.fenrir.screens.wallet.money.addmoney.bitsian
 
 import android.annotation.SuppressLint
 import android.arch.lifecycle.LiveData
@@ -10,7 +10,7 @@ import com.example.nishant.fenrir.util.toMut
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
-class AddMoneyViewModel(private val wRepo: WalletRepository) : ViewModel() {
+class AddMoneyBitsianViewModel(private val wRepo: WalletRepository) : ViewModel() {
 
     val addMoneyStatus: LiveData<AddMoneyAttemptStatus> = MutableLiveData()
 
