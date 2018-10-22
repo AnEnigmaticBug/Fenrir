@@ -6,6 +6,11 @@ object NavigationGraph {
 
     object MainApp {
 
+        object Profile {
+
+            val SIGNED_EVENT_LIST = Destination("SIGNED_EVENT_LIST", R.anim.an_slide_in_up, 0, 0, 0)
+        }
+
         object Events {
 
             object EventFilter {

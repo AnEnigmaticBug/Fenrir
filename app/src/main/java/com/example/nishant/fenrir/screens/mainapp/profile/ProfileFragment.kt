@@ -12,6 +12,8 @@ import android.view.ViewGroup
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.nishant.fenrir.R
+import com.example.nishant.fenrir.navigation.NavHostFragment
+import com.example.nishant.fenrir.navigation.NavigationGraph
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.MultiFormatWriter
 import com.journeyapps.barcodescanner.BarcodeEncoder
@@ -21,15 +23,27 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fra_profile.view.*
 
-class ProfileFragment : Fragment() {
+class ProfileFragment : NavHostFragment() {
 
     private lateinit var viewModel: ProfileViewModel
     private lateinit var rootPOV: View
+
+    override val navViewId = R.id.overlayHostFRM
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         viewModel = ViewModelProviders.of(this, ProfileViewModelFactory())[ProfileViewModel::class.java]
 
         rootPOV = inflater.inflate(R.layout.fra_profile, container, false)
+
+        rootPOV.screenFaderPOV.setOnClickListener {
+            rootPOV.screenFaderPOV.visibility = View.GONE
+            exit()
+        }
+
+        rootPOV.showSignedEventsBTN.setOnClickListener {
+            rootPOV.screenFaderPOV.visibility = View.VISIBLE
+            show(NavigationGraph.MainApp.Profile.SIGNED_EVENT_LIST)
+        }
 
         viewModel.userDetails.observe(this, Observer {
             if(it != null) {
@@ -54,5 +68,10 @@ class ProfileFragment : Fragment() {
     private fun String.generateQRCode(): Bitmap {
         val bitMatrix = MultiFormatWriter().encode(this, BarcodeFormat.QR_CODE, 400, 400)
         return BarcodeEncoder().createBitmap(bitMatrix)
+    }
+
+    override fun exit() {
+        super.exit()
+        rootPOV.screenFaderPOV.visibility = View.GONE
     }
 }

@@ -49,7 +49,7 @@
         tools:text="Nishant Mahajan" />
 
     <TextView
-        android:id="@+id/textView10"
+        android:id="@+id/showSignedEventsBTN"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="56dp"
@@ -79,6 +79,23 @@
         app:layout_constraintEnd_toEndOf="@+id/profilePicIMG"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@+id/profilePicIMG"
-        app:layout_constraintTop_toBottomOf="@+id/textView10"
+        app:layout_constraintTop_toBottomOf="@+id/showSignedEventsBTN"
         tools:srcCompat="@tools:sample/avatars" />
+
+    <View
+        android:id="@+id/screenFaderPOV"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/wht02"
+        android:visibility="gone" />
+
+    <FrameLayout
+        android:id="@+id/overlayHostFRM"
+        android:layout_width="0dp"
+        android:layout_height="360dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent" />
+
 </android.support.constraint.ConstraintLayout>

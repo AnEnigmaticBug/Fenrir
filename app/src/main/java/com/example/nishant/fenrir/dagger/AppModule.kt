@@ -7,8 +7,8 @@ import com.example.nishant.fenrir.data.firestore.wallet.FireTracker
 import com.example.nishant.fenrir.data.firestore.wallet.FireAccountant
 import com.example.nishant.fenrir.data.repository.CentralRepository
 import com.example.nishant.fenrir.data.repository.CentralRepositoryImpl
-import com.example.nishant.fenrir.data.repository.mainapp.EventRepository
-import com.example.nishant.fenrir.data.repository.mainapp.FirestoreEventRepository
+import com.example.nishant.fenrir.data.repository.mainapp.MainAppRepository
+import com.example.nishant.fenrir.data.repository.mainapp.MainAppRepositoryImpl
 import com.example.nishant.fenrir.data.repository.mainapp.LoginRepository
 import com.example.nishant.fenrir.data.repository.mainapp.LoginRepositoryImpl
 import com.example.nishant.fenrir.data.repository.wallet.FinalWalletRepository
@@ -17,9 +17,10 @@ import com.example.nishant.fenrir.data.retrofit.BaseInterceptor
 import com.example.nishant.fenrir.data.retrofit.NetworkWatcher
 import com.example.nishant.fenrir.data.retrofit.NetworkWatcherImpl
 import com.example.nishant.fenrir.data.retrofit.mainapp.LoginService
+import com.example.nishant.fenrir.data.retrofit.mainapp.MainAppService
 import com.example.nishant.fenrir.data.retrofit.wallet.WalletService
 import com.example.nishant.fenrir.data.room.AppDatabase
-import com.example.nishant.fenrir.data.room.mainapp.EventDao
+import com.example.nishant.fenrir.data.room.mainapp.MainAppDao
 import com.example.nishant.fenrir.data.room.wallet.WalletDao
 import dagger.Module
 import dagger.Provides
@@ -51,6 +52,18 @@ class AppModule(private val context: Context) {
     fun providesLoginService(retrofit: Retrofit): LoginService = retrofit.create(LoginService::class.java)
 
     @Provides @Singleton
+    fun providesFireTracker(centralRepository: CentralRepository): FireTracker = FireTracker(centralRepository)
+
+    @Provides @Singleton
+    fun providesNetworkWatcher(context: Context): NetworkWatcher = NetworkWatcherImpl(context)
+
+    @Provides @Singleton
+    fun providesMainAppRepository(fsDb: FirestoreEventDatabase, centralRepository: CentralRepository, networkWatcher: NetworkWatcher, mainAppService: MainAppService, mainAppDao: MainAppDao): MainAppRepository = MainAppRepositoryImpl(fsDb, centralRepository, networkWatcher, mainAppService, mainAppDao)
+
+    @Provides @Singleton
+    fun providesMainAppService(retrofit: Retrofit): MainAppService = retrofit.create(MainAppService::class.java)
+
+    @Provides @Singleton
     fun providesRetrofit(): Retrofit = Retrofit.Builder()
             .baseUrl("http://test.bits-oasis.org/")
             .client(OkHttpClient().newBuilder().addInterceptor(BaseInterceptor()).build())
@@ -59,19 +72,10 @@ class AppModule(private val context: Context) {
             .build()
 
     @Provides @Singleton
-    fun providesFireTracker(centralRepository: CentralRepository): FireTracker = FireTracker(centralRepository)
-
-    @Provides @Singleton
-    fun providesNetworkWatcher(context: Context): NetworkWatcher = NetworkWatcherImpl(context)
-
-    @Provides @Singleton
-    fun providesEventRepository(fsDb: FirestoreEventDatabase, eventDao: EventDao): EventRepository = FirestoreEventRepository(fsDb, eventDao)
-
-    @Provides @Singleton
     fun providesFirestoreDatabase(): FirestoreEventDatabase = FirestoreEventDatabase()
 
     @Provides @Singleton
-    fun providesEventDao(appDatabase: AppDatabase): EventDao = appDatabase.eventDao()
+    fun providesEventDao(appDatabase: AppDatabase): MainAppDao = appDatabase.eventDao()
 
     @Provides @Singleton
     fun providesAppDatabase(context: Context): AppDatabase = Room.databaseBuilder(context, AppDatabase::class.java, "fenrir.db").build()

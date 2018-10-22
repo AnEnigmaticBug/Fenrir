@@ -1,4 +1,4 @@
-package com.example.nishant.fenrir.screens.mainapp.events.eventinfo
+package com.example.nishant.fenrir.screens.mainapp.profile.signedeventlist
 
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider
@@ -6,7 +6,7 @@ import com.example.nishant.fenrir.FenrirApp
 import com.example.nishant.fenrir.data.repository.mainapp.MainAppRepository
 import javax.inject.Inject
 
-class EventInfoViewModelFactory(private val eventId: String) : ViewModelProvider.Factory {
+class SignedEventListViewModelFactory : ViewModelProvider.Factory {
 
     @Inject
     lateinit var mainAppRepository: MainAppRepository
@@ -16,6 +16,6 @@ class EventInfoViewModelFactory(private val eventId: String) : ViewModelProvider
     }
 
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        return EventInfoViewModel(mainAppRepository, eventId) as T
+        return SignedEventListViewModel(mainAppRepository) as T
     }
 }

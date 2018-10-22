@@ -1,7 +1,7 @@
 package com.example.nishant.fenrir.screens.mainapp.events.eventlist
 
 import com.example.nishant.fenrir.data.repository.CentralRepository
-import com.example.nishant.fenrir.data.repository.mainapp.EventRepository
+import com.example.nishant.fenrir.data.repository.mainapp.MainAppRepository
 import com.example.nishant.fenrir.domain.*
 import com.example.nishant.fenrir.util.Constants
 import io.reactivex.Flowable
@@ -42,7 +42,7 @@ class EventListViewModelTest {
         Mockito.`when`(cRepo.getUserPreferences())
                 .thenReturn(Flowable.just(UserPreferences(EventFilter(Category.Drama, null, false, false))))
 
-        val eRepo = Mockito.mock(EventRepository::class.java)
+        val eRepo = Mockito.mock(MainAppRepository::class.java)
         Mockito.`when`(eRepo.getAllEvents())
                 .thenReturn(Flowable.just(events))
 

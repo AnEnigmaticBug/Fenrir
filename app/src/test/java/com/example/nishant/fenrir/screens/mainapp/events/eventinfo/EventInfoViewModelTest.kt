@@ -1,7 +1,7 @@
 package com.example.nishant.fenrir.screens.mainapp.events.eventinfo
 
 import android.arch.core.executor.testing.InstantTaskExecutorRule
-import com.example.nishant.fenrir.data.repository.mainapp.EventRepository
+import com.example.nishant.fenrir.data.repository.mainapp.MainAppRepository
 import com.example.nishant.fenrir.domain.mainapp.Category
 import com.example.nishant.fenrir.domain.mainapp.Event
 import com.example.nishant.fenrir.domain.mainapp.Venue
@@ -25,7 +25,7 @@ class EventInfoViewModelTest {
 
     @Before
     fun setup() {
-        val eRepo = Mockito.mock(EventRepository::class.java)
+        val eRepo = Mockito.mock(MainAppRepository::class.java)
         Mockito.`when`(eRepo.getEventById(eventId))
                 .thenReturn(Flowable.just(Event(eventId, "EX", "AX", "RX", Venue.Audi, Category.Films, Constants.festDates[2], LocalTime.of(22, 30), 45, false)))
         viewModel = EventInfoViewModel(eRepo, eventId)

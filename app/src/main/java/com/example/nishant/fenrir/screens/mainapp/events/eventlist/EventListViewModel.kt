@@ -4,7 +4,7 @@ import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import com.example.nishant.fenrir.data.repository.CentralRepository
-import com.example.nishant.fenrir.data.repository.mainapp.EventRepository
+import com.example.nishant.fenrir.data.repository.mainapp.MainAppRepository
 import com.example.nishant.fenrir.util.Constants
 import com.example.nishant.fenrir.util.set
 import com.example.nishant.fenrir.util.toMut
@@ -12,7 +12,7 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.subjects.BehaviorSubject
 import org.threeten.bp.LocalDate
 
-class EventListViewModel(cRepo: CentralRepository, eRepo: EventRepository) : ViewModel() {
+class EventListViewModel(cRepo: CentralRepository, eRepo: MainAppRepository) : ViewModel() {
 
     val rawEvents: LiveData<List<RawEvent>> = MutableLiveData()
     val dateTitle: LiveData<String> = MutableLiveData()

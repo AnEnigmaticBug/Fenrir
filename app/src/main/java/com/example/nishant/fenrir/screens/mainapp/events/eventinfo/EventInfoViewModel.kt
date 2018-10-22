@@ -3,12 +3,12 @@ package com.example.nishant.fenrir.screens.mainapp.events.eventinfo
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
-import com.example.nishant.fenrir.data.repository.mainapp.EventRepository
+import com.example.nishant.fenrir.data.repository.mainapp.MainAppRepository
 import com.example.nishant.fenrir.util.set
 import com.example.nishant.fenrir.util.toMut
 import io.reactivex.disposables.CompositeDisposable
 
-class EventInfoViewModel(private val eRepo: EventRepository, private val id: String) : ViewModel() {
+class EventInfoViewModel(private val eRepo: MainAppRepository, private val id: String) : ViewModel() {
 
     val rawEvent: LiveData<RawEvent> = MutableLiveData()
     val remindButtonText: LiveData<String> = MutableLiveData()
