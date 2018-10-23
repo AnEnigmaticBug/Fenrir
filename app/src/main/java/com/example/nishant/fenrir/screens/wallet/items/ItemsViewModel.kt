@@ -19,13 +19,13 @@ class ItemsViewModel(private val wRepo: WalletRepository, private val stallId: S
     init {
         d1.set(wRepo.getAllItemsInStallOfId(stallId)
                 .subscribe { _items ->
-                    rawItems.toMut().postValue(_items.map { RawItem.fromItem(it) })
+                    rawItems.toMut().postValue(_items.filter { it.isAvailable }.map { RawItem.fromItem(it) })
                 })
     }
 
     fun addItemToCart(itemId: String, quantity: Int) {
         val rawItem = rawItems.value!!.find { it.id == itemId }!!
-        wRepo.addEntryToCart(CartEntry(itemId, Item(itemId, rawItem.name, rawItem.price.substring(4).toInt(), stallId), quantity, true))
+        wRepo.addEntryToCart(CartEntry(itemId, Item(itemId, rawItem.name, rawItem.price.substring(4).toInt(), true, stallId), quantity, true))
     }
 
     override fun onCleared() {

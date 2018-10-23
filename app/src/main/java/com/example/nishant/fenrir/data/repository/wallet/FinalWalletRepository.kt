@@ -163,8 +163,8 @@ class FinalWalletRepository(private val networkWatcher: NetworkWatcher, private 
                                         .subscribeOn(Schedulers.io())
                                         .subscribe { _items ->
                                             if(_items.isSuccessful) {
-                                                _items.body()!!.filter { it.isAvailable }.forEach {
-                                                    walletDao.insertItem(RawItem(it.id, it.name, it.price, stallId))
+                                                _items.body()!!.forEach {
+                                                    walletDao.insertItem(RawItem(it.id, it.name, it.price, it.isAvailable, stallId))
                                                 }
                                             }
                                         }
@@ -175,20 +175,20 @@ class FinalWalletRepository(private val networkWatcher: NetworkWatcher, private 
                     )
         }
 
-        return walletDao.getAllItemsInStallOfId(stallId).map { it.map { Item(it.id, it.name, it.price, it.stallId) } }
+        return walletDao.getAllItemsInStallOfId(stallId).map { it.map { Item(it.id, it.name, it.price, it.isAvailable, it.stallId) } }
                 .subscribeOn(Schedulers.io())
                 .debounce(200, TimeUnit.MILLISECONDS)
                 .observeOn(AndroidSchedulers.mainThread())
     }
 
     override fun getItemByIdInStallOfId(stallId: String, itemId: String): Flowable<Item> {
-        return walletDao.getItemByIdInStallOfId(stallId, itemId).map { Item(it.id, it.name, it.price, it.stallId) }
+        return walletDao.getItemByIdInStallOfId(stallId, itemId).map { Item(it.id, it.name, it.price, it.isAvailable, it.stallId) }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
     }
 
     override fun getAllEntriesInCart(): Flowable<List<CartEntry>> {
-        return walletDao.getAllCartEntries().map { it.map { CartEntry(it.id, Item(it.itemId, it.itemName, it.itemPrice, it.stallId), it.quantity, it.isValid) } }
+        return walletDao.getAllCartEntries().map { it.map { CartEntry(it.id, Item(it.itemId, it.itemName, it.itemPrice, true, it.stallId), it.quantity, it.isValid) } }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
     }
@@ -318,8 +318,8 @@ class FinalWalletRepository(private val networkWatcher: NetworkWatcher, private 
                                     .blockingGet()
 
                             if (items.isSuccessful) {
-                                items.body()!!.filter { it.isAvailable }.forEach {
-                                    walletDao.insertItem(RawItem(it.id, it.name, it.price, rte.stallId))
+                                items.body()!!.forEach {
+                                    walletDao.insertItem(RawItem(it.id, it.name, it.price, it.isAvailable, rte.stallId))
                                 }
                             }
                         }
@@ -342,7 +342,7 @@ class FinalWalletRepository(private val networkWatcher: NetworkWatcher, private 
     }
 
     private fun RawItem.toItem(): Item {
-        return Item(id, name, price, stallId)
+        return Item(id, name, price, isAvailable, stallId)
     }
 
     override fun notifyOTPShown(entryId: String): Single<NotifyOTPResult> {
