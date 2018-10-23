@@ -1,6 +1,7 @@
 package com.example.nishant.fenrir.data.repository.wallet
 
 import android.annotation.SuppressLint
+import android.util.Log
 import com.example.nishant.fenrir.data.firestore.wallet.FireAccountant
 import com.example.nishant.fenrir.data.firestore.wallet.FireTracker
 import com.example.nishant.fenrir.data.repository.CentralRepository
@@ -45,6 +46,7 @@ class FinalWalletRepository(private val networkWatcher: NetworkWatcher, private 
                                                         id,
                                                         new.orderId,
                                                         new.itemId,
+                                                        new.stallId,
                                                         new.quantity,
                                                         new.status,
                                                         new.otp,
@@ -57,7 +59,7 @@ class FinalWalletRepository(private val networkWatcher: NetworkWatcher, private 
                         }
                         else {
                             walletDao.insertTrackedEntry(
-                                    RawTrackedEntry(new.orderId + new.itemId, new.orderId, new.itemId, new.quantity, new.status, new.otp, false, new.orderDate, new.orderTime)
+                                    RawTrackedEntry(new.orderId + new.itemId, new.orderId, new.itemId, new.stallId, new.quantity, new.status, new.otp, false, new.orderDate, new.orderTime)
                             )
                         }
                     }
@@ -293,9 +295,44 @@ class FinalWalletRepository(private val networkWatcher: NetworkWatcher, private 
 
     override fun getAllTrackedEntries(): Flowable<List<TrackedEntry>> {
         return Flowable.combineLatest(walletDao.getAllTrackedEntries(), walletDao.getAllItems(), BiFunction { t1: List<RawTrackedEntry>, t2: List<RawItem> -> Pair(t1, t2) })
-                .map { pair ->
-                    pair.first.map { rte ->
-                        TrackedEntry(rte.id, rte.orderId, pair.second.first { it.id == rte.itemId }.toItem(), rte.quantity, rte.status, rte.otp, rte.otpShown, rte.orderDate, rte.orderTime) } }
+                .distinctUntilChanged()
+                .flatMap { pair ->
+                    Log.d("CANDY", "fst: ${pair.first.size} snd: ${pair.second.size}")
+                    if(pair.first.any { it.itemId !in pair.second.map { it.id } }) {
+                        if(pair.first.any { it.stallId !in pair.second.map { it.stallId } }) {
+                            val stalls = cRepo.getUserDetails()
+                                    .toSingle()
+                                    .flatMap { walletService.getAllStalls(it.jwtToken) }
+                                    .blockingGet()
+                            if(stalls.isSuccessful) {
+                                stalls.body()!!.forEach {
+                                    walletDao.insertStall(RawStall(it.id.toString(), it.name, it.description))
+                                }
+                            }
+                        }
+
+                        pair.first.filter { it.itemId !in pair.second.map { it.id } }.forEach { rte ->
+                            val items = cRepo.getUserDetails()
+                                    .toSingle()
+                                    .flatMap { walletService.getAllItemsInStallOfId(it.jwtToken, rte.stallId) }
+                                    .blockingGet()
+
+                            if (items.isSuccessful) {
+                                items.body()!!.filter { it.isAvailable }.forEach {
+                                    walletDao.insertItem(RawItem(it.id, it.name, it.price, rte.stallId))
+                                }
+                            }
+                        }
+                        Flowable.just(pair.first.filter { it.itemId in pair.second.map { it.id } }.map { rte ->
+                            TrackedEntry(rte.id, rte.orderId, pair.second.first { it.id == rte.itemId }.toItem(), rte.quantity, rte.status, rte.otp, rte.otpShown, rte.orderDate, rte.orderTime)
+                        })
+                        }
+                    else {
+                        Flowable.just(pair.first.map { rte ->
+                            TrackedEntry(rte.id, rte.orderId, pair.second.first { it.id == rte.itemId }.toItem(), rte.quantity, rte.status, rte.otp, rte.otpShown, rte.orderDate, rte.orderTime) })
+                    }
+
+                }
     }
 
     override fun getTrackedEntryById(id: String): Flowable<TrackedEntry> {
