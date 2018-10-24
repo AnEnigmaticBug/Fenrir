@@ -22,6 +22,8 @@ import com.example.nishant.fenrir.data.retrofit.wallet.WalletService
 import com.example.nishant.fenrir.data.room.AppDatabase
 import com.example.nishant.fenrir.data.room.mainapp.MainAppDao
 import com.example.nishant.fenrir.data.room.wallet.WalletDao
+import com.example.nishant.fenrir.util.notifications.NotificationScheduler
+import com.example.nishant.fenrir.util.notifications.NotificationSchedulerImpl
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
@@ -76,6 +78,9 @@ class AppModule(private val context: Context) {
 
     @Provides @Singleton
     fun providesEventDao(appDatabase: AppDatabase): MainAppDao = appDatabase.eventDao()
+
+    @Provides @Singleton
+    fun providesNotificationScheduler(context: Context): NotificationScheduler = NotificationSchedulerImpl(context)
 
     @Provides @Singleton
     fun providesAppDatabase(context: Context): AppDatabase = Room.databaseBuilder(context, AppDatabase::class.java, "fenrir.db").build()

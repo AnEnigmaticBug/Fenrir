@@ -4,11 +4,13 @@ import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import com.example.nishant.fenrir.data.repository.mainapp.MainAppRepository
+import com.example.nishant.fenrir.util.notifications.NotificationScheduler
 import com.example.nishant.fenrir.util.set
 import com.example.nishant.fenrir.util.toMut
 import io.reactivex.disposables.CompositeDisposable
+import org.threeten.bp.LocalDateTime
 
-class EventInfoViewModel(private val eRepo: MainAppRepository, private val id: String) : ViewModel() {
+class EventInfoViewModel(private val eRepo: MainAppRepository, private val notificationScheduler: NotificationScheduler, private val id: String) : ViewModel() {
 
     val rawEvent: LiveData<RawEvent> = MutableLiveData()
     val remindButtonText: LiveData<String> = MutableLiveData()
@@ -26,8 +28,18 @@ class EventInfoViewModel(private val eRepo: MainAppRepository, private val id: S
 
     fun toggleSubscription() {
         when(hasSubscribed) {
-            true  -> eRepo.undoSubscription(id).subscribe()
-            false -> eRepo.makeSubscription(id).subscribe()
+            true  -> {
+                notificationScheduler.cancelNotification(id.toInt())
+                eRepo.undoSubscription(id).subscribe()
+            }
+            false -> {
+                eRepo.getEventById(id).take(1).subscribe {
+                    if(it.date != null && it.time != null) {
+                        notificationScheduler.scheduleNotification(id.toInt(), LocalDateTime.of(it.date, it.time).minusMinutes(15), "Event reminder", "${it.name} is about to begin")
+                    }
+                }
+                eRepo.makeSubscription(id).subscribe()
+            }
         }
     }
 
@@ -59,14 +71,14 @@ class EventInfoViewModel(private val eRepo: MainAppRepository, private val id: S
     }
 
     private fun updateSubscriptionStuff(subscribed: Boolean) {
-        when(subscribed) {
+        hasSubscribed = when(subscribed) {
             true  -> {
                 remindButtonText.toMut().postValue("Un-Remind")
-                hasSubscribed = true
+                true
             }
             false -> {
                 remindButtonText.toMut().postValue("Remind Me")
-                hasSubscribed = false
+                false
             }
         }
     }
