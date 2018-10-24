@@ -65,6 +65,8 @@ dependencies {
     implementation 'com.google.firebase:firebase-core:16.0.3'
     implementation 'com.google.firebase:firebase-firestore:17.1.0'
 
+    implementation 'com.google.firebase:firebase-messaging:17.0.0'
+
     implementation 'com.android.support:multidex:1.0.3'
 
     def nav_version = "1.0.0-alpha03"
