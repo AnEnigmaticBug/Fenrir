@@ -33,12 +33,14 @@ class FinalWalletRepository(private val networkWatcher: NetworkWatcher, private 
         fireTracker.getTrackedEntries()
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.io())
+                .doOnError { Log.e("CANDY", it.message) }
                 .subscribe {
                     it.forEach { new ->
                         val id = new.orderId + new.itemId
                         if(walletDao.trackedEntryExists(id)) {
-                            getAllTrackedEntries()
+                            walletDao.getAllTrackedEntries()
                                     .take(1)
+                                    .doOnError { Log.e("CANDY", it.message) }
                                     .subscribe {
                                         val old = it.first { it.id == id }
                                         walletDao.updateTrackedEntry(
@@ -67,7 +69,7 @@ class FinalWalletRepository(private val networkWatcher: NetworkWatcher, private 
     }
 
     override fun getBalance(): Flowable<Int> {
-        return fireAccountant.getBalance()
+        return fireAccountant.getBalance().doOnError { Log.e("CANDY", it.message) }
     }
 
     override fun addMoney(amount: Int): Single<AddMoneyAttemptResult> {
@@ -81,6 +83,7 @@ class FinalWalletRepository(private val networkWatcher: NetworkWatcher, private 
         return cRepo.getUserDetails()
                 .subscribeOn(Schedulers.io())
                 .flatMapSingle { walletService.addMoney(it.jwtToken, requestBody) }
+                .doOnError { Log.e("CANDY", it.message) }
                 .map {
                     when(it.isSuccessful) {
                         true  -> AddMoneyAttemptResult.Success
@@ -102,6 +105,7 @@ class FinalWalletRepository(private val networkWatcher: NetworkWatcher, private 
                     }
                     walletService.transferMoney(userDetails.jwtToken, requestBody)
                 }
+                .doOnError { Log.e("CANDY", it.message) }
                 .map {
                     when(it.isSuccessful) {
                         true  -> TransferMoneyAttemptResult.Success
@@ -122,10 +126,12 @@ class FinalWalletRepository(private val networkWatcher: NetworkWatcher, private 
         if(networkWatcher.checkIfConnectedToInternet()) {
             cRepo.getUserDetails()
                     .subscribeOn(Schedulers.io())
+                    .doOnError { Log.e("CANDY", it.message) }
                     .subscribe(
                             {
                                 walletService.getAllStalls(it.jwtToken)
                                         .subscribeOn(Schedulers.io())
+                                        .doOnError { Log.e("CANDY", it.message) }
                                         .subscribe { _stalls ->
                                             if(_stalls.isSuccessful) {
                                                 _stalls.body()!!.forEach {
@@ -144,12 +150,14 @@ class FinalWalletRepository(private val networkWatcher: NetworkWatcher, private 
                 .subscribeOn(Schedulers.io())
                 .debounce(200, TimeUnit.MILLISECONDS)
                 .observeOn(AndroidSchedulers.mainThread())
+                .doOnError { Log.e("CANDY", it.message) }
     }
 
     override fun getStallById(stallId: String): Flowable<Stall> {
         return walletDao.getStallById(stallId).map { Stall(it.id, it.name, it.description) }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
+                .doOnError { Log.e("CANDY", it.message) }
     }
 
     @SuppressLint("CheckResult")
@@ -157,10 +165,12 @@ class FinalWalletRepository(private val networkWatcher: NetworkWatcher, private 
         if(networkWatcher.checkIfConnectedToInternet()) {
             cRepo.getUserDetails()
                     .subscribeOn(Schedulers.io())
+                    .doOnError { Log.e("CANDY", it.message) }
                     .subscribe(
                             {
                                 walletService.getAllItemsInStallOfId(it.jwtToken, stallId)
                                         .subscribeOn(Schedulers.io())
+                                        .doOnError { Log.e("CANDY", it.message) }
                                         .subscribe { _items ->
                                             if(_items.isSuccessful) {
                                                 _items.body()!!.forEach {
@@ -179,18 +189,21 @@ class FinalWalletRepository(private val networkWatcher: NetworkWatcher, private 
                 .subscribeOn(Schedulers.io())
                 .debounce(200, TimeUnit.MILLISECONDS)
                 .observeOn(AndroidSchedulers.mainThread())
+                .doOnError { Log.e("CANDY", it.message) }
     }
 
     override fun getItemByIdInStallOfId(stallId: String, itemId: String): Flowable<Item> {
         return walletDao.getItemByIdInStallOfId(stallId, itemId).map { Item(it.id, it.name, it.price, it.isAvailable, it.stallId) }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
+                .doOnError { Log.e("CANDY", it.message) }
     }
 
     override fun getAllEntriesInCart(): Flowable<List<CartEntry>> {
         return walletDao.getAllCartEntries().map { it.map { CartEntry(it.id, Item(it.itemId, it.itemName, it.itemPrice, true, it.stallId), it.quantity, it.isValid) } }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
+                .doOnError { Log.e("CANDY", it.message) }
     }
 
     override fun addEntryToCart(entry: CartEntry): Completable {
@@ -199,6 +212,7 @@ class FinalWalletRepository(private val networkWatcher: NetworkWatcher, private 
         }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
+                .doOnError { Log.e("CANDY", it.message) }
     }
 
     override fun removeEntryFromCartById(entryId: String): Completable {
@@ -211,6 +225,7 @@ class FinalWalletRepository(private val networkWatcher: NetworkWatcher, private 
         }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
+                .doOnError { Log.e("CANDY", it.message) }
     }
 
     @SuppressLint("CheckResult")
@@ -255,6 +270,7 @@ class FinalWalletRepository(private val networkWatcher: NetworkWatcher, private 
                                 }
                     }
                 }
+                .doOnError { Log.d("CANDY", it.message) }
     }
 
     private fun makeJson(cartEntries: List<RawCartEntry>): JSONObject {
@@ -287,6 +303,7 @@ class FinalWalletRepository(private val networkWatcher: NetworkWatcher, private 
                     .take(1)
                     .flatMap { Flowable.fromIterable(it) }
                     .filter { it.itemId == itemId }
+                    .doOnError { Log.d("CANDY", it.message) }
                     .blockingSubscribe {
                         walletDao.updateCartEntry(it.copy(isValid = false))
                     }
@@ -296,32 +313,45 @@ class FinalWalletRepository(private val networkWatcher: NetworkWatcher, private 
     override fun getAllTrackedEntries(): Flowable<List<TrackedEntry>> {
         return Flowable.combineLatest(walletDao.getAllTrackedEntries(), walletDao.getAllItems(), BiFunction { t1: List<RawTrackedEntry>, t2: List<RawItem> -> Pair(t1, t2) })
                 .distinctUntilChanged()
+                .debounce(200, TimeUnit.MILLISECONDS)
                 .flatMap { pair ->
                     Log.d("CANDY", "fst: ${pair.first.size} snd: ${pair.second.size}")
                     if(pair.first.any { it.itemId !in pair.second.map { it.id } }) {
                         if(pair.first.any { it.stallId !in pair.second.map { it.stallId } }) {
-                            val stalls = cRepo.getUserDetails()
+                            cRepo.getUserDetails()
                                     .toSingle()
                                     .flatMap { walletService.getAllStalls(it.jwtToken) }
-                                    .blockingGet()
-                            if(stalls.isSuccessful) {
-                                stalls.body()!!.forEach {
-                                    walletDao.insertStall(RawStall(it.id.toString(), it.name, it.description))
-                                }
-                            }
+                                    .subscribe(
+                                            { stalls ->
+                                                if(stalls.isSuccessful) {
+                                                    stalls.body()!!.forEach {
+                                                        walletDao.insertStall(RawStall(it.id.toString(), it.name, it.description))
+                                                    }
+                                                }
+                                            },
+                                            {
+                                                Log.e("CANDY", "Thread interrupted")
+                                            }
+                                    )
                         }
 
                         pair.first.filter { it.itemId !in pair.second.map { it.id } }.forEach { rte ->
-                            val items = cRepo.getUserDetails()
+                            cRepo.getUserDetails()
                                     .toSingle()
                                     .flatMap { walletService.getAllItemsInStallOfId(it.jwtToken, rte.stallId) }
-                                    .blockingGet()
+                                    .subscribe(
+                                            { items ->
+                                                if (items.isSuccessful) {
+                                                    items.body()!!.forEach {
+                                                        walletDao.insertItem(RawItem(it.id, it.name, it.price, it.isAvailable, rte.stallId))
+                                                    }
+                                                }
+                                            },
+                                            {
+                                                Log.e("CANDY", "Thread interrupted")
+                                            }
+                                    )
 
-                            if (items.isSuccessful) {
-                                items.body()!!.forEach {
-                                    walletDao.insertItem(RawItem(it.id, it.name, it.price, it.isAvailable, rte.stallId))
-                                }
-                            }
                         }
                         Flowable.just(pair.first.filter { it.itemId in pair.second.map { it.id } }.map { rte ->
                             TrackedEntry(rte.id, rte.orderId, pair.second.first { it.id == rte.itemId }.toItem(), rte.quantity, rte.status, rte.otp, rte.otpShown, rte.orderDate, rte.orderTime)
@@ -333,12 +363,14 @@ class FinalWalletRepository(private val networkWatcher: NetworkWatcher, private 
                     }
 
                 }
+                .doOnError { Log.d("CANDY", it.message) }
     }
 
     override fun getTrackedEntryById(id: String): Flowable<TrackedEntry> {
         return getAllTrackedEntries()
                 .flatMap { Flowable.fromIterable(it) }
                 .filter { it.id == id }
+                .doOnError { Log.d("CANDY", it.message) }
     }
 
     private fun RawItem.toItem(): Item {
@@ -372,5 +404,6 @@ class FinalWalletRepository(private val networkWatcher: NetworkWatcher, private 
                         false -> Single.just(NotifyOTPResult.Failure.ServerBusy)
                     }
                 }
+                .doOnError { Log.d("CANDY", it.message) }
     }
 }
