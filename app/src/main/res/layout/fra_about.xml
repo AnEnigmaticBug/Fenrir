@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:fontFamily="@font/ikaros_regular"
+        android:includeFontPadding="false"
+        android:text="About"
+        android:textAllCaps="true"
+        android:textColor="@color/blk01"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="21dp"
+        android:layout_marginEnd="12dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView">
+
+        <TextView
+            android:id="@+id/textView10"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:fontFamily="@font/ikaros_regular"
+            android:includeFontPadding="false"
+            android:lineSpacingExtra="3dp"
+            android:text="Aliquet nibh praesent tristique magna sit amet. Odio aenean sed adipiscing diam donec adipiscing tristique. Dictum non consectetur a erat. Porttitor rhoncus dolor purus non enim praesent elementum. Ultrices tincidunt arcu non sodales neque sodales ut. Dictumst vestibulum rhoncus est pellentesque elit ullamcorper dignissim cras tincidunt. Nunc sed blandit libero volutpat sed cras. Gravida arcu ac tortor dignissim convallis aenean et. Pretium aenean pharetra magna ac placerat. Amet facilisis magna etiam tempor. Aenean vel elit scelerisque mauris pellentesque pulvinar. Ut diam quam nulla porttitor massa id. Arcu dui vivamus arcu felis. Interdum velit euismod in pellentesque massa placerat.
+
+Viverra ipsum nunc aliquet bibendum enim facilisis gravida neque. Consequat mauris nunc congue nisi vitae suscipit. Ornare quam viverra orci sagittis eu volutpat odio facilisis. Venenatis tellus in metus vulputate eu scelerisque felis imperdiet proin. Tortor consequat id porta nibh venenatis cras sed felis eget. Sed id semper risus in hendrerit gravida rutrum quisque. In massa tempor nec feugiat nisl. Sed sed risus pretium quam vulputate dignissim suspendisse in est. Facilisis sed odio morbi quis commodo odio aenean sed adipiscing. Sem fringilla ut morbi tincidunt augue. Congue mauris rhoncus aenean vel elit scelerisque mauris pellentesque pulvinar. Duis ultricies lacus sed turpis tincidunt. Cursus euismod quis viverra nibh cras pulvinar mattis nunc sed. Sem et tortor consequat id porta nibh. Ut lectus arcu bibendum at varius vel pharetra vel turpis. Turpis egestas pretium aenean pharetra magna ac placerat. Tempor nec feugiat nisl pretium fusce id velit ut.
+
+Tincidunt eget nullam non nisi. Aliquam eleifend mi in nulla posuere sollicitudin aliquam ultrices. Mauris vitae ultricies leo integer malesuada nunc vel. Nibh cras pulvinar mattis nunc sed blandit libero. Leo duis ut diam quam nulla porttitor massa id. Adipiscing vitae proin sagittis nisl rhoncus mattis. Id faucibus nisl tincidunt eget nullam non nisi. Aliquet risus feugiat in ante metus dictum at. Est lorem ipsum dolor sit amet consectetur adipiscing elit pellentesque. At tellus at urna condimentum mattis pellentesque id. Nisi vitae suscipit tellus mauris a diam. Ridiculus mus mauris vitae ultricies leo integer. Id faucibus nisl tincidunt eget. Semper auctor neque vitae tempus quam. Nisi porta lorem mollis aliquam ut porttitor leo a."
+            android:textColor="@color/blk01"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    </ScrollView>
+
+</android.support.constraint.ConstraintLayout>

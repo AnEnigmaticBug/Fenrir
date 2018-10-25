@@ -75,6 +75,9 @@
         <action
             android:id="@+id/action_moreFragment_to_sponsorsFragment"
             app:destination="@id/sponsorsFragment" />
+        <action
+            android:id="@+id/action_moreFragment_to_aboutFragment"
+            app:destination="@id/aboutFragment" />
     </fragment>
     <activity
         android:id="@+id/walletActivity"
@@ -108,4 +111,9 @@
         android:name="com.example.nishant.fenrir.screens.mainapp.more.sponsors.SponsorsFragment"
         android:label="SponsorsFragment"
         tools:layout="@layout/fra_sponsors" />
+    <fragment
+        android:id="@+id/aboutFragment"
+        android:name="com.example.nishant.fenrir.screens.mainapp.more.about.AboutFragment"
+        android:label="AboutFragment"
+        tools:layout="@layout/fra_about" />
 </navigation>

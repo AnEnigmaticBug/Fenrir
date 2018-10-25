@@ -22,6 +22,10 @@ class MoreFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         rootPOV = inflater.inflate(R.layout.fra_more, container, false)
 
+        rootPOV.aboutBTN.setOnClickListener {
+            findNavController().navigate(R.id.action_moreFragment_to_aboutFragment)
+        }
+
         rootPOV.sponsorsBTN.setOnClickListener {
             findNavController().navigate(R.id.action_moreFragment_to_sponsorsFragment)
         }
