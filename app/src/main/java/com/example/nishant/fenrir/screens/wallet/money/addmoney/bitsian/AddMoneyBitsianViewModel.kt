@@ -23,15 +23,20 @@ class AddMoneyBitsianViewModel(private val wRepo: WalletRepository) : ViewModel(
         wRepo.addMoney(amount)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe { result ->
-                    when(result) {
-                        is AddMoneyAttemptResult.Success -> addMoneyStatus.toMut().value = AddMoneyAttemptStatus.Success
-                        is AddMoneyAttemptResult.Failure -> {
+                .subscribe(
+                        { result ->
                             when(result) {
-                                is AddMoneyAttemptResult.Failure.NoInternet -> addMoneyStatus.toMut().value = AddMoneyAttemptStatus.Failure("No internet found")
+                                is AddMoneyAttemptResult.Success -> addMoneyStatus.toMut().value = AddMoneyAttemptStatus.Success
+                                is AddMoneyAttemptResult.Failure -> {
+                                    when(result) {
+                                        is AddMoneyAttemptResult.Failure.NoInternet -> addMoneyStatus.toMut().value = AddMoneyAttemptStatus.Failure("No internet found")
+                                    }
+                                }
                             }
+                        },
+                        {
+                            addMoneyStatus.toMut().value = AddMoneyAttemptStatus.Failure("Error! Please try again")
                         }
-                    }
-                }
+                )
     }
 }

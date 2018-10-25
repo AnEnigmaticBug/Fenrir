@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
+import android.widget.Toast
 import com.example.nishant.fenrir.data.repository.mainapp.LoginRepository
 import com.example.nishant.fenrir.domain.mainapp.LoginAttemptResult
 import com.example.nishant.fenrir.util.toMut
@@ -24,16 +25,21 @@ class OutsteeLoginViewModel(private val lRepo: LoginRepository) : ViewModel() {
         lRepo.loginOutstee(username, password)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe { result ->
-            when(result) {
-                is LoginAttemptResult.Success -> loginStatus.toMut().value = LoginAttemptStatus.Success
-                is LoginAttemptResult.Failure -> {
-                    when(result) {
-                        is LoginAttemptResult.Failure.NoInternet -> loginStatus.toMut().value = LoginAttemptStatus.Failure("No internet found")
-                        is LoginAttemptResult.Failure.NoSuchUser -> loginStatus.toMut().value = LoginAttemptStatus.Failure("Wrong Credentials")
-                    }
-                }
-            }
-        }
+                .subscribe(
+                        { result ->
+                            when(result) {
+                                is LoginAttemptResult.Success -> loginStatus.toMut().value = LoginAttemptStatus.Success
+                                is LoginAttemptResult.Failure -> {
+                                    when(result) {
+                                        is LoginAttemptResult.Failure.NoInternet -> loginStatus.toMut().value = LoginAttemptStatus.Failure("No internet found")
+                                        is LoginAttemptResult.Failure.NoSuchUser -> loginStatus.toMut().value = LoginAttemptStatus.Failure("Wrong Credentials")
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            loginStatus.toMut().value = LoginAttemptStatus.Failure("Internet too slow")
+                        }
+                )
     }
 }

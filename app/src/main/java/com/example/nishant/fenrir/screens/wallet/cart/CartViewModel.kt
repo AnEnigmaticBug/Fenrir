@@ -57,36 +57,41 @@ class CartViewModel(private val wRepo: WalletRepository) : ViewModel() {
         buyStatus.toMut().value = BuyAttemptStatus.InProgress
         d3.set(wRepo.orderAllEntriesInCart()
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe { _attempt ->
-                    when(_attempt) {
-                        is BuyAttemptResult.Success -> {
-                            wRepo.getAllEntriesInCart()
-                                    .take(1)
-                                    .subscribe {
-                                        it.forEach { wRepo.removeEntryFromCartById(it.id).subscribe() }
-                                    }
-                            buyStatus.toMut().value = BuyAttemptStatus.Success
-                        }
-                        is BuyAttemptResult.Failure -> {
+                .subscribe(
+                        { _attempt ->
                             when(_attempt) {
-                                is BuyAttemptResult.Failure.NoInternet -> {
-                                    buyStatus.toMut().value = BuyAttemptStatus.Failure("No internet found")
+                                is BuyAttemptResult.Success -> {
+                                    wRepo.getAllEntriesInCart()
+                                            .take(1)
+                                            .subscribe {
+                                                it.forEach { wRepo.removeEntryFromCartById(it.id).subscribe() }
+                                            }
+                                    buyStatus.toMut().value = BuyAttemptStatus.Success
                                 }
-                                is BuyAttemptResult.Failure.VacantCart -> {
-                                    buyStatus.toMut().value = BuyAttemptStatus.Failure("The cart is empty")
-                                }
-                                is BuyAttemptResult.Failure.LessBudget -> {
-                                    buyStatus.toMut().value = BuyAttemptStatus.Failure("Not enough budget")
-                                }
-                                is BuyAttemptResult.Failure.OutOfStock -> {
-                                    _attempt.itemIds.forEach { wRepo.invalidateEntryWithItemId(it).subscribeOn(Schedulers.io()).subscribe() }
-                                    buyStatus.toMut().value = BuyAttemptStatus.Failure("Some items are out of stock. Please remove them")
+                                is BuyAttemptResult.Failure -> {
+                                    when(_attempt) {
+                                        is BuyAttemptResult.Failure.NoInternet -> {
+                                            buyStatus.toMut().value = BuyAttemptStatus.Failure("No internet found")
+                                        }
+                                        is BuyAttemptResult.Failure.VacantCart -> {
+                                            buyStatus.toMut().value = BuyAttemptStatus.Failure("The cart is empty")
+                                        }
+                                        is BuyAttemptResult.Failure.LessBudget -> {
+                                            buyStatus.toMut().value = BuyAttemptStatus.Failure("Not enough budget")
+                                        }
+                                        is BuyAttemptResult.Failure.OutOfStock -> {
+                                            _attempt.itemIds.forEach { wRepo.invalidateEntryWithItemId(it).subscribeOn(Schedulers.io()).subscribe() }
+                                            buyStatus.toMut().value = BuyAttemptStatus.Failure("Some items are out of stock. Please remove them")
+                                        }
+                                    }
                                 }
                             }
+                            buyStatus.toMut().value = BuyAttemptStatus.Idle
+                        },
+                        {
+                            buyStatus.toMut().value = BuyAttemptStatus.Failure("Error! Please try again")
                         }
-                    }
-                    buyStatus.toMut().value = BuyAttemptStatus.Idle
-                })
+                ))
     }
 
     override fun onCleared() {

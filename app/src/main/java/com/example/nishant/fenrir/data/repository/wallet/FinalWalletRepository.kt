@@ -132,13 +132,18 @@ class FinalWalletRepository(private val networkWatcher: NetworkWatcher, private 
                                 walletService.getAllStalls(it.jwtToken)
                                         .subscribeOn(Schedulers.io())
                                         .doOnError { Log.e("CANDY", it.message) }
-                                        .subscribe { _stalls ->
-                                            if(_stalls.isSuccessful) {
-                                                _stalls.body()!!.forEach {
-                                                    walletDao.insertStall(RawStall(it.id.toString(), it.name, it.description))
+                                        .subscribe(
+                                                { _stalls ->
+                                                    if(_stalls.isSuccessful) {
+                                                        _stalls.body()!!.forEach {
+                                                            walletDao.insertStall(RawStall(it.id.toString(), it.name, it.description))
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    Log.e("CANDY", it.message)
                                                 }
-                                            }
-                                        }
+                                        )
                             },
                             {
                                 throw IllegalStateException("Wallet accessed without logging in.")
@@ -171,13 +176,18 @@ class FinalWalletRepository(private val networkWatcher: NetworkWatcher, private 
                                 walletService.getAllItemsInStallOfId(it.jwtToken, stallId)
                                         .subscribeOn(Schedulers.io())
                                         .doOnError { Log.e("CANDY", it.message) }
-                                        .subscribe { _items ->
-                                            if(_items.isSuccessful) {
-                                                _items.body()!!.forEach {
-                                                    walletDao.insertItem(RawItem(it.id, it.name, it.price, it.isAvailable, stallId))
+                                        .subscribe(
+                                                { _items ->
+                                                    if(_items.isSuccessful) {
+                                                        _items.body()!!.forEach {
+                                                            walletDao.insertItem(RawItem(it.id, it.name, it.price, it.isAvailable, stallId))
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    Log.e("CANDY", it.message)
                                                 }
-                                            }
-                                        }
+                                        )
                             },
                             {
                                 throw IllegalStateException("Wallet accessed without logging in.")
@@ -363,14 +373,14 @@ class FinalWalletRepository(private val networkWatcher: NetworkWatcher, private 
                     }
 
                 }
-                .doOnError { Log.d("CANDY", it.message) }
+                .doOnError { Log.e("CANDY", it.message) }
     }
 
     override fun getTrackedEntryById(id: String): Flowable<TrackedEntry> {
         return getAllTrackedEntries()
                 .flatMap { Flowable.fromIterable(it) }
                 .filter { it.id == id }
-                .doOnError { Log.d("CANDY", it.message) }
+                .doOnError { Log.e("CANDY", it.message) }
     }
 
     private fun RawItem.toItem(): Item {

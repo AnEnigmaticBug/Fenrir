@@ -18,9 +18,14 @@ class SignedEventListViewModel(mRepo: MainAppRepository) : ViewModel() {
     init {
         d1.set(mRepo.getAllSignedEvents()
                 .subscribeOn(Schedulers.io())
-                .subscribe {
-                    events.toMut().postValue(it.map { RawSignedEvent(it.name, it.numberOfTickets) })
-                })
+                .subscribe(
+                        {
+                            events.toMut().postValue(it.map { RawSignedEvent(it.name, it.numberOfTickets) })
+                        },
+                        {
+
+                        }
+                ))
     }
 
     override fun onCleared() {

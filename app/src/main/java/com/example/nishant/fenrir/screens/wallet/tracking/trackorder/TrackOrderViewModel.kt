@@ -57,20 +57,25 @@ class TrackOrderViewModel(private val wRepo: WalletRepository, orderId: String) 
         status.toMut().value = NotifyOTPStatus.InProgress
         wRepo.notifyOTPShown(entryId)
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe { result ->
-                    status.toMut().value = when(result) {
-                        is NotifyOTPResult.Success -> {
-                            NotifyOTPStatus.Success
-                        }
-                        is NotifyOTPResult.Failure -> {
-                            when(result) {
-                                is NotifyOTPResult.Failure.NoInternet -> NotifyOTPStatus.Failure("No internet found")
-                                is NotifyOTPResult.Failure.ServerBusy -> NotifyOTPStatus.Failure("Couldn't show OTP")
+                .subscribe(
+                        { result ->
+                            status.toMut().value = when(result) {
+                                is NotifyOTPResult.Success -> {
+                                    NotifyOTPStatus.Success
+                                }
+                                is NotifyOTPResult.Failure -> {
+                                    when(result) {
+                                        is NotifyOTPResult.Failure.NoInternet -> NotifyOTPStatus.Failure("No internet found")
+                                        is NotifyOTPResult.Failure.ServerBusy -> NotifyOTPStatus.Failure("Couldn't show OTP")
+                                    }
+                                }
                             }
+                            status.toMut().value = NotifyOTPStatus.Idle
+                        },
+                        {
+                            status.toMut().value = NotifyOTPStatus.Failure("Error! Please try again")
                         }
-                    }
-                    status.toMut().value = NotifyOTPStatus.Idle
-                }
+                )
     }
 
     override fun onCleared() {

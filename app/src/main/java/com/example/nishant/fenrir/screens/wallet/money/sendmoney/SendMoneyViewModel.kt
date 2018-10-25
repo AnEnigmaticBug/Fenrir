@@ -20,17 +20,22 @@ class SendMoneyViewModel(private val wRepo: WalletRepository) : ViewModel() {
         wRepo.transferMoney(recipientId, amount)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe { result ->
-                    when(result) {
-                        is TransferMoneyAttemptResult.Success -> transferStatus.toMut().value = TransferMoneyAttemptStatus.Success
-                        is TransferMoneyAttemptResult.Failure -> {
+                .subscribe(
+                        { result ->
                             when(result) {
-                                is TransferMoneyAttemptResult.Failure.NoInternet -> transferStatus.toMut().value = TransferMoneyAttemptStatus.Failure("No internet found")
-                                is TransferMoneyAttemptResult.Failure.SwdProblem -> transferStatus.toMut().value = TransferMoneyAttemptStatus.Failure("Transfer isn't allowed between BITSians and Outstation participants")
-                                is TransferMoneyAttemptResult.Failure.SendToSelf -> transferStatus.toMut().value = TransferMoneyAttemptStatus.Failure("Can't transfer money to oneself")
+                                is TransferMoneyAttemptResult.Success -> transferStatus.toMut().value = TransferMoneyAttemptStatus.Success
+                                is TransferMoneyAttemptResult.Failure -> {
+                                    when(result) {
+                                        is TransferMoneyAttemptResult.Failure.NoInternet -> transferStatus.toMut().value = TransferMoneyAttemptStatus.Failure("No internet found")
+                                        is TransferMoneyAttemptResult.Failure.SwdProblem -> transferStatus.toMut().value = TransferMoneyAttemptStatus.Failure("Transfer isn't allowed between BITSians and Outstation participants")
+                                        is TransferMoneyAttemptResult.Failure.SendToSelf -> transferStatus.toMut().value = TransferMoneyAttemptStatus.Failure("Can't transfer money to oneself")
+                                    }
+                                }
                             }
+                        },
+                        {
+                            transferStatus.toMut().value = TransferMoneyAttemptStatus.Failure("Error! Please try again")
                         }
-                    }
-                }
+                )
     }
 }
