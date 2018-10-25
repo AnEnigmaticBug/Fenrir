@@ -3,6 +3,7 @@ package com.example.nishant.fenrir.dagger
 import android.arch.persistence.room.Room
 import android.content.Context
 import com.example.nishant.fenrir.data.firestore.mainapp.FirestoreEventDatabase
+import com.example.nishant.fenrir.data.firestore.mainapp.N2OManager
 import com.example.nishant.fenrir.data.firestore.wallet.FireTracker
 import com.example.nishant.fenrir.data.firestore.wallet.FireAccountant
 import com.example.nishant.fenrir.data.repository.CentralRepository
@@ -60,7 +61,7 @@ class AppModule(private val context: Context) {
     fun providesNetworkWatcher(context: Context): NetworkWatcher = NetworkWatcherImpl(context)
 
     @Provides @Singleton
-    fun providesMainAppRepository(fsDb: FirestoreEventDatabase, centralRepository: CentralRepository, networkWatcher: NetworkWatcher, mainAppService: MainAppService, mainAppDao: MainAppDao): MainAppRepository = MainAppRepositoryImpl(fsDb, centralRepository, networkWatcher, mainAppService, mainAppDao)
+    fun providesMainAppRepository(fsDb: FirestoreEventDatabase, n2OManager: N2OManager, centralRepository: CentralRepository, networkWatcher: NetworkWatcher, mainAppService: MainAppService, mainAppDao: MainAppDao): MainAppRepository = MainAppRepositoryImpl(fsDb, n2OManager, centralRepository, networkWatcher, mainAppService, mainAppDao)
 
     @Provides @Singleton
     fun providesMainAppService(retrofit: Retrofit): MainAppService = retrofit.create(MainAppService::class.java)
@@ -72,6 +73,9 @@ class AppModule(private val context: Context) {
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .build()
+
+    @Provides @Singleton
+    fun providesN2OWatcher(): N2OManager = N2OManager()
 
     @Provides @Singleton
     fun providesFirestoreDatabase(): FirestoreEventDatabase = FirestoreEventDatabase()

@@ -95,19 +95,19 @@
         android:layout_marginStart="64dp"
         android:layout_marginEnd="64dp"
         android:background="@color/gry03"
-        app:layout_constraintBottom_toTopOf="@+id/profShowsBTN"
+        app:layout_constraintBottom_toTopOf="@+id/n2oVotingBTN"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/sponsorsBTN" />
 
     <TextView
-        android:id="@+id/profShowsBTN"
+        android:id="@+id/n2oVotingBTN"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/ikaros_regular"
         android:includeFontPadding="false"
-        android:text="Prof Shows"
+        android:text="N2O Voting"
         android:textAllCaps="true"
         android:textColor="@color/blk01"
         android:textSize="24sp"
@@ -128,7 +128,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profShowsBTN" />
+        app:layout_constraintTop_toBottomOf="@+id/n2oVotingBTN" />
 
     <TextView
         android:id="@+id/notificationsBTN"

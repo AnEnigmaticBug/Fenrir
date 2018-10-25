@@ -3,12 +3,15 @@ package com.example.nishant.fenrir.data.repository.mainapp
 import android.annotation.SuppressLint
 import android.util.Log
 import com.example.nishant.fenrir.data.firestore.mainapp.FirestoreEventDatabase
+import com.example.nishant.fenrir.data.firestore.mainapp.N2OManager
 import com.example.nishant.fenrir.data.repository.CentralRepository
 import com.example.nishant.fenrir.data.retrofit.NetworkWatcher
 import com.example.nishant.fenrir.data.retrofit.mainapp.MainAppService
 import com.example.nishant.fenrir.data.room.mainapp.MainAppDao
+import com.example.nishant.fenrir.data.room.mainapp.RawComedian
 import com.example.nishant.fenrir.data.room.mainapp.RawEvent
 import com.example.nishant.fenrir.data.room.mainapp.RawSignedEvent
+import com.example.nishant.fenrir.domain.mainapp.Comedian
 import com.example.nishant.fenrir.domain.mainapp.Event
 import com.example.nishant.fenrir.domain.mainapp.SignedEvent
 import com.google.gson.JsonObject
@@ -16,7 +19,7 @@ import io.reactivex.Completable
 import io.reactivex.Flowable
 import io.reactivex.schedulers.Schedulers
 
-class MainAppRepositoryImpl(fsDb: FirestoreEventDatabase, private val cRepo: CentralRepository, private val networkWatcher: NetworkWatcher, private val mainAppService: MainAppService, private val mainAppDao: MainAppDao) : MainAppRepository {
+class MainAppRepositoryImpl(fsDb: FirestoreEventDatabase, private val n2OManager: N2OManager, private val cRepo: CentralRepository, private val networkWatcher: NetworkWatcher, private val mainAppService: MainAppService, private val mainAppDao: MainAppDao) : MainAppRepository {
 
     init {
         val d = fsDb.getEvents()
@@ -44,6 +47,27 @@ class MainAppRepositoryImpl(fsDb: FirestoreEventDatabase, private val cRepo: Cen
                                     }
                         } else {
                             mainAppDao.insertEvent(it)
+                        }
+                    }
+                }
+
+        val e = n2OManager.getComedians()
+                .subscribeOn(Schedulers.io())
+                .observeOn(Schedulers.io())
+                .subscribe {
+                    it.forEach {
+                        if(mainAppDao.comedianExists(it.name)) {
+                            mainAppDao.getComedianByName(it.name)
+                                    .take(1)
+                                    .subscribe { dbComedian ->
+                                        mainAppDao.updateComedian(RawComedian(
+                                                it.name,
+                                                it.profilePicURL,
+                                                dbComedian.hasVote
+                                        ))
+                                    }
+                        } else {
+                            mainAppDao.insertComedian(RawComedian(it.name, it.profilePicURL, false))
                         }
                     }
                 }
@@ -106,5 +130,24 @@ class MainAppRepositoryImpl(fsDb: FirestoreEventDatabase, private val cRepo: Cen
                     )
         }
         return mainAppDao.getAllSignedEvents().map { it.map { SignedEvent(it.id, it.name, it.numberOfTickets) } }
+    }
+
+    override fun isVotingEnabled(): Flowable<Boolean> {
+        return n2OManager.getEnabledStatus()
+    }
+
+    override fun getAllComedians(): Flowable<List<Comedian>> {
+        return mainAppDao.getAllComedians().map { it.map { Comedian(it.name, it.profilePicURL, it.hasVote) } }
+    }
+
+    override fun voteForComedian(name: String): Completable {
+        return Completable.fromAction {
+            mainAppDao.getComedianByName(name)
+                    .take(1)
+                    .subscribe {
+                        mainAppDao.updateComedian(it.copy(hasVote = true))
+                    }
+            n2OManager.voteForComedian(name)
+        }
     }
 }

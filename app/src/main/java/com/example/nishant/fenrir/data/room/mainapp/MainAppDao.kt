@@ -38,4 +38,22 @@ interface MainAppDao {
 
     @Delete
     fun deleteSignedEvent(event: RawSignedEvent)
+
+    @Query("SELECT * FROM comedians")
+    fun getAllComedians(): Flowable<List<RawComedian>>
+
+    @Query("SELECT * FROM comedians WHERE name = :name")
+    fun getComedianByName(name: String): Flowable<RawComedian>
+
+    @Query("SELECT COUNT(name) FROM comedians WHERE name = :name")
+    fun comedianExists(name: String): Boolean
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertComedian(comedian: RawComedian)
+
+    @Update
+    fun updateComedian(comedian: RawComedian)
+
+    @Delete
+    fun deleteComedian(comedian: RawComedian)
 }

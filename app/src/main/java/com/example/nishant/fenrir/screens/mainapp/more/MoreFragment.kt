@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.navigation.fragment.findNavController
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationAdapter
 import com.example.nishant.fenrir.R
@@ -21,7 +22,9 @@ class MoreFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         rootPOV = inflater.inflate(R.layout.fra_more, container, false)
 
-        // TODO: Write the code for buttons in More screen.
+        rootPOV.n2oVotingBTN.setOnClickListener {
+            findNavController().navigate(R.id.action_moreFragment_to_n2OVotingFragment)
+        }
 
         return rootPOV
     }

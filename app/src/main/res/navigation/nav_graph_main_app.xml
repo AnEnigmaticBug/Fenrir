@@ -62,7 +62,11 @@
         android:id="@+id/moreFragment"
         android:name="com.example.nishant.fenrir.screens.mainapp.more.MoreFragment"
         android:label="MoreFragment"
-        tools:layout="@layout/fra_more" />
+        tools:layout="@layout/fra_more" >
+        <action
+            android:id="@+id/action_moreFragment_to_n2OVotingFragment"
+            app:destination="@id/n2OVotingFragment" />
+    </fragment>
     <activity
         android:id="@+id/walletActivity"
         android:name="com.example.nishant.fenrir.screens.wallet.WalletActivity"
@@ -75,4 +79,9 @@
             android:id="@+id/action_generalLoginFragment_to_outsteeLoginFragment"
             app:destination="@id/outsteeLoginFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/n2OVotingFragment"
+        android:name="com.example.nishant.fenrir.screens.mainapp.more.n2ovoting.N2OVotingFragment"
+        android:label="N2OVotingFragment"
+        tools:layout="@layout/fra_n2o_voting" />
 </navigation>
