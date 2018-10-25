@@ -22,6 +22,10 @@ class MoreFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         rootPOV = inflater.inflate(R.layout.fra_more, container, false)
 
+        rootPOV.developersBTN.setOnClickListener {
+            findNavController().navigate(R.id.action_moreFragment_to_developersFragment)
+        }
+
         rootPOV.n2oVotingBTN.setOnClickListener {
             findNavController().navigate(R.id.action_moreFragment_to_n2OVotingFragment)
         }

@@ -69,6 +69,9 @@
         <action
             android:id="@+id/action_moreFragment_to_notificationsFragment"
             app:destination="@id/notificationsFragment" />
+        <action
+            android:id="@+id/action_moreFragment_to_developersFragment"
+            app:destination="@id/developersFragment" />
     </fragment>
     <activity
         android:id="@+id/walletActivity"
@@ -92,4 +95,9 @@
         android:name="com.example.nishant.fenrir.screens.mainapp.more.notifications.NotificationsFragment"
         android:label="NotificationsFragment"
         tools:layout="@layout/fra_notifications" />
+    <fragment
+        android:id="@+id/developersFragment"
+        android:name="com.example.nishant.fenrir.screens.mainapp.more.developers.DevelopersFragment"
+        android:label="DevelopersFragment"
+        tools:layout="@layout/fra_developers" />
 </navigation>
