@@ -5,6 +5,7 @@ import com.example.nishant.fenrir.domain.mainapp.Category
 import com.example.nishant.fenrir.domain.mainapp.Venue
 import com.example.nishant.fenrir.domain.wallet.TrackingStatus
 import org.threeten.bp.LocalDate
+import org.threeten.bp.LocalDateTime
 import org.threeten.bp.LocalTime
 
 class TypeConverters {
@@ -32,6 +33,12 @@ class TypeConverters {
 
     @TypeConverter
     fun fromLocalTimeToString(t: LocalTime?): String = if(t == null) { "NULL" } else { t.toString() }
+
+    @TypeConverter
+    fun fromStringToLocalDateTime(s: String): LocalDateTime = LocalDateTime.parse(s)
+
+    @TypeConverter
+    fun fromLocalDateTimeToString(l: LocalDateTime): String = l.toString()
 
     @TypeConverter
     fun fromTrackingStatusToString(s: TrackingStatus): String = s.toString()

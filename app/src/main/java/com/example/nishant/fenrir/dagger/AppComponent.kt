@@ -8,6 +8,7 @@ import com.example.nishant.fenrir.screens.mainapp.events.eventlist.EventListView
 import com.example.nishant.fenrir.screens.mainapp.login.general.GeneralLoginViewModelFactory
 import com.example.nishant.fenrir.screens.mainapp.login.outstee.OutsteeLoginViewModelFactory
 import com.example.nishant.fenrir.screens.mainapp.more.n2ovoting.N2OVotingViewModelFactory
+import com.example.nishant.fenrir.screens.mainapp.more.notifications.NotificationsViewModelFactory
 import com.example.nishant.fenrir.screens.mainapp.profile.ProfileViewModelFactory
 import com.example.nishant.fenrir.screens.mainapp.profile.signedeventlist.SignedEventListViewModelFactory
 import com.example.nishant.fenrir.screens.wallet.cart.CartViewModelFactory
@@ -42,6 +43,8 @@ abstract class AppComponent {
     abstract fun inject(viewModelFactory: OutsteeLoginViewModelFactory)
 
     abstract fun inject(viewModelFactory: N2OVotingViewModelFactory)
+
+    abstract fun inject(viewModelFactory: NotificationsViewModelFactory)
 
     abstract fun inject(viewModelFactory: ProfileViewModelFactory)
 

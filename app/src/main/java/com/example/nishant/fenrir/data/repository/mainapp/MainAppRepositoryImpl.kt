@@ -13,6 +13,7 @@ import com.example.nishant.fenrir.data.room.mainapp.RawEvent
 import com.example.nishant.fenrir.data.room.mainapp.RawSignedEvent
 import com.example.nishant.fenrir.domain.mainapp.Comedian
 import com.example.nishant.fenrir.domain.mainapp.Event
+import com.example.nishant.fenrir.domain.mainapp.PayloadedNotification
 import com.example.nishant.fenrir.domain.mainapp.SignedEvent
 import com.google.gson.JsonObject
 import io.reactivex.Completable
@@ -149,5 +150,10 @@ class MainAppRepositoryImpl(fsDb: FirestoreEventDatabase, private val n2OManager
                     }
             n2OManager.voteForComedian(name)
         }
+    }
+
+    override fun getAllPayloadedNotifications(): Flowable<List<PayloadedNotification>> {
+        return mainAppDao.getAllPayloadedNotifications()
+                .map { it.map { PayloadedNotification(it.id, it.title, it.body, it.datetime) } }
     }
 }

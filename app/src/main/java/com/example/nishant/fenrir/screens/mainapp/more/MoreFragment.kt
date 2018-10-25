@@ -26,6 +26,10 @@ class MoreFragment : Fragment() {
             findNavController().navigate(R.id.action_moreFragment_to_n2OVotingFragment)
         }
 
+        rootPOV.notificationsBTN.setOnClickListener {
+            findNavController().navigate(R.id.action_moreFragment_to_notificationsFragment)
+        }
+
         return rootPOV
     }
 }

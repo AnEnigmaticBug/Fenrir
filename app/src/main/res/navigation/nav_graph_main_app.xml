@@ -66,6 +66,9 @@
         <action
             android:id="@+id/action_moreFragment_to_n2OVotingFragment"
             app:destination="@id/n2OVotingFragment" />
+        <action
+            android:id="@+id/action_moreFragment_to_notificationsFragment"
+            app:destination="@id/notificationsFragment" />
     </fragment>
     <activity
         android:id="@+id/walletActivity"
@@ -84,4 +87,9 @@
         android:name="com.example.nishant.fenrir.screens.mainapp.more.n2ovoting.N2OVotingFragment"
         android:label="N2OVotingFragment"
         tools:layout="@layout/fra_n2o_voting" />
+    <fragment
+        android:id="@+id/notificationsFragment"
+        android:name="com.example.nishant.fenrir.screens.mainapp.more.notifications.NotificationsFragment"
+        android:label="NotificationsFragment"
+        tools:layout="@layout/fra_notifications" />
 </navigation>

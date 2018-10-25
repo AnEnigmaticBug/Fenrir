@@ -56,4 +56,19 @@ interface MainAppDao {
 
     @Delete
     fun deleteComedian(comedian: RawComedian)
+
+    @Query("SELECT * FROM payloadedNotifications ORDER BY datetime DESC")
+    fun getAllPayloadedNotifications(): Flowable<List<RawPayloadedNotification>>
+
+    @Query("SELECT * FROM payloadedNotifications WHERE id = :id")
+    fun getPayloadedNotificationById(id: String): Flowable<RawPayloadedNotification>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertPayloadedNotification(notification: RawPayloadedNotification)
+
+    @Update
+    fun updatePayloadedNotification(notification: RawPayloadedNotification)
+
+    @Delete
+    fun deletePayloadedNotification(notification: RawPayloadedNotification)
 }
